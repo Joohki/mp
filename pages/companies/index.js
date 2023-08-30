@@ -11,7 +11,7 @@ function AllCompaniesPage(props) {
         <title>All Companies</title>
         <meta
           name='description'
-          content='A list of all programming-related tutorials and posts!'
+          content='MP그룹의 모든 자회사들을 소개합니다'
         />
       </Head>
       <AllCompanies companies={props.companies} />
