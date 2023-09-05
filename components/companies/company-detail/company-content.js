@@ -1,12 +1,12 @@
-import ReactMarkdown from 'react-markdown';
-import rehypeRaw from 'rehype-raw';
-import Image from 'next/image';
-import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
-import atomDark from 'react-syntax-highlighter/dist/cjs/styles/prism/atom-dark';
+import ReactMarkdown from "react-markdown";
+import rehypeRaw from "rehype-raw";
+import Image from "next/image";
+import { PrismLight as SyntaxHighlighter } from "react-syntax-highlighter";
+import atomDark from "react-syntax-highlighter/dist/cjs/styles/prism/atom-dark";
 // import js from 'react-syntax-highlighter/dist/cjs/styles/prism/javascript'
 
-import CompanyHeader from './company-header';
-import classes from './company-content.module.css';
+import CompanyHeader from "./company-header";
+import classes from "./company-content.module.css";
 
 function CompanyContent(props) {
   const { company } = props;
@@ -27,7 +27,7 @@ function CompanyContent(props) {
     p(paragraph) {
       const { node } = paragraph;
 
-      if (node.children[0].tagName === 'img') {
+      if (node.children[0].tagName === "img") {
         const image = node.children[0];
 
         return (
@@ -35,7 +35,8 @@ function CompanyContent(props) {
             <Image
               src={`/images/companies/${company.slug}/${image.properties.src}`}
               alt={image.alt}
-              fill
+              width={600}
+              height={300}
             />
           </div>
         );
@@ -43,24 +44,14 @@ function CompanyContent(props) {
 
       return <p>{paragraph.children}</p>;
     },
-
-    code(code) {
-      const { className, children } = code;
-      const language = className.split('-')[1]; // className is something like language-js => We need the "js" part here
-      return (
-        <SyntaxHighlighter
-          style={atomDark}
-          language={language}
-          children={children}
-        />
-      );
-    },
   };
 
   return (
     <article className={classes.content}>
       <CompanyHeader title={company.title} image={imagePath} />
-      <ReactMarkdown components={customRenderers} rehypePlugins={[rehypeRaw]}>{company.content}</ReactMarkdown>
+      <ReactMarkdown components={customRenderers} rehypePlugins={[rehypeRaw]}>
+        {company.content}
+      </ReactMarkdown>
     </article>
   );
 }

@@ -18,7 +18,11 @@ function MainNavigation() {
             <Link href="/auth">Login</Link>
           </li>
           <li>
+<<<<<<< HEAD
             <Link href="/profile">Profile</Link>
+=======
+            <Link href="/signup">Sign up</Link>
+>>>>>>> introducing
           </li>
           <li>
             <Link href="/contact">Contact</Link>
