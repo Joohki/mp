@@ -17,7 +17,7 @@ function CompanyContent(props) {
     // img(image) {
     //   return (
     //     <Image
-    //       src={`/images/posts/${post.slug}/${image.src}`}
+    //       src={`/images/posts/${company.slug}/${image.src}`}
     //       alt={image.alt}
     //       width={600}
     //       height={300}
@@ -26,6 +26,9 @@ function CompanyContent(props) {
     // },
     p(paragraph) {
       const { node } = paragraph;
+  
+        
+      
 
       if (node.children[0].tagName === "img") {
         const image = node.children[0];
