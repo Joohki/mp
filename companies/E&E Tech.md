@@ -2,7 +2,7 @@
 title: '(주)E&E Tech 입니다'
 date: '2022-10-16'
 image: E&E Tech.png
-excerpt: NextJS is a the React framework for production - it makes building fullstack React apps and sites a breeze and ships with built-in SSR.
+excerpt: ''
 isFeatured: true
 order: 4
 ---
