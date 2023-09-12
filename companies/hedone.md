@@ -1,9 +1,10 @@
 ---
-title: '(주)해도네스타 입니다'
+title: '(주)해도네입니다'
 date: '2022-10-16'
-image: E&E Tech.png
-excerpt: NextJS is a the React framework for production - it makes building fullstack React apps and sites a breeze and ships with built-in SSR.
+image: hedonelogo.jpeg
+excerpt: (주) 헤도네는 참 좋은 먹거리로 국민 건강과 행복을 위해 노력하는 기업입니다.
 isFeatured: true
+order: 3
 ---
 
 # 주식회사 헤도네스타입니다.

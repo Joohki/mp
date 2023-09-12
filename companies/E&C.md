@@ -4,6 +4,7 @@ excerpt: '주식회사 신창이앤씨는 친환경형 지반개량 건설재료
 image: e&c.jpeg
 isFeatured: true
 date: '2022-10-16'
+order: 2
 ---
 # 주식회사 신창이앤씨입니다. 
 
