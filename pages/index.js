@@ -1,6 +1,6 @@
 
 import Head from 'next/head';
-import FeaturedCompanies from '../components/home-page/featured-\bcompanies';
+import FeaturedCompanies from '../components/home-page/featured-companies';
 import Hero from '../components/home-page/hero';
 import { getFeaturedCompanies } from '../lib/companies-util';
 

@@ -1,5 +1,5 @@
 {
-  "name": "nextjs-course",
+  "name": "mp",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,6 +9,7 @@
     "vercel-deploy": "next build && next export"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.9.5",
     "bcryptjs": "^2.4.3",
     "gray-matter": "^4.0.2",
     "mongodb": "^3.7.4",

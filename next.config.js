@@ -7,6 +7,7 @@ module.exports = (phase) => {
         mongodb_password: "fire135964",
         mongodb_clustername: "cluster0",
         mongodb_database: "inquiry-dev",
+        mongodb_authdata: "authdata-dev"
       },
     };
   }
@@ -16,6 +17,7 @@ module.exports = (phase) => {
       mongodb_password: "fire135964",
       mongodb_clustername: "cluster0",
       mongodb_database: "inquiry",
+      mongodb_authdata: "authdata"
     },
   };
 };

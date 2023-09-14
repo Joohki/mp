@@ -18,7 +18,7 @@ function MainNavigation() {
           <li>
             <Link href="/companies">Companies</Link>
           </li>
-          {!session && !loading && (
+          {!session && (
             <li>
               <Link href="/auth">Login</Link>
             </li>

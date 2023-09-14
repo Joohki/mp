@@ -17,8 +17,9 @@ async function CreateUser(email, password) {
 function AuthForm() {
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
+  const passwordCheckInputRef = useRef();
   const [isLogin, setIsLogin] = useState(true);
-  const router = useRouter()
+  const router = useRouter();
 
   function switchAuthModeHandler() {
     setIsLogin((prevState) => !prevState);
@@ -27,22 +28,27 @@ function AuthForm() {
     event.preventDefault();
     const enteredEmail = emailInputRef.current.value;
     const enteredPassword = passwordInputRef.current.value;
+
     if (isLogin) {
       const result = await signIn("credentials", {
         redirect: false,
         email: enteredEmail,
         password: enteredPassword,
       });
-      if(!result.error){
-        router.replace('/profile')
+      if (!result.error) {
+        router.replace("/profile");
       }
+      console.log(result.error);
     } else {
+      const enteredPasswordCheck = passwordCheckInputRef.current.value;
       try {
-        const result = await CreateUser(enteredEmail, enteredPassword);
-        
-      } catch (error) {
-       
-      }
+        if (enteredPassword === enteredPasswordCheck) {
+          const result = await CreateUser(enteredEmail, enteredPassword);
+        } else {
+          throw new Error("check you password");
+          
+        }
+      } catch (error) {console.log(error.message)}
     }
   }
 
@@ -63,6 +69,17 @@ function AuthForm() {
             ref={passwordInputRef}
           />
         </div>
+        {!isLogin && (
+          <div className={classes.control}>
+            <label htmlFor="password">Password check</label>
+            <input
+              type="password"
+              id="password"
+              required
+              ref={passwordCheckInputRef}
+            />
+          </div>
+        )}
         <div className={classes.actions}>
           <button>{isLogin ? "Login" : "Create Account"}</button>
           <button
