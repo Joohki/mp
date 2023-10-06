@@ -1,5 +1,5 @@
 import { hashPassword, verifyPassword } from "../../../lib/passwordAuth";
-import { getSession } from "next-auth/client";
+import { getSession } from "next-auth/react";
 import { connectToAuthDatabase } from "../../../lib/authdb";
 async function handler(req, res) {
   if (req.method !== "PATCH") {

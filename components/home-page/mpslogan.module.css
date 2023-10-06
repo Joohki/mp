@@ -1,0 +1,6 @@
+.slogan {
+    text-align: center;
+    
+    padding: var(--size-16) 0;
+    position: relative;
+}

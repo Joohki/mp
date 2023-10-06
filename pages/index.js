@@ -2,6 +2,7 @@
 import Head from 'next/head';
 import FeaturedCompanies from '../components/home-page/featured-companies';
 import Hero from '../components/home-page/hero';
+import Slogan from '../components/home-page/mpslogan';
 import { getFeaturedCompanies } from '../lib/companies-util';
 
 function HomePage(props) {
@@ -15,6 +16,7 @@ function HomePage(props) {
         />
       </Head>
       <Hero />
+      <Slogan/>
       <FeaturedCompanies companies={props.companies} />
     </>
   );

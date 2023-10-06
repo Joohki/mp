@@ -14,16 +14,12 @@ function Hero() {
         />
       </div>
       <h1>주식회사 MP입니다</h1>
-      <p>
-        MP Group은 고객과 다양한 Energy Solution을 공유하며 지구환경에
-        기여하고자 합니다.
-      </p>
+
       <Image
         src="/images/mpimage/image1.jpeg"
         alt="메인 배경 이미지"
-        layout="fill"
-        objectFit="cover"
-        objectPosition="center"
+        priority={true}
+        fill
       />
     </section>
   );

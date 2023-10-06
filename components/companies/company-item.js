@@ -19,13 +19,18 @@ function CompanyItem(props) {
     <li className={classes.post}>
       <Link href={linkPath}>
         <div className={classes.image}>
+       
+        
           <Image
             src={imagePath}
             alt={title}
-            width={300}
-            height={200}
-            layout="responsive"
+            // width={300}
+            // height={200}
+            // layout="responsive"
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
+          
         </div>
         <div className={classes.content}>
           <h3>{title}</h3>

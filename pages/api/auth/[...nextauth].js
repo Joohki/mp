@@ -1,11 +1,11 @@
 import NextAuth from "next-auth";
-import Providers from "next-auth/providers";
+import CredentialsProvider from "next-auth/providers/credentials";
 import { connectToAuthDatabase } from "../../../lib/authdb";
 import { verifyPassword } from "../../../lib/passwordAuth";
 export default NextAuth({
-  session: { jwt: true },
+  session: { strategy: "jwt" },
   providers: [
-    Providers.Credentials({
+    CredentialsProvider({
       async authorize(credentials) {
         const client = await connectToAuthDatabase();
         const userCollection = client.db().collection("users");

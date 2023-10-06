@@ -88,7 +88,7 @@ function ContactForm() {
 
   return (
     <section className={classes.contact}>
-      <h1>문의하실 내용을 적어주세요</h1>
+      <h1>문의 내용을 적어주세요</h1>
       <form className={classes.form} onSubmit={sendMessageHandler}>
         <div className={classes.controls}>
           <div className={classes.control}>
