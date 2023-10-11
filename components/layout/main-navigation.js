@@ -9,6 +9,7 @@ import Modal from "../ui/modal";
 import NavMenu from "../navmenu/navmenu";
 import CartButton from "../cart/cartbutton";
 import Cart from "../cart/cart";
+import HoverNavigation from "./hover-navigation";
 function MainNavigation() {
   const { data: session, status } = useSession();
   const loading = status === "loading";
@@ -37,79 +38,74 @@ function MainNavigation() {
       )}
       {isCartClicked && <Cart onCloseCart={hideCartModal} />}
       {!isMenuClicked && !isCartClicked && (
-        <header
-          className={
-            isMouseOverMenu ? classes.additionalHeader : classes.header
-          }
-        >
-          <Link href="/">
-            <Logo isMouseOverMenu={isMouseOverMenu} />
-          </Link>
-          <nav>
-            <ul>
-              <li>
-                <Link href="/companies">회사소개</Link>
-              </li>
-              <div className={classes.dropdowncontent}>
-                <a href="#">Link 1</a>
-                <a href="#">Link 2</a>
-                <a href="#">Link 3</a>
-              </div>
-              <li>
-                <Link href="/products">상품</Link>
-              </li>
-
-              {!session && (
+        <div onMouseOver={() => {
+          setIsMouseOverMenu(true);
+        }}
+        onMouseOut={() => {
+          setIsMouseOverMenu(false);
+        }}>
+          <header
+            className={
+              isMouseOverMenu ? classes.additionalHeader : classes.header
+            } 
+          >
+            <Link href="/">
+              <Logo isMouseOverMenu={isMouseOverMenu} />
+            </Link>
+            <nav>
+              <ul>
                 <li>
-                  <Link href="/auth">로그인</Link>
+                  <Link href="/companies">회사소개</Link>
                 </li>
-              )}
 
-              {session && (
                 <li>
-                  <Link href="/profile">프로필</Link>
+                  <Link href="/products">상품</Link>
                 </li>
-              )}
 
-              <li>
-                <Link href="/contact">문의</Link>
-              </li>
-
-              <li>
-                {isMouseOverMenu ? (
-                  <FontAwesomeIcon
-                    icon={faBars}
-                    style={{ fontSize: 25, color: "black" }}
-                    onMouseOver={() => {
-                      setIsMouseOverMenu(true);
-                    }}
-                    onMouseOut={() => {
-                      setIsMouseOverMenu(false);
-                    }}
-                    onClick={() => {
-                      setIsMenuClicked(true);
-                    }}
-                  />
-                ) : (
-                  <FontAwesomeIcon
-                    icon={faBars}
-                    style={{ fontSize: 25, color: "white" }}
-                    onMouseOver={() => {
-                      setIsMouseOverMenu(true);
-                    }}
-                    onMouseOut={() => {
-                      setIsMouseOverMenu(false);
-                    }}
-                    onClick={showModal}
-                  />
+                {!session && (
+                  <li>
+                    <Link href="/auth">로그인</Link>
+                  </li>
                 )}
-              </li>
-              <li>
-                <CartButton onCart={showCartModal} />
-              </li>
-            </ul>
-          </nav>
-        </header>
+
+                {session && (
+                  <li>
+                    <Link href="/profile">프로필</Link>
+                    
+                  </li>
+                )}
+
+                <li>
+                  <Link href="/contact">문의</Link>
+                </li>
+
+                <li>
+                  {isMouseOverMenu ? (
+                    <FontAwesomeIcon
+                      icon={faBars}
+                      style={{ fontSize: 25, color: "black" }}
+                      
+                      onClick={() => {
+                        setIsMenuClicked(true);
+                      }}
+                    />
+                  ) : (
+                    <FontAwesomeIcon
+                      icon={faBars}
+                      style={{ fontSize: 25, color: "white" }}
+                      
+                      onClick={showModal}
+                    />
+                  )}
+                </li>
+                <li>
+                  <CartButton onCart={showCartModal} />
+                </li>
+              </ul>
+            </nav>
+          </header>
+         {isMouseOverMenu && <HoverNavigation/>}
+        </div>
       )}
     </>
   );

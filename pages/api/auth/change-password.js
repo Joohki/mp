@@ -1,11 +1,14 @@
+
 import { hashPassword, verifyPassword } from "../../../lib/passwordAuth";
-import { getSession } from "next-auth/react";
+
+import { getServerSession } from "next-auth/next";
+import {authOptions} from './[...nextauth]'
 import { connectToAuthDatabase } from "../../../lib/authdb";
 async function handler(req, res) {
   if (req.method !== "PATCH") {
     return;
   }
-  const session = await getSession({ req: req });
+  const session = await getServerSession(req,res, authOptions);
   if (!session) {
     res.status(401).json({ message: "Not Authenticated" });
     return;

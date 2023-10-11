@@ -5,15 +5,16 @@ import "../styles/globals.css";
 import Layout from "../components/layout/layout";
 import { Provider } from "react-redux";
 import "@fortawesome/fontawesome-svg-core/styles.css";
-import wrapper from '../redux/store'
+import wrapper from "../redux/store";
 import { config } from "@fortawesome/fontawesome-svg-core";
 
 function MyApp({ Component, pageProps }) {
   config.autoAddCss = false;
+  const { session } = pageProps;
   const { store, props } = wrapper.useWrappedStore(pageProps);
   return (
     <Provider store={store}>
-      <SessionProvider session={pageProps.session}>
+      <SessionProvider session={session}>
         <Layout>
           <Head>
             <meta

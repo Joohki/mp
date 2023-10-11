@@ -4,9 +4,7 @@ import { faX } from "@fortawesome/free-solid-svg-icons";
 function NavMenu(props) {
   return (
     <div className={classes.container}>
-      <div className={classes.item}>
-       전체 서비스
-      </div>
+      <div className={classes.item}>전체 서비스</div>
       <div className={classes.item}>
         <FontAwesomeIcon
           icon={faX}
