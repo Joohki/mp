@@ -23,7 +23,7 @@ const Footer = () => {
         <ul className={classes.mpInformationList}>
           <li>
             <span>
-              상호명 및 호스팅 서비스 제공<span> : </span>MP(주)
+              상호명<span> : </span>MP(주)
             </span>
           </li>
           <li>
