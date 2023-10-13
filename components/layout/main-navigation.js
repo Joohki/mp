@@ -38,16 +38,18 @@ function MainNavigation() {
       )}
       {isCartClicked && <Cart onCloseCart={hideCartModal} />}
       {!isMenuClicked && !isCartClicked && (
-        <div onMouseOver={() => {
-          setIsMouseOverMenu(true);
-        }}
-        onMouseOut={() => {
-          setIsMouseOverMenu(false);
-        }}>
+        <div
+          onMouseOver={() => {
+            setIsMouseOverMenu(true);
+          }}
+          onMouseOut={() => {
+            setIsMouseOverMenu(false);
+          }}
+        >
           <header
             className={
               isMouseOverMenu ? classes.additionalHeader : classes.header
-            } 
+            }
           >
             <Link href="/">
               <Logo isMouseOverMenu={isMouseOverMenu} />
@@ -71,7 +73,6 @@ function MainNavigation() {
                 {session && (
                   <li>
                     <Link href="/profile">프로필</Link>
-                    
                   </li>
                 )}
 
@@ -84,16 +85,12 @@ function MainNavigation() {
                     <FontAwesomeIcon
                       icon={faBars}
                       style={{ fontSize: 25, color: "black" }}
-                      
-                      onClick={() => {
-                        setIsMenuClicked(true);
-                      }}
+                      onClick={showModal}
                     />
                   ) : (
                     <FontAwesomeIcon
                       icon={faBars}
                       style={{ fontSize: 25, color: "white" }}
-                      
                       onClick={showModal}
                     />
                   )}
@@ -103,8 +100,28 @@ function MainNavigation() {
                 </li>
               </ul>
             </nav>
+            <li className={classes.mobile}>
+              {isMouseOverMenu ? (
+                <FontAwesomeIcon
+                  icon={faBars}
+                  style={{ fontSize: 25, color: "black" }}
+                  onClick={showModal}
+                />
+              ) : (
+                <FontAwesomeIcon
+                  icon={faBars}
+                  style={{ fontSize: 25, color: "white" }}
+                  onClick={showModal}
+                />
+              )}
+            </li>
           </header>
-         {isMouseOverMenu && <HoverNavigation/>}
+          {isMouseOverMenu && (
+            <div className={classes.mobilehover}>
+              {" "}
+              <HoverNavigation />
+            </div>
+          )}
         </div>
       )}
     </>

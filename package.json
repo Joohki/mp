@@ -9,6 +9,7 @@
     "vercel-deploy": "next build && next export"
   },
   "dependencies": {
+    "@ckeditor/ckeditor5-build-classic": "^40.0.0",
     "@fortawesome/fontawesome-svg-core": "^6.4.2",
     "@fortawesome/free-brands-svg-icons": "^6.4.2",
     "@fortawesome/free-regular-svg-icons": "^6.4.2",
