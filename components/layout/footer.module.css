@@ -35,7 +35,7 @@
 
 .mpInformation {
     width:100vw;
-  margin: 3.2rem auto;
+  margin: 3.2rem 0 3.2rem 0 ;
   display: flex;
   flex-flow: row nowrap;
   justify-content: center;
