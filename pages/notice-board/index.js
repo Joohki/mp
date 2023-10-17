@@ -3,7 +3,7 @@ import NoticeList from "../../components/notice-board/noticerecord";
 function NoticePage() {
   return (
     <>
-      <NoticeForm />;
+      <NoticeForm />
       <NoticeList />
     </>
   );

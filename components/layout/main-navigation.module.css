@@ -89,9 +89,8 @@
   display: none;
 }
 
-
 @media (max-width: 1000px) {
-  .header  nav{
+  .header nav {
     display: none;
   }
 
@@ -101,5 +100,7 @@
   .mobile {
     display: block;
   }
-  .mobilehover { display: none;}
+  .mobilehover {
+    display: none;
+  }
 }

@@ -1,8 +1,8 @@
-import classes from "./navmenu.module.css";
+import classes from "./mobilenavmenu.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX } from "@fortawesome/free-solid-svg-icons";
 import Modal from "../ui/modal";
-function NavMenu(props) {
+function MobileNavMenu(props) {
   return (
     <Modal onCloseModal={props.onCloseModal}>
       <div className={classes.container}>
@@ -22,23 +22,8 @@ function NavMenu(props) {
           <li>헤도네</li>
           <li>E&E tech</li>
         </div>
-        <div className={classes.item}>
-          <div>상품 및 서비스</div>
-        </div>
-        <div className={classes.item}>
-          <div>고객지원</div>
-        </div>
-        <div className={classes.item}>
-          <div>제휴 및 홍보</div>
-        </div>
-        <div className={classes.item}>
-          <div>계정관리</div>
-        </div>
-        <div className={classes.item}>
-          <div>설정</div>
-        </div>
       </div>
     </Modal>
   );
 }
-export default NavMenu;
+export default MobileNavMenu;

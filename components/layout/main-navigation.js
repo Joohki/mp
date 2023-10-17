@@ -10,34 +10,36 @@ import NavMenu from "../navmenu/navmenu";
 import CartButton from "../cart/cartbutton";
 import Cart from "../cart/cart";
 import HoverNavigation from "./hover-navigation";
+import MobileNavMenu from "../navmenu/mobilenavmenu";
 function MainNavigation() {
   const { data: session, status } = useSession();
   const loading = status === "loading";
   const [isCartClicked, setIsCartClicked] = useState(false);
   const [isMouseOverMenu, setIsMouseOverMenu] = useState(false);
   const [isMenuClicked, setIsMenuClicked] = useState(false);
+  const [isMobileMenuClicked, setIsMobileMenuClicked] = useState(false);
   const showModal = () => {
     setIsMenuClicked(true);
   };
+  const showMobileModal = () => {
+    setIsMobileMenuClicked(true);
+  };
   const hideModal = () => {
     setIsMenuClicked(false);
+    setIsMobileMenuClicked(false);
+    setIsCartClicked(false);
     setIsMouseOverMenu(false);
   };
   const showCartModal = () => {
     setIsCartClicked(true);
   };
-  const hideCartModal = () => {
-    setIsCartClicked(false);
-  };
+  
   return (
     <>
-      {isMenuClicked && (
-        <Modal onCloseModal={hideModal}>
-          <NavMenu onCloseModal={hideModal}></NavMenu>
-        </Modal>
-      )}
-      {isCartClicked && <Cart onCloseCart={hideCartModal} />}
-      {!isMenuClicked && !isCartClicked && (
+      {isMenuClicked && <NavMenu onCloseModal={hideModal}></NavMenu>}
+      {isCartClicked && <Cart onCloseCart={hideModal} />}
+      {isMobileMenuClicked && <MobileNavMenu onCloseModal={hideModal}></MobileNavMenu>}
+      {!isMenuClicked && !isCartClicked && !isMobileMenuClicked && (
         <div
           onMouseOver={() => {
             setIsMouseOverMenu(true);
@@ -54,6 +56,34 @@ function MainNavigation() {
             <Link href="/">
               <Logo isMouseOverMenu={isMouseOverMenu} />
             </Link>
+            <ul className={classes.mobile}>
+              {!session && (
+                <li className={classes.mobile}>
+                  <Link href="/auth">로그인</Link>
+                </li>
+              )}
+
+              {session && (
+                <li className={classes.mobile}>
+                  <Link href="/profile">프로필</Link>
+                </li>
+              )}
+              <li className={classes.mobile}>
+                {isMouseOverMenu ? (
+                  <FontAwesomeIcon
+                    icon={faBars}
+                    style={{ fontSize: 25, color: "black" }}
+                    onClick={showMobileModal}
+                  />
+                ) : (
+                  <FontAwesomeIcon
+                    icon={faBars}
+                    style={{ fontSize: 25, color: "white" }}
+                    onClick={showMobileModal}
+                  />
+                )}
+              </li>
+            </ul>
             <nav>
               <ul>
                 <li>
@@ -100,21 +130,6 @@ function MainNavigation() {
                 </li>
               </ul>
             </nav>
-            <li className={classes.mobile}>
-              {isMouseOverMenu ? (
-                <FontAwesomeIcon
-                  icon={faBars}
-                  style={{ fontSize: 25, color: "black" }}
-                  onClick={showModal}
-                />
-              ) : (
-                <FontAwesomeIcon
-                  icon={faBars}
-                  style={{ fontSize: 25, color: "white" }}
-                  onClick={showModal}
-                />
-              )}
-            </li>
           </header>
           {isMouseOverMenu && (
             <div className={classes.mobilehover}>
