@@ -1,7 +1,7 @@
 import classes from "./profile-form.module.css";
 import { useRef } from "react";
 import { signOut } from "next-auth/react";
-
+import {persistor} from '../../redux/store'
 function ProfileForm(props) {
   const oldPasswordRef = useRef();
   const newPasswordRef = useRef();
@@ -14,8 +14,9 @@ function ProfileForm(props) {
       newPassword: enteredNewPassword,
     });
   }
-  function logoutHandler() {
+  async function logoutHandler() {
     signOut();
+    await persistor.purge();
   }
   return (
     <>

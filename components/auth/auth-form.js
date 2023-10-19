@@ -3,6 +3,9 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 import classes from "./auth-form.module.css";
 import Notification from "../ui/notification";
+import { useDispatch } from "react-redux";
+import {userActions} from '../../redux/reducer/user'
+
 async function CreateUser(email, password) {
   const response = await fetch("/api/auth/signup", {
     method: "POST",
@@ -17,6 +20,7 @@ async function CreateUser(email, password) {
   return data;
 }
 function AuthForm() {
+  const dispatch = useDispatch();
   const [requestStatus, setRequestStatus] = useState(); // 'pending', 'success', 'error'
   const [requestError, setRequestError] = useState();
   const emailInputRef = useRef();
@@ -53,6 +57,9 @@ function AuthForm() {
         if (!result.error) {
           router.replace("/profile");
           setRequestStatus("success");
+          dispatch(userActions.login({
+            email: enteredEmail
+          }))
           return;
         }
         setRequestError(result.error);
@@ -64,6 +71,7 @@ function AuthForm() {
           await CreateUser(enteredEmail, enteredPassword);
 
           setRequestStatus("success");
+
         } else {
           setRequestStatus("error");
           throw new Error("check you password");

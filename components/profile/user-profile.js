@@ -1,5 +1,6 @@
 import ProfileForm from "./profile-form";
 import classes from "./user-profile.module.css";
+
 // import { getSession } from "next-auth/client";
 // import { useEffect, useState } from "react";
 function UserProfile() {
@@ -22,7 +23,7 @@ function UserProfile() {
   //   return <p className={classes.profile}>loading...</p>;
   // }
   //클라이언트 사이드에서 session 사용하는 코드
-
+  
   async function changePasswordHandler(passwordData) {
     const response = await fetch('/api/auth/change-password', {
       method: "PATCH",
@@ -33,7 +34,7 @@ function UserProfile() {
   }
   return (
     <section className={classes.profile}>
-      <h1>Your User Profile</h1>
+      <h1>Your User Profile </h1>
       <ProfileForm onChangePassword={changePasswordHandler} />
     </section>
   );
