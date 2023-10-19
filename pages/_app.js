@@ -7,14 +7,12 @@ import { Provider } from "react-redux";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import wrapper from "../redux/store";
 import { config } from "@fortawesome/fontawesome-svg-core";
-import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
-
+import {persistor} from '../redux/store'
 function MyApp({ Component, pageProps }) {
   config.autoAddCss = false;
   const { session } = pageProps;
   const { store, props } = wrapper.useWrappedStore(pageProps);
-  const persistor = persistStore(store);
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
