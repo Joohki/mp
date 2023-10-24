@@ -1,5 +1,5 @@
-import NoticeForm from "../../components/notice-board/noticeform";
-import NoticeList from "../../components/notice-board/noticerecord";
+import NoticeForm from "../../components/notice-board/NoticeForm";
+import NoticeList from "../../components/notice-board/NoticeRecord";
 function NoticePage() {
   return (
     <>

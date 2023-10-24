@@ -1,7 +1,7 @@
-import classes from "./mobilenavmenu.module.css";
+import classes from "./MobileNavMenu.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX } from "@fortawesome/free-solid-svg-icons";
-import Modal from "../ui/modal";
+import Modal from "../ui/Modal";
 import Link from "next/link";
 function MobileNavMenu(props) {
   return (

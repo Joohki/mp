@@ -2,7 +2,9 @@ import Head from "next/head";
 // import { Provider } from "next-auth/client";
 import { SessionProvider } from "next-auth/react";
 import "../styles/globals.css";
-import Layout from "../components/layout/layout";
+import { ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
+import Layout from "../components/layout/Layout";
 import { Provider } from "react-redux";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import wrapper from "../redux/store";
@@ -24,6 +26,7 @@ function MyApp({ Component, pageProps }) {
                 content="width=device-width, initial-scale=1"
               />
             </Head>
+            <ToastContainer/>
             <Component {...props} />
           </Layout>
         </SessionProvider>

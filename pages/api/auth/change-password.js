@@ -22,7 +22,7 @@ async function handler(req, res) {
   const usersCollection = db.collection("users");
   const user = await usersCollection.findOne({ email: userEmail });
   if (!user) {
-    res.status(404).json({ message: "User Not Found" });
+    res.status(404).json({ message: "가입되지 않은 이메일입니다" });
     client.close();
     return;
   }
@@ -32,7 +32,7 @@ async function handler(req, res) {
     databaseCurrentPassword
   );
   if (!isCorrectPassword) {
-    res.status(403).json({ message: "Invalid password" });
+    res.status(403).json({ message: "비밀번호를 확인해주세요" });
     client.close();
     return;
   }

@@ -1,4 +1,4 @@
-import classes from './noticerecord.module.css'
+import classes from './NoticeRecord.module.css'
 import {useState} from 'react'
 function NoticeList() {
     const [activeTab, setActiveTab] = useState('')

@@ -1,7 +1,7 @@
-import classes from "./navmenu.module.css";
+import classes from "./NavMenu.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX } from "@fortawesome/free-solid-svg-icons";
-import Modal from "../ui/modal";
+import Modal from "../ui/Modal";
 function NavMenu(props) {
   return (
     <Modal onCloseModal={props.onCloseModal}>

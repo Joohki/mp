@@ -1,6 +1,6 @@
 import Head from 'next/head';
 
-import CompanyContent from '../../components/companies/company-detail/company-content';
+import CompanyContent from '../../components/companies/company-detail/CompanyContent';
 import { getCompanyData, getCompaniesFiles } from '../../lib/companies-util';
 
 function CompanyDetailPage(props) {

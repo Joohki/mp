@@ -1,5 +1,5 @@
 import { RotatingLines } from "react-loader-spinner";
-import classes from "./loader.module.css";
+import classes from "./Loader.module.css";
 export default function Loader({ basic }) {
   if (basic) {
     return (

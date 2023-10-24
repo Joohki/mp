@@ -1,4 +1,4 @@
-import classes from "./noticeform.module.css";
+import classes from "./NoticeForm.module.css";
 import { useRef, useState } from "react";
 
 const CATEGORIES = ["E&E Tech", "A&K 글로벌", "헤도네", "신창이앤씨"];

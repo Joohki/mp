@@ -1,8 +1,8 @@
-import AuthForm from '../components/auth/auth-form';
+import AuthForm from '../components/auth/AuthForm';
 import { getSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import {useRouter} from "next/router";
-import Loader from '../components/ui/loader'
+import Loader from '../components/ui/Loader'
 
 function AuthPage() {
   const router = useRouter()

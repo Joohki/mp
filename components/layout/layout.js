@@ -1,6 +1,6 @@
-import MainNavigation from './main-navigation';
-import Footer from './footer';
-import classes from './layout.module.css'
+import MainNavigation from './MainNavigation';
+import Footer from './Footer';
+import classes from './Layout.module.css'
 function Layout(props) {
   return (
     <div className={classes.layout}>

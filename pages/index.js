@@ -1,8 +1,8 @@
 
 import Head from 'next/head';
-import FeaturedCompanies from '../components/home-page/featured-companies';
-import Hero from '../components/home-page/hero';
-import Slogan from '../components/home-page/mpslogan';
+import FeaturedCompanies from '../components/home-page/FeaturedCompanies';
+import Hero from '../components/home-page/Hero';
+import Slogan from '../components/home-page/MpSlogan';
 import { getFeaturedCompanies } from '../lib/companies-util';
 
 function HomePage(props) {

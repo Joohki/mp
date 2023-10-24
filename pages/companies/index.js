@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { Fragment } from 'react';
 
-import AllCompanies from '../../components/companies/all-companies';
+import AllCompanies from '../../components/companies/AllCompanies';
 import { getAllCompanies } from '../../lib/companies-util';
 
 function AllCompaniesPage(props) {

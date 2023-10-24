@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import classes from "./cartbutton.module.css";
+import classes from "./CartButton.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 // import {uiActions} from '../../store/ui-slice';

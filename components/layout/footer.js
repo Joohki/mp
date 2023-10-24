@@ -1,6 +1,6 @@
 import React from "react";
 
-import classes from "./footer.module.css";
+import classes from "./Footer.module.css";
 import Link from "next/link";
 
 const Footer = () => {

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import classes from "./logo.module.css";
+import classes from "./Logo.module.css";
 
 function Logo(props) {
   const { isMouseOverMenu } = props;

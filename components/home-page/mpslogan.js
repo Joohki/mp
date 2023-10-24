@@ -1,5 +1,5 @@
 import Image from "next/image";
-import classes from "./mpslogan.module.css";
+import classes from "./MpSlogan.module.css";
 function Slogan() {
   return (
     <div className={classes.slogan}>
