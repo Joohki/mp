@@ -1,0 +1,22 @@
+.ceo{
+    margin:3rem;
+    display: flex;
+    flex-direction: column;
+}
+.ceo h1{
+    margin:1rem;
+    display: flex;
+    justify-content: center;
+    color: gray;
+    font-size: 3rem;
+    font-weight: bolder;
+}
+.ceo h2{
+    font-weight: 450;
+}
+.ceo footer{
+    display: flex;
+    justify-content: end;
+    font-size: 2rem;
+    align-items: center;
+}

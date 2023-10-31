@@ -45,3 +45,9 @@
 .item:nth-child(3) ul {
   color: gray;
 }
+
+.item a {
+  text-decoration: none;
+  color: inherit;
+
+}

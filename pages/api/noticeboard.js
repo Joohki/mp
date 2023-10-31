@@ -1,29 +1,32 @@
 import { MongoClient } from "mongodb";
-
 async function handler(req, res) {
   if (req.method === "POST") {
-    const { email, name, message } = req.body;
+    const { email, name, title, category, summary, contents,createdAt } = req.body;
 
     if (
       !email ||
       !email.includes("@") ||
       !name ||
       name.trim() === "" ||
-      !message ||
-      message.trim() === ""
+      !contents ||
+      contents.trim() === ""
     ) {
       res.status(422).json({ message: "Invalid input." });
       return;
     }
 
-    const newMessage = {
+    const newContents = {
       email,
       name,
-      message,
+      title,
+      category,
+      summary,
+      contents,
+      createdAt
     };
 
     let client;
-    const connectString = `mongodb+srv://${process.env.mongodb_username}:${process.env.mongodb_password}@${process.env.mongodb_clustername}.a9a7kzo.mongodb.net/${process.env.mongodb_database}?retryWrites=true&w=majority`
+    const connectString = `mongodb+srv://${process.env.mongodb_username}:${process.env.mongodb_password}@${process.env.mongodb_clustername}.a9a7kzo.mongodb.net/${process.env.mongodb_noticeboarddata}?retryWrites=true&w=majority`
 
     try {
       client = await MongoClient.connect(
@@ -37,8 +40,8 @@ async function handler(req, res) {
     const db = client.db();
 
     try {
-      const result = await db.collection("messages").insertOne(newMessage);
-      newMessage.id = result.insertedId;
+      const result = await db.collection("contents").insertOne(newContents);
+      newContents.id = result.insertedId;
     } catch (error) {
       client.close();
       res.status(500).json({ message: "Storing message failed!" });
@@ -49,7 +52,7 @@ async function handler(req, res) {
 
     res
       .status(201)
-      .json({ message: "Successfully stored message!", message: newMessage });
+      .json({ message: "Successfully stored message!", contents: newContents });
   }
 }
 

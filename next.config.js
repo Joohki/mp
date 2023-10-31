@@ -6,8 +6,9 @@ module.exports = (phase) => {
         mongodb_username: "prokion33",
         mongodb_password: "fire135964",
         mongodb_clustername: "cluster0",
-        mongodb_database: "inquiry-dev",
-        mongodb_authdata: "authdata-dev"
+        mongodb_inquirydata: "inquiry-dev",
+        mongodb_authdata: "authdata-dev",
+        mongodb_noticeboarddata: "boarddata-dev"
       },
     };
   }
@@ -16,8 +17,9 @@ module.exports = (phase) => {
       mongodb_username: "prokion33",
       mongodb_password: "fire135964",
       mongodb_clustername: "cluster0",
-      mongodb_database: "inquiry",
-      mongodb_authdata: "authdata"
+      mongodb_inquirydata: "inquiry",
+      mongodb_authdata: "authdata",
+      mongodb_noticeboarddata: "boarddata"
     },
   };
 };

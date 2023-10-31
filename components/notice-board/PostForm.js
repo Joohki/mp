@@ -1,49 +1,85 @@
-import classes from "./NoticeForm.module.css";
+import classes from "./PostForm.module.css";
 import { useRef, useState } from "react";
 
-const CATEGORIES = ["E&E Tech", "A&K 글로벌", "헤도네", "신창이앤씨"];
+export const CATEGORIES = ["E&E Tech", "A&K 글로벌", "헤도네", "신창이앤씨"];
 // const [category, setCategory] = useState();
 const isEmpty = (value) => {
   return value.trim().length === 0;
 };
-const isFiveChar = (value) => {
-  return value.trim().length === 5;
+const isOverTwentyChar = (value) => {
+  return value.trim().length > 20;
 };
-const NoticeForm = (props) => {
+async function sendNoticeFormData(details) {
+  const response = await fetch('/api/noticeboard', {
+    method: 'POST',
+    body: JSON.stringify(details),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.message || 'Something went wrong!');
+  }
+}
+
+const PostForm = (props) => {
   const [validSubmitForm, setValidSubmitForm] = useState({
     name: true,
     email: true,
+    title: true,
+    category: true,
     contents: true,
   });
   const nameInputRef = useRef();
   const emailInputRef = useRef();
+  const titleInputRef = useRef();
+  const categoryInputRef = useRef();
+  const summaryInputRef = useRef();
   const contentsInputRef = useRef();
 
   const confirmHandler = (event) => {
     event.preventDefault();
     const enteredName = nameInputRef.current.value;
     const enteredEmail = emailInputRef.current.value;
+    const enteredTitle = titleInputRef.current.value;
+    const enteredCategory = categoryInputRef.current.value;
+    const enteredSummary= summaryInputRef.current.value;
     const enteredContents = contentsInputRef.current.value;
 
     const isValidName = !isEmpty(enteredName);
     const isValidEmail = !isEmpty(enteredEmail);
-    const isValidContents = isFiveChar(enteredContents);
+    const isValidTitle = !isEmpty(enteredEmail);
+    const isValidCategory = !isEmpty(enteredEmail);
+    
 
     setValidSubmitForm({
       name: isValidName,
       email: isValidEmail,
-      contents: isValidContents,
+      title: isValidTitle,
+      category: isValidCategory,
+      
     });
 
-    const isValidForm = isValidName && isValidEmail && isValidContents;
+    const isValidForm = isValidName && isValidEmail && isValidTitle && isValidCategory;
 
     if (!isValidForm) {
       return;
     }
-    props.onConfirm({
+    sendNoticeFormData({
       name: enteredName,
       email: enteredEmail,
+      title: enteredTitle,
+      category: enteredCategory,
+      summary: enteredSummary,
       contents: enteredContents,
+      createdAt: new Date()?.toLocaleDateString("ko", {
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+      }),
     });
   };
   return (
@@ -72,7 +108,7 @@ const NoticeForm = (props) => {
         }`}
       >
         <label htmlFor="title">제목</label>
-        <input type="text" name="title" id="title" required />
+        <input type="text" name="title" id="title" ref={titleInputRef} required />
       </div>
       <div
         className={`${classes.control} ${
@@ -80,7 +116,7 @@ const NoticeForm = (props) => {
         }`}
       >
         <label htmlFor="category">카테고리</label>
-        <select name="category" id="category">
+        <select name="category" id="category" ref={categoryInputRef}>
           <option value="">카테고리를 선택해주세요</option>
           {CATEGORIES.map((category) => {
             return (
@@ -97,7 +133,7 @@ const NoticeForm = (props) => {
         }`}
       >
         <label htmlFor="summary">요약</label>
-        <input type="text" name="summary" id="summary" required />
+        <input type="text" name="summary" id="summary" ref={summaryInputRef} required />
       </div>
       <div
         className={`${classes.control} ${
@@ -105,7 +141,7 @@ const NoticeForm = (props) => {
         }`}
       >
         <label htmlFor="content">내용</label>
-        <textarea name="content" id="content" required />
+        <textarea name="content" id="content" ref={contentsInputRef} required />
       </div>
 
       <div className={classes.actions}>
@@ -117,4 +153,4 @@ const NoticeForm = (props) => {
     </form>
   );
 };
-export default NoticeForm;
+export default PostForm;

@@ -2,6 +2,7 @@ import classes from "./NavMenu.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX } from "@fortawesome/free-solid-svg-icons";
 import Modal from "../ui/Modal";
+import Link from "next/link";
 function NavMenu(props) {
   return (
     <Modal onCloseModal={props.onCloseModal}>
@@ -16,11 +17,11 @@ function NavMenu(props) {
         </div>
         <div className={classes.item}>
           <div>회사소개</div>
-          <ul>CEO 인사말</ul>
-          <li>A&K글로벌</li>
-          <li>신창이앤씨</li>
-          <li>헤도네</li>
-          <li>E&E tech</li>
+          <ul onClick={props.onCloseModal}><Link href='/ceo'>CEO 인사말</Link></ul>
+          <li onClick={props.onCloseModal}><Link href="/companies/A&Kglobal">A&K 글로벌</Link></li>
+          <li onClick={props.onCloseModal}><Link href="/companies/E&C">신창이앤씨</Link></li>
+          <li onClick={props.onCloseModal}><Link href="/companies/hedone">헤도네</Link></li>
+          <li onClick={props.onCloseModal}><Link href="/companies/E&E Tech">E&E Tech</Link></li>
         </div>
         <div className={classes.item}>
           <div>상품 및 서비스</div>
