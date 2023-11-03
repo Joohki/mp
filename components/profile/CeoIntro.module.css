@@ -2,6 +2,7 @@
     margin:3rem;
     display: flex;
     flex-direction: column;
+    
 }
 .ceo h1{
     margin:1rem;
@@ -12,11 +13,17 @@
     font-weight: bolder;
 }
 .ceo h2{
+    margin : 1rem 0 0 4rem;
     font-weight: 450;
+    font-size:2rem;
 }
 .ceo footer{
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     font-size: 2rem;
     align-items: center;
+}
+.ceo p {
+    margin :4rem;
+    font-size:1.5rem;
 }

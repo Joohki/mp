@@ -1,13 +1,9 @@
-.hero {
+.main {
   text-align: center;
-  background-image: linear-gradient(
-    to bottom,
-    var(--color-grey-900),
-    var(--color-grey-800)
-  );
-  padding: var(--size-8) 0;
+  padding: 6vh 0;
   position: relative;
-  
+  width: 100vw;
+  height: 90vh;
 }
 .image {
   width: 300px;
@@ -28,16 +24,17 @@
   height: 100%;
 }
 
-.hero h1 {
-  font-size: var(--size-16);
-  margin: var(--size-4) 0;
-  color: white;
+.main h1 {
+  margin: 3vh 0;
+  color: black;
   z-index: 1;
   position: relative;
+  font-size: 4.5vw;
+  animation-name: moveInFromLeft;
+  animation-duration: 5s;
 }
 
-
-.hero p {
+.main p {
   font-size: var(--size-6);
   color: white;
   width: 90%;
@@ -47,3 +44,27 @@
   position: relative;
 }
 
+.mp {
+  font-style:oblique;
+  font-weight: bold;
+  color: rgb(14, 179, 230);
+}
+.red {
+  color: red;
+}
+.green {
+  color: green;
+}
+@keyframes moveInFromLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+  80% {
+    transform: translateX(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0);
+  }
+}

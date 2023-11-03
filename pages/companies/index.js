@@ -2,7 +2,7 @@ import Head from 'next/head';
 import { Fragment } from 'react';
 
 import AllCompanies from '../../components/companies/AllCompanies';
-import { getAllCompanies } from '../../lib/companies-util';
+import { getFeaturedCompanies } from '../../lib/companies-util';
 
 function AllCompaniesPage(props) {
   return (
@@ -20,7 +20,7 @@ function AllCompaniesPage(props) {
 }
 
 export function getStaticProps() {
-  const allCompanies = getAllCompanies();
+  const allCompanies = getFeaturedCompanies ();
 
   return {
     props: {

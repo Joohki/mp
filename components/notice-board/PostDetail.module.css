@@ -1,0 +1,81 @@
+.post_detail {
+  min-height: 90vh;
+  padding: 20px;
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto;
+  text-align: left;
+  line-height: 24px;
+}
+
+.post_title {
+  font-size: 36px;
+  line-height: 40px;
+  font-weight: 600;
+  margin: 14px 0px;
+}
+
+.post_utilsbox {
+  padding: 10px 0px;
+  border-top: 1px solid #f2f2f2;
+  border-bottom: 1px solid #f2f2f2;
+  flex-direction: row;
+  display: flex;
+  gap: 8px;
+
+  font-size: 14px;
+  color: gray;
+}
+
+.post_profilebox {
+  padding: 10px 0px;
+  display: flex;
+  gap: 8px;
+  font-size: 14px;
+  align-items: center;
+}
+
+.post_text {
+  padding: 20px 0px;
+  color: dimgray;
+  font-size: 16px;
+}
+.post_textprewrap {
+  white-space: pre-wrap;
+}
+.post_box {
+  padding-top: 24px;
+  padding-bottom: 24px;
+  border-top: 1px solid #f2f2f2;
+}
+.post_authorname,
+.post_date {
+  color: gray;
+}
+.post__category {
+  color: gray;
+  border: 1px solid lightgray;
+  background-color: #f2f2f2;
+  padding: 0px 4px;
+  border-radius: 10px;
+  font-size: 12px;
+}
+.post__delete {
+  cursor: pointer;
+}
+
+.post__delete:hover,
+.post__delete:focus {
+  color: black;
+}
+.post__edit:hover,
+.post__edit:focus,
+.post__edit a:hover,
+.post__edit a:focus {
+  color: black;
+}
+
+.post__edit a {
+  text-decoration: none;
+  color: gray;
+}
