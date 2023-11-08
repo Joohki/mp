@@ -23,7 +23,7 @@ function CompanyItem(props) {
         
           <Image
             src={imagePath}
-            alt={title}
+            
             // width={300}
             // height={200}
             // layout="responsive"

@@ -37,9 +37,10 @@ function CompanyContent(props) {
           <div className={classes.image}>
             <Image
               src={`/images/companies/${company.slug}/${image.properties.src}`}
-              alt={image.alt}
+             
               width={600}
               height={300}
+              
             />
           </div>
         );

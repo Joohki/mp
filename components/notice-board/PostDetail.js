@@ -1,6 +1,6 @@
 import classes from "./PostDetail.module.css";
 import { useState, useEffect } from "react";
-import { Link, useParams, useNavigate } from "react-router-dom";
+
 import { PostProps } from "./PostList";
 import { toast } from "react-toastify";
 import Comments from "./Comments.js";
@@ -9,7 +9,7 @@ export default function PostDetail(props) {
   // const [post, setPost] = useState("");
   // const params = useParams();
   // const navigate = useNavigate();
-  const {post} = props.post
+  const {post} = props
 
   // const getPost = async () => {
   //   if (id) {
@@ -30,7 +30,6 @@ export default function PostDetail(props) {
   // useEffect(() => {
   //   if (params?.id) getPost(params?.id);
   // }, [params?.id]);
-
   return (
     <>
       <div className={classes.post_detail}>
@@ -47,7 +46,7 @@ export default function PostDetail(props) {
                 <div className={classes.post_category}>
                   {post?.category || "자유주제"}
                 </div>
-                {post?.uid === user?.uid && (
+                {/* {post?.uid === user?.uid && (
                   <>
                     <div
                       className={classes.post_delete}
@@ -60,18 +59,18 @@ export default function PostDetail(props) {
                       <Link to={`/posts/edit/${post?.id}`}>수정</Link>
                     </div>
                   </>
-                )}
+                )} */}
               </div>
               <div
                 className={`${classes.post_text}${classes.post_textprewrap}`}
               >
-                {post?.content}
+                {post?.contents}
               </div>
             </div>
             {/* <Comments post={post} getPost={getPost} /> */}
           </>
         ) : (
-          <Loader />
+          <div/>
         )}
       </div>
     </>

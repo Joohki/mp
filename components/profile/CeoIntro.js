@@ -31,7 +31,7 @@ const CeoIntro = () => {
         (주)엠피 대표이사 <b> &nbsp;이기원</b>{" "}
         <Image
           src="/images/mpimage/ceosignature.png"
-          alt="ceosignature"
+        
           width={300}
           height={200}
         />

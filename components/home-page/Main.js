@@ -17,7 +17,6 @@ function Main() {
 
       <Image
         src="/images/mpimage/image1.jpeg"
-        alt="메인 배경 이미지"
         priority={true}
         fill
       />

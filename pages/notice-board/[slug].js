@@ -9,12 +9,12 @@ const PostDetailPage = (props) => {
     </>
   );
 };
-export function getStaticProps(context) {
+export async function getStaticProps(context) {
   const { params } = context;
-  const { post } = params;
+  const { slug } = params;
 
-  const postDatas = getAllBoardDatas();
-  const postData = getDetailBoardData(postDatas, post);
+  const postDatas = await getAllBoardDatas();
+  const postData = await getDetailBoardData(postDatas, slug);
   return {
     props: {
       post: postData,
@@ -23,10 +23,10 @@ export function getStaticProps(context) {
   };
 }
 
-export function getStaticPaths() {
-  const postDatas = getAllBoardDatas();
+export async function getStaticPaths() {
+  const postDatas = await getAllBoardDatas();
   return {
-    paths: postDatas.map((post) => ({ params: { post: post } })),
+    paths: postDatas.map((post) => ({ params: { slug: post._id.toString() } })),
     fallback: false,
   };
 }

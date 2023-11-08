@@ -47,7 +47,7 @@ function PostList(props) {
         {posts?.length > 0 ? (
           posts?.map((post) => (
             <div key={post?.id} className={classes.post_box}>
-              <Link href={`/posts/${post?.id}`}>
+              <Link href={`/notice-board/${post?.id}`}>
                 <div className={classes.post_profilebox}>
                   <div className={classes.post_profile} />
                   <div className={classes.post_author_name}>{post?.email}</div>

@@ -5,7 +5,7 @@ function Slogan() {
     <div className={classes.slogan}>
       <Image
         src="/images/mpimage/mpslogan.png"
-        alt="mp slogan"
+        
         priority={true}
         fill
       />

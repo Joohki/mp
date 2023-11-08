@@ -40,7 +40,7 @@ const PostForm = (props) => {
   const summaryInputRef = useRef();
   const contentsInputRef = useRef();
 
-  const confirmHandler = (event) => {
+  const confirmHandler = async (event) => {
     event.preventDefault();
     const enteredName = nameInputRef.current.value;
     const enteredEmail = emailInputRef.current.value;
@@ -68,7 +68,7 @@ const PostForm = (props) => {
     if (!isValidForm) {
       return;
     }
-    sendNoticeFormData({
+    await sendNoticeFormData({
       name: enteredName,
       email: enteredEmail,
       title: enteredTitle,
