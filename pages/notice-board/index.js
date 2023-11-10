@@ -9,7 +9,7 @@ function PostPage(props) {
     </>
   );
 }
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const allBoardDatas = await getAllBoardDatas();
   return {
     props: {

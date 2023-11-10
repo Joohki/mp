@@ -3,7 +3,7 @@ import classes from "./CeoIntro.module.css";
 const CeoIntro = () => {
   return (
     <div className={classes.ceo}>
-      
+      {/*       
       <h2>환경을 위해 나아가는 기업 <b>주식회사 엠피</b>입니다.</h2>
       <p>
         환경을 위해 나아가는 기업 주식회사 엠피입니다.
@@ -35,7 +35,11 @@ const CeoIntro = () => {
           width={300}
           height={200}
         />
-      </footer>
+      </footer> */}
+      <Image src="/images/mpimage/ceointro.png"  width={0}
+  height={0}
+  sizes="100vw"
+  style={{ width: '100%', height: 'auto' }} />
     </div>
   );
 };

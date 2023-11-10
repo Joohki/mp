@@ -75,6 +75,7 @@ const PostForm = (props) => {
       category: enteredCategory,
       summary: enteredSummary,
       contents: enteredContents,
+      date: new Date(),
       createdAt: new Date()?.toLocaleDateString("ko", {
         hour: "2-digit",
         minute: "2-digit",

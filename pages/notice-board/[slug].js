@@ -9,25 +9,26 @@ const PostDetailPage = (props) => {
     </>
   );
 };
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
   const { params } = context;
   const { slug } = params;
 
   const postDatas = await getAllBoardDatas();
-  const postData = await getDetailBoardData(postDatas, slug);
+  let postData = await getDetailBoardData(postDatas, slug);
+  if(typeof postData==='undefined'){postData=null}
   return {
     props: {
       post: postData,
     },
-    revalidate: 600,
+    // revalidate: 600,
   };
 }
 
-export async function getStaticPaths() {
-  const postDatas = await getAllBoardDatas();
-  return {
-    paths: postDatas.map((post) => ({ params: { slug: post._id.toString() } })),
-    fallback: false,
-  };
-}
+// export async function getStaticPaths() {
+//   const postDatas = await getAllBoardDatas();
+//   return {
+//     paths: postDatas.map((post) => ({ params: { slug: post._id.toString() } })),
+//     fallback: false,
+//   };
+// }
 export default PostDetailPage;

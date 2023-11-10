@@ -1,7 +1,9 @@
 .ceo{
-    margin:3rem;
-    display: flex;
-    flex-direction: column;
+    
+    
+    position: relative;
+    display: block;
+    width: 100vw;
     
 }
 .ceo h1{

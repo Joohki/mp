@@ -1,35 +1,35 @@
 import classes from "./PostDetail.module.css";
 import { useState, useEffect } from "react";
-
+import { useSelector } from "react-redux";
 import { PostProps } from "./PostList";
 import { toast } from "react-toastify";
 import Comments from "./Comments.js";
-
+import { useRouter } from "next/router";
+import { deleteData } from "../../lib/products-util";
 export default function PostDetail(props) {
   // const [post, setPost] = useState("");
   // const params = useParams();
-  // const navigate = useNavigate();
-  const {post} = props
 
-  // const getPost = async () => {
-  //   if (id) {
-  //     const docRef = doc(db, "posts", id);
-  //     const docSnap = await getDoc(docRef);
-  //   }
-  // };
+  const { post } = props;
+  const router = useRouter();
 
-  // const handleDelete = async () => {
-  //   const confirm = window.confirm("해당 게시글을 삭제하시겠습니까?");
-  //   if (confirm && post && post.id) {
-  //     await deleteDoc(doc(db, "posts", post.id));
-  //     toast.success("게시글을 삭제했습니다.");
-  //     navigate("/");
-  //   }
-  // };
+  const userEmail = useSelector((state) => state.user.email);
 
-  // useEffect(() => {
-  //   if (params?.id) getPost(params?.id);
-  // }, [params?.id]);
+  async function handleDelete(event) {
+    event.preventDefault();
+    try {
+      const confirm = window.confirm("해당 게시글을 삭제하시겠습니까?");
+      if (confirm && post && post._id) {
+        const result = await deleteData({ id: post._id });
+
+        toast.success("게시글을 삭제했습니다.");
+        router.replace("/notice-board");
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
+  }
+
   return (
     <>
       <div className={classes.post_detail}>
@@ -46,7 +46,7 @@ export default function PostDetail(props) {
                 <div className={classes.post_category}>
                   {post?.category || "자유주제"}
                 </div>
-                {/* {post?.uid === user?.uid && (
+                {post?.email === userEmail && (
                   <>
                     <div
                       className={classes.post_delete}
@@ -56,10 +56,10 @@ export default function PostDetail(props) {
                       삭제
                     </div>
                     <div className={classes.post_edit}>
-                      <Link to={`/posts/edit/${post?.id}`}>수정</Link>
+                      {/* <Link to={`/posts/edit/${post?.id}`}>수정</Link> */}
                     </div>
                   </>
-                )} */}
+                )}
               </div>
               <div
                 className={`${classes.post_text}${classes.post_textprewrap}`}
@@ -70,7 +70,7 @@ export default function PostDetail(props) {
             {/* <Comments post={post} getPost={getPost} /> */}
           </>
         ) : (
-          <div/>
+          <div />
         )}
       </div>
     </>

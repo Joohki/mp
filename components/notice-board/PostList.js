@@ -6,10 +6,10 @@ function PostList(props) {
   const [activeTab, setActiveTab] = useState("");
   const {boarddata} = props
   const posts = boarddata.sort((data1,data2)=>{
-    const date1=  data1.createdAt
-    const date2=  data2.createdAt
-    if (date1>=date2) {return -1}
-    else {return 1}
+    const date1=  data1.date
+    const date2=  data2.date
+    if (date1>=date2) {return 1}
+    else {return -1}
   })
   return (
     <>

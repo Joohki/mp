@@ -1,7 +1,7 @@
 import { MongoClient } from "mongodb";
 async function handler(req, res) {
   if (req.method === "POST") {
-    const { email, name, title, category, summary, contents,createdAt } = req.body;
+    const { email, name, title, category, summary, contents,createdAt ,date} = req.body;
 
     if (
       !email ||
@@ -22,7 +22,8 @@ async function handler(req, res) {
       category,
       summary,
       contents,
-      createdAt
+      createdAt,
+      date
     };
 
     let client;
