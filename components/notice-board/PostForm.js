@@ -1,6 +1,7 @@
 import classes from "./PostForm.module.css";
 import { useRef, useState } from "react";
-
+import { toast } from "react-toastify";
+import { useRouter } from "next/router";
 export const CATEGORIES = ["E&E Tech", "A&K 글로벌", "헤도네", "신창이앤씨"];
 // const [category, setCategory] = useState();
 const isEmpty = (value) => {
@@ -9,23 +10,24 @@ const isEmpty = (value) => {
 const isOverTwentyChar = (value) => {
   return value.trim().length > 20;
 };
-async function sendNoticeFormData(details) {
-  const response = await fetch('/api/noticeboard', {
-    method: 'POST',
+async function postNoticeFormData(details) {
+  const response = await fetch("/api/noticeboard", {
+    method: "POST",
     body: JSON.stringify(details),
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
   });
 
   const data = await response.json();
 
   if (!response.ok) {
-    throw new Error(data.message || 'Something went wrong!');
+    throw new Error(data.message || "Something went wrong!");
   }
 }
 
 const PostForm = (props) => {
+  const router = useRouter();
   const [validSubmitForm, setValidSubmitForm] = useState({
     name: true,
     email: true,
@@ -42,46 +44,52 @@ const PostForm = (props) => {
 
   const confirmHandler = async (event) => {
     event.preventDefault();
-    const enteredName = nameInputRef.current.value;
-    const enteredEmail = emailInputRef.current.value;
-    const enteredTitle = titleInputRef.current.value;
-    const enteredCategory = categoryInputRef.current.value;
-    const enteredSummary= summaryInputRef.current.value;
-    const enteredContents = contentsInputRef.current.value;
+    try {
+      const enteredName = nameInputRef.current.value;
+      const enteredEmail = emailInputRef.current.value;
+      const enteredTitle = titleInputRef.current.value;
+      const enteredCategory = categoryInputRef.current.value;
+      const enteredSummary = summaryInputRef.current.value;
+      const enteredContents = contentsInputRef.current.value;
 
-    const isValidName = !isEmpty(enteredName);
-    const isValidEmail = !isEmpty(enteredEmail);
-    const isValidTitle = !isEmpty(enteredEmail);
-    const isValidCategory = !isEmpty(enteredEmail);
-    
+      const isValidName = !isEmpty(enteredName);
+      const isValidEmail = !isEmpty(enteredEmail);
+      const isValidTitle = !isEmpty(enteredEmail);
+      const isValidCategory = !isEmpty(enteredEmail);
 
-    setValidSubmitForm({
-      name: isValidName,
-      email: isValidEmail,
-      title: isValidTitle,
-      category: isValidCategory,
-      
-    });
+      setValidSubmitForm({
+        name: isValidName,
+        email: isValidEmail,
+        title: isValidTitle,
+        category: isValidCategory,
+      });
 
-    const isValidForm = isValidName && isValidEmail && isValidTitle && isValidCategory;
+      const isValidForm =
+        isValidName && isValidEmail && isValidTitle && isValidCategory;
 
-    if (!isValidForm) {
-      return;
+      if (!isValidForm) {
+        return;
+      }
+
+      await postNoticeFormData({
+        name: enteredName,
+        email: enteredEmail,
+        title: enteredTitle,
+        category: enteredCategory,
+        summary: enteredSummary,
+        contents: enteredContents,
+        date: new Date(),
+        createdAt: new Date()?.toLocaleDateString("ko", {
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+        }),
+      });
+      toast.success("게시글을 성공적으로 추가했습니다.");
+      router.replace("/notice-board");
+    } catch (error) {
+      toast.error(error.message);
     }
-    await sendNoticeFormData({
-      name: enteredName,
-      email: enteredEmail,
-      title: enteredTitle,
-      category: enteredCategory,
-      summary: enteredSummary,
-      contents: enteredContents,
-      date: new Date(),
-      createdAt: new Date()?.toLocaleDateString("ko", {
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit",
-      }),
-    });
   };
   return (
     <form className={classes.form} onSubmit={confirmHandler}>
@@ -109,7 +117,13 @@ const PostForm = (props) => {
         }`}
       >
         <label htmlFor="title">제목</label>
-        <input type="text" name="title" id="title" ref={titleInputRef} required />
+        <input
+          type="text"
+          name="title"
+          id="title"
+          ref={titleInputRef}
+          required
+        />
       </div>
       <div
         className={`${classes.control} ${
@@ -134,7 +148,13 @@ const PostForm = (props) => {
         }`}
       >
         <label htmlFor="summary">요약</label>
-        <input type="text" name="summary" id="summary" ref={summaryInputRef} required />
+        <input
+          type="text"
+          name="summary"
+          id="summary"
+          ref={summaryInputRef}
+          required
+        />
       </div>
       <div
         className={`${classes.control} ${

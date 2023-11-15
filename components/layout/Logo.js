@@ -6,9 +6,19 @@ function Logo(props) {
   return (
     <div className={isMouseOverMenu ? classes.mouseoverlogo : classes.logo}>
       {isMouseOverMenu ? (
-        <Image src="/images/mpimage/MPLOGO.png" width={150} height={35}></Image>
+        <Image
+          src="/images/mpimage/MPLOGO.png"
+          width={218}
+          height={40}
+          
+        ></Image>
       ) : (
-        <Image src="/images/mpimage/MPLOGOwhite.png" width={150} height={35}></Image>
+        <Image
+          src="/images/mpimage/MPLOGOwhite.png"
+          width={218}
+          height={40}
+          
+        ></Image>
       )}
     </div>
   );

@@ -1,0 +1,28 @@
+.outer {
+  padding: 10vh 0 0 0;
+  position: relative;
+  width: 100vw;
+  height: 90vh;
+  margin: 0;
+  height: 90vh;
+  overflow-y: auto;
+}
+.inner {
+  width: 100vw;
+  position: relative;
+  animation-name: moveInFromLeft;
+  animation-duration: 5s;
+}
+@keyframes moveInFromLeft {
+    0% {
+      opacity: 0;
+      transform: translateX(-100px);
+    }
+    80% {
+      transform: translateX(30px);
+    }
+    100% {
+      opacity: 1;
+      transform: translate(0);
+    }
+  }

@@ -59,6 +59,7 @@
   align-items: baseline;
   margin: 0;
   padding: 0;
+  position: relative;
 }
 
 .additionalHeader li {

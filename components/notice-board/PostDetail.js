@@ -5,7 +5,22 @@ import { PostProps } from "./PostList";
 import { toast } from "react-toastify";
 import Comments from "./Comments.js";
 import { useRouter } from "next/router";
-import { deleteData } from "../../lib/products-util";
+
+async function deleteData(id) {
+  const response = await fetch("/api/noticeboarddelete", {
+    method: "DELETE",
+    body: JSON.stringify(id),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.message || "Something went wrong!");
+  }
+}
 export default function PostDetail(props) {
   // const [post, setPost] = useState("");
   // const params = useParams();
@@ -20,7 +35,7 @@ export default function PostDetail(props) {
     try {
       const confirm = window.confirm("해당 게시글을 삭제하시겠습니까?");
       if (confirm && post && post._id) {
-        const result = await deleteData({ id: post._id });
+        await deleteData({ id: post._id });
 
         toast.success("게시글을 삭제했습니다.");
         router.replace("/notice-board");

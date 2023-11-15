@@ -36,10 +36,13 @@ const CeoIntro = () => {
           height={200}
         />
       </footer> */}
-      <Image src="/images/mpimage/ceointro.png"  width={0}
-  height={0}
-  sizes="100vw"
-  style={{ width: '100%', height: 'auto' }} />
+      <Image
+        src="/images/mpimage/ceointro.png"
+        width={0}
+        height={0}
+        sizes="100vw"
+        style={{ width: "100%", height: "auto" }}
+      />
     </div>
   );
 };

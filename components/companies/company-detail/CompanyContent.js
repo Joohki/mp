@@ -26,8 +26,6 @@ function CompanyContent(props) {
     // },
     p(paragraph) {
       const { node } = paragraph;
-  
-        
       
 
       if (node.children[0].tagName === "img") {
@@ -37,7 +35,6 @@ function CompanyContent(props) {
           <div className={classes.image}>
             <Image
               src={`/images/companies/${company.slug}/${image.properties.src}`}
-             
               width={600}
               height={300}
               
