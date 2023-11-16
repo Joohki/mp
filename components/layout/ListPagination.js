@@ -1,15 +1,25 @@
 import classes from "./ListPagination.module.scss";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 function ListPagination(props) {
-  const { lists, limit, page, setPage, blockNum, setBlockNum, counts } = props;
+  const {
+    lists,
+    setLists,
+    limit,
+    page,
+    setPage,
+    blockNum,
+    setBlockNum,
+    counts,
+    visibleLists,
+    setVisibleLists,
+  } = props;
   const createArr = (n) => {
     const iArr = new Array(n);
     for (let i = 0; i < n; i++) iArr[i] = i + 1;
     return iArr;
   }; // 새로운 배열을 만들기 위한 함수
 
-  const pageLimit = 10; // 보여줄 페이지네이션 개수
-
+  const pageLimit = 5; // 보여줄 페이지네이션 개수
   const totalPage = Math.ceil(counts / limit); //총 데이터의 개수(counts)를 한 페이지의 보여줄 데이터(limit)로 나눠 올림을 하면 전체 페이지의 개수가 나온다.
 
   const blockArea = Number(blockNum * pageLimit); // 화면 전환 할 때 보여줄 페이지네이션 개수를 구역으로 지정한다.
@@ -45,7 +55,15 @@ function ListPagination(props) {
     } //보여줄 페이지네이션 개수(pageLimit) * (blockNum+1) 가 page + 1보다 작다면 setBlockNum은 현재 페이지 + 1을 한다.
     setPage((n) => n + 1); //setPage에 현재 페이지 + 1을 한다.
   };
-
+  
+  useEffect(() => {
+    const pageList = lists.slice(
+      (page - 1) * limit,
+      (page - 1) * limit + limit
+    );
+    setVisibleLists(pageList);
+  }, [page,limit,lists]);
+ 
   return (
     <div className={classes.ListPagenationWrapper}>
       <button

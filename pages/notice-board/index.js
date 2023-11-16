@@ -20,6 +20,8 @@ export async function getServerSideProps() {
         title: data.title,
         summary: data.summary,
         createdAt: data.createdAt,
+        contents:data.contents,
+        date:data.date
       })),
     },
   };

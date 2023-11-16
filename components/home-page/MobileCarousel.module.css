@@ -1,10 +1,10 @@
-.carousel {
+.mobile_carousel{
     margin: 0 auto;
     /* max-width: 980px; */
     height: 90vh;
     position: relative;
+    /* display: none; */
   }
-  
   
   ul.carousel_slides {
     display: block;
@@ -130,5 +130,3 @@
   input.img5:checked ~ .carousel_dots label.imgdot5 {
     opacity: 1;
   }
-  
-  

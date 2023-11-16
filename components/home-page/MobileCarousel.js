@@ -1,16 +1,16 @@
 import { useState } from "react";
-import classes from "./BusinessCarousel.module.css";
+import classes from "./MobileCarousel.module.css";
 import Image from "next/image";
 const IMAGE_1_URL = "/images/mpimage/naturalenvironment.png";
 const IMAGE_2_URL = "/images/mpimage/h2o.png";
 const IMAGE_3_URL = "/images/mpimage/globalwarming.png";
 const IMAGE_4_URL = "/images/mpimage/emissionright.png";
 const IMAGE_5_URL = "/images/mpimage/h2.png";
-export default function BusinessCarousel() {
+export default function MobileCarousel() {
   const [activeImage, setActiveImage] = useState(1);
 
   return (
-    <div className={classes.carousel}>
+    <div className={classes.mobile_carousel}>
       <ul className={classes.carousel_slides}>
         <input
           type="radio"
@@ -25,8 +25,8 @@ export default function BusinessCarousel() {
               src={IMAGE_1_URL}
               width={0}
               height={0}
-              sizes="50vw"
-              style={{ width: 'auto', height: '100%' }}
+              sizes="100vw"
+              style={{ width: "auto", height: "100%" }}
             />
           </div>
           <div className={classes.carousel_controls}>
@@ -110,7 +110,7 @@ export default function BusinessCarousel() {
               width={0}
               height={0}
               sizes="50vw"
-              style={{ width: 'auto', height: '100%' }}
+              style={{ width: "auto", height: "100%" }}
             />
           </div>
           <div className={classes.carousel_controls}>
@@ -142,7 +142,7 @@ export default function BusinessCarousel() {
               width={0}
               height={0}
               sizes="50vw"
-              style={{ width: 'auto', height: '100%' }}
+              style={{ width: "auto", height: "100%" }}
             />
           </div>
           <div className={classes.carousel_controls}>
@@ -160,7 +160,7 @@ export default function BusinessCarousel() {
             </label>
           </div>
         </li>
-        
+
         <div className={classes.carousel_dots}>
           <label
             onClick={() => setActiveImage(1)}
@@ -184,9 +184,6 @@ export default function BusinessCarousel() {
           ></label>
         </div>
       </ul>
-      <Image src="/images/mpimage/carouselbackground.jpg" fill />
     </div>
-    
-    
   );
 }

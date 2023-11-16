@@ -10,21 +10,22 @@ function PostList(props) {
   const [page, setPage] = useState(1); // 페이지 초기 값은 1페이지
   const [counts, setCounts] = useState(1); // 데이터의 총 개수를 setCounts 에 저장해서 사용
   const [blockNum, setBlockNum] = useState(0); // 한 페이지에 보여 줄 페이지네이션의 개수를 block으로 지정하는 state. 초기 값은 0
-
+  const [visibleLists, setVisibleLists] = useState([]);
   const { boarddata } = props;
   const posts = boarddata.sort((data1, data2) => {
     const date1 = data1.date;
     const date2 = data2.date;
     if (date1 >= date2) {
-      return 1;
-    } else {
       return -1;
+    } else {
+      return 1;
     }
   });
   useEffect(() => {
-    setLists(posts);
-    setCounts(posts.length);
-  }, []);
+    const copy = [...posts];
+    setLists(copy);
+    setCounts(copy.length);
+  }, [posts]);
 
   return (
     <>
@@ -60,10 +61,13 @@ function PostList(props) {
       </div>
       <div className={classes.post_list}>
         {posts?.length > 0 ? (
-          posts?.map((post) => (
+          visibleLists?.map((post, index) => (
             <div key={post?.id} className={classes.post_box}>
               <Link href={`/notice-board/${post?.id}`}>
                 <div className={classes.post_profilebox}>
+                  <div className={classes.post_author_name}>
+                    {posts.length - index-(page-1)*limit}
+                  </div>
                   <div className={classes.post_profile} />
                   <div className={classes.post_author_name}>{post?.email}</div>
                   <div className={classes.post_date}>{post?.createdAt}</div>
@@ -101,7 +105,10 @@ function PostList(props) {
         blockNum={blockNum}
         setBlockNum={setBlockNum}
         counts={counts}
-       
+        lists={lists}
+        setLists={setLists}
+        visibleLists={visibleLists}
+        setVisibleLists={setVisibleLists}
       />
     </>
   );

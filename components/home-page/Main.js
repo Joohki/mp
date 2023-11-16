@@ -3,12 +3,20 @@ import Slogan from "./MpSlogan";
 import classes from "./Main.module.css";
 import BusinessCarousel from "./BusinessCarousel";
 import Mpfirst from "./Mpfirst";
-import { useEffect, useRef } from "react";
-
+import { useState,useEffect, useRef } from "react";
+import MobileCarousel from "./MobileCarousel";
 function Main() {
+ const [isMobile,setIsMobile] = useState(false)
+ function MobileCheck(){
+   if(innerWidth<800){
+     setIsMobile(true)
+   }
+ }
+ 
   const outerDivRef = useRef();
   const DividerHeight = 5;
   useEffect(() => {
+    MobileCheck()
     const wheelHandler = (e) => {
       e.preventDefault();
       // 스크롤 행동 구현
@@ -37,7 +45,10 @@ function Main() {
     };
   }, []);
   return (
-    <section ref={outerDivRef} className={classes.main}>
+    <section
+      ref={outerDivRef}
+      className={classes.main}
+    >
       {/* <div className={classes.image}>
         <Image
           src="/images/mpimage/mplogo.jpeg"
@@ -50,7 +61,7 @@ function Main() {
 
       <Mpfirst />
       <div className={classes.divider}></div>
-      <BusinessCarousel />
+      {isMobile ?  <></>: <BusinessCarousel />}
     </section>
   );
 }
