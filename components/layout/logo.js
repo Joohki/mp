@@ -8,15 +8,15 @@ function Logo(props) {
       {isMouseOverMenu ? (
         <Image
           src="/images/mpimage/MPLOGO.png"
-          width={218}
-          height={40}
+          width={176}
+          height={32}
           
         ></Image>
       ) : (
         <Image
           src="/images/mpimage/MPLOGOwhite.png"
-          width={218}
-          height={40}
+          width={176}
+          height={32}
           
         ></Image>
       )}

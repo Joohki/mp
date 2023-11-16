@@ -5,7 +5,7 @@ function Mpfirst() {
     <div className={classes.outer}>
       <Image src="/images/mpimage/main.jpg" priority={true} fill />
       <div className={classes.inner}>
-        <Image src="/images/mpimage/mainlettering.png" width={0}
+        <Image src="/images/mpimage/mainletteringback.png" width={0}
         height={0}
         sizes="100vw"
         style={{ width: "100%", height: "auto" }} />
