@@ -1,6 +1,11 @@
 import { useState } from "react";
 import classes from "./AddProductForm.module.css";
 import { useRouter } from "next/navigation";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import { storage } from "../../firebase/firebase";
+import { toast } from "react-toastify";
+import { Timestamp, addDoc, collection } from "firebase/firestore";
+import { db } from "../../firebase/firebase";
 export const categories = [
   { id: 1, name: "Laptop" },
   { id: 2, name: "Electronics" },
@@ -64,31 +69,31 @@ const AddProductForm = () => {
     setIsLoading(true);
 
     try {
-        addDoc(collection(db, "products"), {
-            name: product.name,
-            imageURL: product.imageURL,
-            price: Number(product.price),
-            category: product.category,
-            brand: product.brand,
-            desc: product.desc,
-            createdAt: Timestamp.now().toDate()
-        })
+      addDoc(collection(db, "products"), {
+        name: product.name,
+        imageURL: product.imageURL,
+        price: Number(product.price),
+        category: product.category,
+        brand: product.brand,
+        desc: product.desc,
+        createdAt: Timestamp.now().toDate(),
+      });
 
-        setIsLoading(false);
-        setUploadProgress(0);
-        setProduct({ ...initialState })
+      setIsLoading(false);
+      setUploadProgress(0);
+      setProduct({ ...initialState });
 
-        toast.success('상품을 저장했습니다.');
-        router.push("/admin/all-products");
+      toast.success("상품을 저장했습니다.");
+      router.push("/admin");
     } catch (error) {
-        setIsLoading(false);
-        toast.error(getErrorMessage(error));
+      setIsLoading(false);
+      toast.error(getErrorMessage(error));
     }
-}
+  };
 
   return (
     <div className={classes.product}>
-      <form>
+      <form onSubmit={addProduct}>
         <label>상품 이름:</label>
         <input
           type="text"
@@ -96,10 +101,32 @@ const AddProductForm = () => {
           required
           name="name"
           value={product.name}
+          onChange={(e) => handleInputChange(e)}
         />
 
         <div>
-          <input type="file" placeholder="상품 이미지" name="image" required />
+          {uploadProgress === 0 ? null : (
+            <div className={classes.progress}>
+              <div
+                className={classes["progress-bar"]}
+                style={{ width: `${uploadProgress}%` }}
+              >
+                {uploadProgress < 100
+                  ? `Uploading... ${uploadProgress}`
+                  : `Upload Complete ${uploadProgress}%`}
+              </div>
+            </div>
+          )}
+
+          <input
+            type="file"
+            placeholder="상품 이미지"
+            accept="image/*"
+            name="image"
+            required
+            onChange={(e) => handleImageChange(e)}
+          />
+
           {product.imageURL === "" ? null : (
             <input
               type="text"
@@ -118,9 +145,15 @@ const AddProductForm = () => {
           required
           name="price"
           value={product.price}
+          onChange={(e) => handleInputChange(e)}
         />
         <label>상품 카테고리:</label>
-        <select required name="category" value={product.category}>
+        <select
+          required
+          name="category"
+          value={product.category}
+          onChange={(e) => handleInputChange(e)}
+        >
           <option value="" disabled>
             --상품 카테고리 선택
           </option>
@@ -139,10 +172,17 @@ const AddProductForm = () => {
           placeholder="상품 브랜드/회사"
           name="brand"
           value={product.brand}
+          onChange={(e) => handleInputChange(e)}
         />
 
         <label>상품 설명:</label>
-        <textarea name="desc" cols={10} rows={10} required></textarea>
+        <textarea
+          name="desc"
+          cols={10}
+          rows={10}
+          required
+          onChange={(e) => handleInputChange(e)}
+        ></textarea>
         <button type="submit">상품 생성</button>
       </form>
     </div>

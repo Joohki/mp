@@ -184,7 +184,7 @@ export default function BusinessCarousel() {
           ></label>
         </div>
       </ul>
-      <Image src="/images/mpimage/carouselbackground.jpg" fill />
+      <Image src="/images/mpimage/carouselbackground.jpg" fill  sizes="(max-width: 732px) 90vw, (max-width: 992px) 45vw, 320px"/>
     </div>
     
     
