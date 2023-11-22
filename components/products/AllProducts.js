@@ -4,7 +4,7 @@ import classes from './AllProducts.module.css';
 
 function AllProducts(props) {
   const { products } = props;
-
+console.log(products)
   return (
     <section className={classes.products}>
       <ProductCard>

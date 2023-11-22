@@ -2,7 +2,8 @@ import classes from "./PostList.module.css";
 import { useState, useEffect } from "react";
 import { CATEGORIES } from "./PostForm";
 import Link from "next/link";
-import ListPagination from "../layout/ListPagination";
+import ListPagination from "../pagination/ListPagination";
+import Search from "../search/Search";
 function PostList(props) {
   const [activeTab, setActiveTab] = useState("");
   const [lists, setLists] = useState([]); // 백엔드와 통신하여 모든 데이터를 setLists 에 저장해서 사용
@@ -59,13 +60,14 @@ function PostList(props) {
           </div>
         ))}
       </div>
+      <Search datas={posts}/>
       <div className={classes.post_list}>
         {posts?.length > 0 ? (
           visibleLists?.map((post, index) => (
             <div key={post?.id} className={classes.post_box}>
               <Link href={`/notice-board/${post?.id}`}>
                 <div className={classes.post_profilebox}>
-                  <div className={classes.post_author_name}>
+                  <div className={classes.post_index}>
                     {posts.length - index-(page-1)*limit}
                   </div>
                   <div className={classes.post_profile} />
