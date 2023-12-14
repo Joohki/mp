@@ -1,11 +1,14 @@
 import { useState, useRef, useEffect } from "react";
 import { signIn } from "next-auth/react";
+import { AiOutlineGoogle } from "react-icons/ai";
+import { SiNaver } from "react-icons/si";
+import { RiKakaoTalkFill } from "react-icons/ri";
 import { useRouter } from "next/router";
 import classes from "./AuthForm.module.css";
 import Notification from "../ui/Notification";
 import { useDispatch } from "react-redux";
-import {userActions} from '../../redux/reducer/user'
-
+import { userActions } from "../../redux/reducer/user";
+import Link from "next/link";
 async function CreateUser(email, password) {
   const response = await fetch("/api/auth/signup", {
     method: "POST",
@@ -16,7 +19,6 @@ async function CreateUser(email, password) {
   if (!response.ok) {
     throw new Error(data.message || "Something Went Wrong");
   }
-
   return data;
 }
 function AuthForm() {
@@ -27,7 +29,7 @@ function AuthForm() {
   const passwordInputRef = useRef();
   const passwordCheckInputRef = useRef();
   const [isLogin, setIsLogin] = useState(true);
-  
+
   const router = useRouter();
   useEffect(() => {
     if (requestStatus === "success" || requestStatus === "error") {
@@ -58,9 +60,11 @@ function AuthForm() {
         if (!result.error) {
           router.replace("/profile");
           setRequestStatus("success");
-          dispatch(userActions.login({
-            email: enteredEmail
-          }))
+          dispatch(
+            userActions.login({
+              email: enteredEmail,
+            })
+          );
           return;
         }
         setRequestError(result.error);
@@ -72,7 +76,6 @@ function AuthForm() {
           await CreateUser(enteredEmail, enteredPassword);
 
           setRequestStatus("success");
-
         } else {
           setRequestStatus("error");
           throw new Error("check you password");
@@ -110,14 +113,14 @@ function AuthForm() {
   }
   return (
     <section className={classes.auth}>
-      <h1>{isLogin ? "Login" : "Sign Up"}</h1>
+      <h1>{isLogin ? "로그인" : "회원가입"}</h1>
       <form onSubmit={submitHandler}>
         <div className={classes.control}>
-          <label htmlFor="email">Your Email</label>
+          <label htmlFor="email">이메일</label>
           <input type="email" id="email" required ref={emailInputRef} />
         </div>
         <div className={classes.control}>
-          <label htmlFor="password">Your Password</label>
+          <label htmlFor="password">비밀번호</label>
           <input
             type="password"
             id="password"
@@ -125,9 +128,10 @@ function AuthForm() {
             ref={passwordInputRef}
           />
         </div>
+
         {!isLogin && (
           <div className={classes.control}>
-            <label htmlFor="password">Password check</label>
+            <label htmlFor="password">비밀번호 확인</label>
             <input
               type="password"
               id="password"
@@ -137,16 +141,44 @@ function AuthForm() {
           </div>
         )}
         <div className={classes.actions}>
-          <button>{isLogin ? "Login" : "Create Account"}</button>
+          <button>{isLogin ? "로그인" : "계정생성"}</button>
           <button
             type="button"
             className={classes.toggle}
             onClick={switchAuthModeHandler}
           >
-            {isLogin ? "Create new account" : "Login with existing account"}
+            {isLogin ? "계정생성" : "로그인"}
           </button>
         </div>
       </form>
+      {isLogin && (
+        <div className={classes.flexContainer}>
+          <div className={classes.container}>
+            <div className={classes.subtitle}>SNS 계정으로 로그인해주세요</div>
+            <p className={classes.paragraph}>
+              계정이 없다면 자동으로 회원가입이 진행됩니다.
+            </p>
+          </div>
+          <div className={classes.buttonContainer}>
+            <div className={classes.google} onClick={() => signIn("google")}>
+              <AiOutlineGoogle className="w-6 h-6" />
+              Sign in with Google
+            </div>
+            <div className={classes.naver} onClick={() => signIn("naver")}>
+              <SiNaver className="w-4 h-4" />
+              Sign in with Naver
+            </div>
+            <div
+              className={classes.kakao}
+              onClick={() => signIn("kakao", { callbackUrl: "/" })}
+            >
+              <RiKakaoTalkFill className="w-6 h-6" />
+              Sign in with Kakao
+            </div>
+          </div>
+        </div>
+      )}
+
       {notification && (
         <Notification
           status={notification.status}

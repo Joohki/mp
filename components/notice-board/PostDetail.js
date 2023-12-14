@@ -1,5 +1,4 @@
 import classes from "./PostDetail.module.css";
-import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { PostProps } from "./PostList";
 import { toast } from "react-toastify";
@@ -22,14 +21,28 @@ async function deleteData(id) {
   }
 }
 export default function PostDetail(props) {
-  // const [post, setPost] = useState("");
-  // const params = useParams();
-
   const { post } = props;
+  const { file,filename } = post;
+
   const router = useRouter();
 
   const userEmail = useSelector((state) => state.user.email);
 
+  async function handleDownload() {
+    try {
+      if (file) {
+        const a = document.createElement("a");
+        a.href = file;
+        a.download = file; // 파일 이름 설정
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        toast.success("파일을 성공적으로 다운로드했습니다.");
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
+  }
   async function handleDelete(event) {
     event.preventDefault();
     try {
@@ -70,12 +83,19 @@ export default function PostDetail(props) {
                     >
                       삭제
                     </div>
-                    <div className={classes.post_edit}>
-                      {/* <Link to={`/posts/edit/${post?.id}`}>수정</Link> */}
-                    </div>
+                    {file && (
+                      <div
+                        className={classes.post_download}
+                        role="presentation"
+                        onClick={handleDownload}
+                      >
+                        {filename}
+                      </div>
+                    )}
                   </>
                 )}
               </div>
+
               <div
                 className={`${classes.post_text}${classes.post_textprewrap}`}
               >

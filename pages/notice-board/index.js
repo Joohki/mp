@@ -1,4 +1,5 @@
-import PostForm from "../../components/notice-board/PostForm";
+// import PostForm from "../../components/notice-board/PostForm";
+import PostForm from '@/components/notice-board/PostForm'
 import PostList from "../../components/notice-board/PostList";
 import { getAllBoardDatas } from "../../lib/board-util";
 
@@ -21,7 +22,8 @@ export async function getServerSideProps() {
         summary: data.summary,
         createdAt: data.createdAt,
         contents:data.contents,
-        date:data.date
+        date:data.date,
+        category:data.category
       })),
     },
   };

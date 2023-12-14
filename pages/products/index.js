@@ -12,7 +12,7 @@ function AllProductsPage(props) {
       <div>
         <p>준비중입니다!</p>
       </div>
-      {/* <AllProducts products={props.products} /> */}
+      <AllProducts products={props.products} />
     </Fragment>
   );
 }

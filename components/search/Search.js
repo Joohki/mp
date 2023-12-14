@@ -3,15 +3,16 @@ import { useState, useEffect } from "react";
 import { BiSearch } from 'react-icons/bi';
 const Search = (props) => {
   let { datas } = props;
+  const [searched, setSearched] = useState('')
+  useEffect(()=>{},[searched])
   const temp = datas.filter(
     (data) =>
-      data?.name?.toLowerCase().includes(search.toLowerCase()) ||
-      data?.category?.toLowerCase().includes(search.toLowerCase())
+      data?.name?.toLowerCase().includes(searched.toLowerCase()) ||
+      data?.category?.toLowerCase().includes(searched.toLowerCase())
   );
   datas = temp;
 
-  const [searched, setSearched] = useState('')
-  useEffect(()=>{},[searched])
+  
   return (
     <div className={classes.input}>
       {" "}

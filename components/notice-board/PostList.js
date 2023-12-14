@@ -4,8 +4,9 @@ import { CATEGORIES } from "./PostForm";
 import Link from "next/link";
 import ListPagination from "../pagination/ListPagination";
 import Search from "../search/Search";
+import { useSelector } from "react-redux";
 function PostList(props) {
-  const [activeTab, setActiveTab] = useState("");
+  const [activeTab, setActiveTab] = useState("all");
   const [lists, setLists] = useState([]); // 백엔드와 통신하여 모든 데이터를 setLists 에 저장해서 사용
   const [limit, setLimit] = useState(10); // 한 페이지에 보여줄 데이터의 개수
   const [page, setPage] = useState(1); // 페이지 초기 값은 1페이지
@@ -13,6 +14,7 @@ function PostList(props) {
   const [blockNum, setBlockNum] = useState(0); // 한 페이지에 보여 줄 페이지네이션의 개수를 block으로 지정하는 state. 초기 값은 0
   const [visibleLists, setVisibleLists] = useState([]);
   const { boarddata } = props;
+  const userEmail = useSelector((state) => state.user.email);
   const posts = boarddata.sort((data1, data2) => {
     const date1 = data1.date;
     const date2 = data2.date;
@@ -24,10 +26,20 @@ function PostList(props) {
   });
   useEffect(() => {
     const copy = [...posts];
-    setLists(copy);
-    setCounts(copy.length);
-  }, [posts]);
+    const filteredPosts = copy.filter((post) => {
+      if (activeTab === "all") {
+        return true; // 모든 글을 표시
+      } else if (activeTab === "my") {
+        return post.email === userEmail;
+      } else {
+        // 선택한 카테고리에 기반하여 글을 필터링
+        return post.category === activeTab;
+      }
+    });
 
+    setLists(filteredPosts);
+    setCounts(filteredPosts.length);
+  }, [posts, activeTab]);
   return (
     <>
       <div className={classes.post_navigation}>
@@ -35,40 +47,50 @@ function PostList(props) {
           role="presentation"
           onClick={() => {
             setActiveTab("all");
+            setPage(1);
+            setBlockNum(0);
           }}
           className={activeTab === "all" ? classes.active : ""}
         >
           전체
         </div>
-        <div
-          role="presentation"
-          onClick={() => {
-            setActiveTab("my");
-          }}
-          className={activeTab === "my" ? classes.active : ""}
-        >
-          나의 글
-        </div>
+        {userEmail ? (
+          <div
+            role="presentation"
+            onClick={() => {
+              setActiveTab("my");
+              setPage(1);
+              setBlockNum(0);
+            }}
+            className={activeTab === "my" ? classes.active : ""}
+          >
+            나의 글
+          </div>
+        ) : null}
         {CATEGORIES.map((category) => (
           <div
             key={category}
             role="presentation"
-            onClick={() => setActiveTab(category)}
+            onClick={() => {
+              setActiveTab(category);
+              setPage(1);
+              setBlockNum(0);
+            }}
             className={activeTab === category ? classes.active : ""}
           >
             {category}
           </div>
         ))}
       </div>
-      <Search datas={posts}/>
+      <Search datas={posts} />
       <div className={classes.post_list}>
-        {posts?.length > 0 ? (
+        {lists?.length > 0 ? (
           visibleLists?.map((post, index) => (
             <div key={post?.id} className={classes.post_box}>
               <Link href={`/notice-board/${post?.id}`}>
                 <div className={classes.post_profilebox}>
                   <div className={classes.post_index}>
-                    {posts.length - index-(page-1)*limit}
+                    {lists.length - index - (page - 1) * limit}
                   </div>
                   <div className={classes.post_profile} />
                   <div className={classes.post_author_name}>{post?.email}</div>

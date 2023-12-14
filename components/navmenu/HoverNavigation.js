@@ -24,7 +24,12 @@ function HoverNavigation() {
       <div className={classes.item}>사업정보 </div>
       <div className={classes.item}>투자정보</div>
       <div className={classes.item}>에너지</div>
-      <div className={classes.item}>알림마당</div>
+      <div className={classes.item}>
+        알림마당
+        <ul>
+          <Link href="/notice-board">게시판</Link>
+        </ul>
+      </div>
     </header>
   );
 }

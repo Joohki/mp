@@ -1,4 +1,4 @@
-import MainNavigation from './MainNavigation';
+import MainNavigation from '../navmenu/MainNavigation';
 import Footer from './Footer';
 import classes from './Layout.module.css'
 function Layout(props) {

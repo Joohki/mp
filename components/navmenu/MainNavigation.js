@@ -1,16 +1,16 @@
 import Link from "next/link";
 import { useState } from "react";
 import { useSession } from "next-auth/react";
-import Logo from "./Logo";
+import Logo from "../layout/Logo";
 import classes from "./MainNavigation.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import Modal from "../ui/Modal";
-import NavMenu from "../navmenu/NavMenu";
+import NavMenu from "./NavMenu";
 import CartButton from "../cart/CartButton";
 import Cart from "../cart/Cart";
 import HoverNavigation from "./HoverNavigation";
-import MobileNavMenu from "../navmenu/MobileNavMenu";
+import MobileNavMenu from "./MobileNavMenu";
 function MainNavigation() {
   const { data: session, status } = useSession();
   const loading = status === "loading";
@@ -33,12 +33,14 @@ function MainNavigation() {
   const showCartModal = () => {
     setIsCartClicked(true);
   };
-  
+
   return (
     <>
       {isMenuClicked && <NavMenu onCloseModal={hideModal}></NavMenu>}
       {isCartClicked && <Cart onCloseCart={hideModal} />}
-      {isMobileMenuClicked && <MobileNavMenu onCloseModal={hideModal}></MobileNavMenu>}
+      {isMobileMenuClicked && (
+        <MobileNavMenu onCloseModal={hideModal}></MobileNavMenu>
+      )}
       {!isMenuClicked && !isCartClicked && !isMobileMenuClicked && (
         <div
           onMouseOver={() => {
@@ -57,13 +59,14 @@ function MainNavigation() {
               <Logo isMouseOverMenu={isMouseOverMenu} />
             </Link>
             <ul className={classes.mobile}>
-              {!session && (
+              {loading && <li>로딩중..</li>}
+              {!session && !loading && (
                 <li className={classes.mobile}>
                   <Link href="/auth">로그인</Link>
                 </li>
               )}
 
-              {session && (
+              {session && !loading && (
                 <li className={classes.mobile}>
                   <Link href="/profile">프로필</Link>
                 </li>
@@ -93,14 +96,14 @@ function MainNavigation() {
                 <li>
                   <Link href="/products">상품</Link>
                 </li>
-
-                {!session && (
+                {loading && <li>로딩중...</li>}
+                {!session && !loading && (
                   <li>
                     <Link href="/auth">로그인</Link>
                   </li>
                 )}
 
-                {session && (
+                {session && !loading && (
                   <li>
                     <Link href="/profile">프로필</Link>
                   </li>
@@ -125,9 +128,9 @@ function MainNavigation() {
                     />
                   )}
                 </li>
-                {/* <li>
+                <li>
                   <CartButton onCart={showCartModal} />
-                </li> */}
+                </li>
               </ul>
             </nav>
           </header>

@@ -50,7 +50,7 @@ function UserProfile() {
   }
   return (
     <section className={classes.profile}>
-      <h1>User Profile</h1>
+      <h1>프로필</h1>
       <ProfileForm onChangePassword={changePasswordHandler} />
     </section>
   );

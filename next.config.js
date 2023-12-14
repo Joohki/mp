@@ -1,25 +1,59 @@
 const { PHASE_DEVELOPMENT_SERVER } = require("next/constants");
-module.exports = (phase) => {
+
+const combinedConfig = (phase) => {
+  const commonEnv = {
+    mongodb_username: process.env.mongodb_username,
+    mongodb_password: process.env.mongodb_password,
+    mongodb_clustername: "cluster0",
+  };
+
   if (phase === PHASE_DEVELOPMENT_SERVER) {
     return {
       env: {
-        mongodb_username: "prokion33",
-        mongodb_password: "fire135964",
-        mongodb_clustername: "cluster0",
+        ...commonEnv,
         mongodb_inquirydata: "inquiry-dev",
         mongodb_authdata: "authdata-dev",
-        mongodb_noticeboarddata: "boarddata-dev"
+        mongodb_noticeboarddata: "boarddata-dev",
       },
+      // async redirects() {
+      //    return [
+      //     {
+      //       source: '/checkout',
+      //       destination: '/',
+      //       permanent: false,
+      //     },
+      //     {
+      //       source: '/error/:slug*',
+      //       destination: '/',
+      //       permanent: false,
+      //     },
+      //    ];
+      // },
+     };
+  } else {
+    return {
+      env: {
+        ...commonEnv,
+        mongodb_inquirydata: "inquiry",
+        mongodb_authdata: "authdata",
+        mongodb_noticeboarddata: "boarddata",
+      },
+      // async redirects() {
+      //   return [
+      //     {
+      //       source: '/checkout',
+      //       destination: '/',
+      //       permanent: true,
+      //     },
+      //     {
+      //       source: '/error',
+      //       destination: '/',
+      //       permanent: true,
+      //     },
+      //   ];
+      // },
     };
   }
-  return {
-    env: {
-      mongodb_username: "prokion33",
-      mongodb_password: "fire135964",
-      mongodb_clustername: "cluster0",
-      mongodb_inquirydata: "inquiry",
-      mongodb_authdata: "authdata",
-      mongodb_noticeboarddata: "boarddata"
-    },
-  };
 };
+
+module.exports = combinedConfig;

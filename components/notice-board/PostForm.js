@@ -2,8 +2,11 @@ import classes from "./PostForm.module.css";
 import { useRef, useState } from "react";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
+import { useSelector } from "react-redux";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import { storage } from "../../firebase/firebase";
 export const CATEGORIES = ["E&E Tech", "A&K 글로벌", "헤도네", "신창이앤씨"];
-// const [category, setCategory] = useState();
+
 const isEmpty = (value) => {
   return value.trim().length === 0;
 };
@@ -28,6 +31,10 @@ async function postNoticeFormData(details) {
 
 const PostForm = (props) => {
   const router = useRouter();
+  const userEmail = useSelector((state) => state.user.email);
+  const [file, setFile] = useState("");
+  const [filename, setFilename] = useState('');
+  const [uploadProgress, setUploadProgress] = useState(0);
   const [validSubmitForm, setValidSubmitForm] = useState({
     name: true,
     email: true,
@@ -41,7 +48,33 @@ const PostForm = (props) => {
   const categoryInputRef = useRef();
   const summaryInputRef = useRef();
   const contentsInputRef = useRef();
+  const handleFileChange = (e) => {
+    if (!e.target.files) return;
 
+    const file = e.target.files[0];
+
+    const storageRef = ref(storage, `files/${file.name}`);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        setUploadProgress(progress);
+      },
+      (error) => {
+        toast.error(error.message);
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          setFile(downloadURL);
+          setFilename(file.name);
+          toast.success("파일을 성공적으로 업로드했습니다.");
+        });
+      }
+    );
+  };
   const confirmHandler = async (event) => {
     event.preventDefault();
     try {
@@ -84,6 +117,8 @@ const PostForm = (props) => {
           minute: "2-digit",
           second: "2-digit",
         }),
+        file: file,
+        filename:filename,
       });
       toast.success("게시글을 성공적으로 추가했습니다.");
       router.replace("/notice-board");
@@ -108,7 +143,12 @@ const PostForm = (props) => {
         }`}
       >
         <label htmlFor="email">이메일</label>
-        <input type="text" id="email" ref={emailInputRef}></input>
+        <input
+          type="text"
+          id="email"
+          ref={emailInputRef}
+          value={userEmail ? userEmail : null}
+        ></input>
         {!validSubmitForm.email && <p>please enter a valid email</p>}
       </div>
       <div
@@ -147,6 +187,31 @@ const PostForm = (props) => {
           validSubmitForm.name ? "" : classes.invalid
         }`}
       >
+        <label htmlFor="file">파일</label>
+        {uploadProgress === 0 ? null : (
+          <div className={classes.progress}>
+            <div
+              className={classes["progress-bar"]}
+              style={{ width: `${uploadProgress}%` }}
+            >
+              {uploadProgress < 100
+                ? `Uploading... ${uploadProgress}`
+                : `Upload Complete ${uploadProgress}%`}
+            </div>
+          </div>
+        )}
+        <input className={classes.file}
+          type="file"
+          placeholder="파일"
+          name="file"
+          onChange={(e) => handleFileChange(e)}
+        />
+      </div>
+      <div
+        className={`${classes.control} ${
+          validSubmitForm.name ? "" : classes.invalid
+        }`}
+      >
         <label htmlFor="summary">요약</label>
         <input
           type="text"
@@ -156,6 +221,7 @@ const PostForm = (props) => {
           required
         />
       </div>
+
       <div
         className={`${classes.control} ${
           validSubmitForm.name ? "" : classes.invalid

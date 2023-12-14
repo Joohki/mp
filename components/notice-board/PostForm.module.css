@@ -27,7 +27,16 @@
   width: 96%;
   max-width: 680px;
 }
-
+.control .file {
+  font: inherit;
+  height: 50px;
+  padding: 10px 10px;
+  font-size: 16px;
+  border-radius: 0.3rem;
+  border: 1px solid lightgray;
+  width: 96%;
+  max-width: 680px;
+}
 .control select {
   border: 1px solid lightgray;
   max-width: 680px;
@@ -85,4 +94,18 @@
 .invalid input {
   border-color: #aa0b20;
   background-color: #ffeff1;
+}
+.progress {
+  background-color: #aaa;
+  border: 1px solid transparent;
+  border-radius: 10px;
+}
+.progress-bar {
+  background-color: lightblue;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 500;
+  padding: 0 1rem;
 }

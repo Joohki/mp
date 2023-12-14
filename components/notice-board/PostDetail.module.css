@@ -68,6 +68,14 @@
 .post_delete:focus {
   color: black;
 }
+.post_download {
+  cursor: pointer;
+}
+
+.post_download:hover,
+.post_download:focus {
+  color: black;
+}
 .post_edit:hover,
 .post_edit:focus,
 .post_edit a:hover,
