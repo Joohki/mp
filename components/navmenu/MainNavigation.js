@@ -128,9 +128,9 @@ function MainNavigation() {
                     />
                   )}
                 </li>
-                <li>
+                {/* <li>
                   <CartButton onCart={showCartModal} />
-                </li>
+                </li> */}
               </ul>
             </nav>
           </header>
