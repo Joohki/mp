@@ -91,3 +91,32 @@
   text-decoration: none;
   color: gray;
 }
+
+/* 기존 스타일 유지 */
+
+@media screen and (max-width: 768px){
+  /* 화면 크기가 600px 이하일 때 적용되는 스타일 */
+  
+  .post_detail {
+    padding: 10px; /* 모바일에서 좀 더 간격을 줄임 */
+    min-height: auto; /* min-height 제거 또는 조정 */
+    width: 100%; /* 가로 폭을 100%로 조정 */
+  }
+
+  .post_title {
+    font-size: 24px; /* 제목 폰트 크기 축소 */
+    line-height: 28px; /* 제목 줄 간격 축소 */
+    margin: 10px 0; /* 제목 위아래 간격 축소 */
+  }
+
+  .post_utilsbox {
+    font-size: 12px; /* 유틸리티 상자의 폰트 크기 축소 */
+  }
+
+  .post_text {
+    padding: 10px 0; /* 텍스트의 위아래 간격 축소 */
+    font-size: 14px; /* 텍스트의 폰트 크기 축소 */
+  }
+
+  /* 기타 모바일에 맞게 조정할 스타일 추가 */
+}

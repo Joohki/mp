@@ -45,8 +45,11 @@
 .post_index{
   color: gray;
 }
-.post_date {
+.post_datepc {
   color: gray;
+}
+.post_datemobile{
+  display: none;
 }
 .post_title {
   font-size: 20px;
@@ -85,4 +88,16 @@
   color: gray;
   border: 1px solid #f2f2f2;
   border-radius: 20px;
+}
+@media screen and (max-width: 768px) {
+  .post_datepc {
+    display:none;
+  }
+  .post_datemobile {
+    color: gray;
+    font-size:14px;
+    display:flex;
+   
+   justify-content: end;
+  }
 }

@@ -94,8 +94,9 @@ function PostList(props) {
                   </div>
                   <div className={classes.post_profile} />
                   <div className={classes.post_author_name}>{post?.email}</div>
-                  <div className={classes.post_date}>{post?.createdAt}</div>
+                  <div className={classes.post_datepc}>{post?.createdAt}</div>
                 </div>
+                <div className={classes.post_datemobile}>{post?.createdAt}</div>
                 <div className={classes.post_title}>{post?.title}</div>
                 <div className={classes.post_text}>{post?.summary}</div>
               </Link>
