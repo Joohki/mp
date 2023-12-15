@@ -84,6 +84,7 @@ function AuthForm() {
     } catch (error) {
       setRequestError(error.message);
       setRequestStatus("error");
+      
     }
   }
   let notification;
@@ -160,17 +161,17 @@ function AuthForm() {
             </p>
           </div>
           <div className={classes.buttonContainer}>
-            <div className={classes.google} onClick={() => signIn("google")}>
+            <div className={classes.google} onClick={() => signIn("google", { callbackUrl: "/profile" })}>
               <AiOutlineGoogle className="w-6 h-6" />
               Sign in with Google
             </div>
-            <div className={classes.naver} onClick={() => signIn("naver")}>
+            <div className={classes.naver} onClick={() => signIn("naver", { callbackUrl: "/profile" })}>
               <SiNaver className="w-4 h-4" />
               Sign in with Naver
             </div>
             <div
               className={classes.kakao}
-              onClick={() => signIn("kakao", { callbackUrl: "/" })}
+              onClick={() => signIn("kakao", { callbackUrl: "/profile" })}
             >
               <RiKakaoTalkFill className="w-6 h-6" />
               Sign in with Kakao

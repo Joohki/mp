@@ -6,6 +6,7 @@
   margin: 0 auto;
   text-align: left;
   line-height: 24px;
+  width:90vw;
 }
 
 .post_title {
@@ -22,7 +23,7 @@
   flex-direction: row;
   display: flex;
   gap: 8px;
-
+  
   font-size: 14px;
   color: gray;
 }
@@ -39,6 +40,9 @@
   padding: 20px 0px;
   color: dimgray;
   font-size: 16px;
+  
+  word-wrap: break-word; /* 단어 단위로 줄 바꿈을 적용 */
+  white-space: pre-wrap;
 }
 .post_textprewrap {
   white-space: pre-wrap;

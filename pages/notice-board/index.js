@@ -1,12 +1,10 @@
 // import PostForm from "../../components/notice-board/PostForm";
-import PostForm from '@/components/notice-board/PostForm'
 import PostList from "../../components/notice-board/PostList";
 import { getAllBoardDatas } from "../../lib/board-util";
 
-function PostPage(props) {
+function BoardPage(props) {
   return (
     <>
-      <PostForm />
       <PostList boarddata={props.boarddatas} />
     </>
   );
@@ -29,4 +27,4 @@ export async function getServerSideProps() {
   };
 }
 
-export default PostPage;
+export default BoardPage;

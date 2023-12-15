@@ -82,7 +82,7 @@ function PostList(props) {
           </div>
         ))}
       </div>
-      <Search datas={posts} />
+      {/* <Search datas={posts} /> */}
       <div className={classes.post_list}>
         {lists?.length > 0 ? (
           visibleLists?.map((post, index) => (

@@ -4,7 +4,7 @@ import { PostProps } from "./PostList";
 import { toast } from "react-toastify";
 import Comments from "./Comments.js";
 import { useRouter } from "next/router";
-
+import LinkTag from '@/components/layout/LinkTag'
 async function deleteData(id) {
   const response = await fetch("/api/noticeboarddelete", {
     method: "DELETE",
@@ -22,7 +22,7 @@ async function deleteData(id) {
 }
 export default function PostDetail(props) {
   const { post } = props;
-  const { file,filename } = post;
+  const { file, filename } = post;
 
   const router = useRouter();
 
@@ -57,7 +57,7 @@ export default function PostDetail(props) {
       toast.error(error.message);
     }
   }
-
+ 
   return (
     <>
       <div className={classes.post_detail}>
@@ -97,9 +97,12 @@ export default function PostDetail(props) {
               </div>
 
               <div
-                className={`${classes.post_text}${classes.post_textprewrap}`}
+                className={`${classes.post_text} ${classes.post_textprewrap}`}
+                
               >
-                {post?.contents}
+                {post?.contents.split('<link>').map((item, index) => (
+                (index % 2) !== 0 ? <LinkTag key={index}>{item}</LinkTag> : item
+              ))}
               </div>
             </div>
             {/* <Comments post={post} getPost={getPost} /> */}

@@ -18,18 +18,6 @@ export const authOptions = {
     signIn: "/auth",
   },
   providers: [
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID || "",
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
-    }),
-    NaverProvider({
-      clientId: process.env.NAVER_CLIENT_ID || "",
-      clientSecret: process.env.NAVER_CLIENT_SECRET || "",
-    }),
-    KakaoProvider({
-      clientId: process.env.KAKAO_CLIENT_ID || "",
-      clientSecret: process.env.KAKAO_CLIENT_SECRET || "",
-    }),
     CredentialsProvider({
       async authorize(credentials) {
         const client = await connectToAuthDatabase();
@@ -53,10 +41,25 @@ export const authOptions = {
         return { email: user.email }; //password는 해싱됐어도 클라이언트 노출 x
       },
     }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID || "",
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
+    }),
+    NaverProvider({
+      clientId: process.env.NAVER_CLIENT_ID || "",
+      clientSecret: process.env.NAVER_CLIENT_SECRET || "",
+    }),
+    KakaoProvider({
+      clientId: process.env.KAKAO_CLIENT_ID || "",
+      clientSecret: process.env.KAKAO_CLIENT_SECRET || "",
+    }),
   ],
   callbacks: {
     async signIn({ user, account, profile }) {
       // 사용자 로그인 후의 추가 로직을 작성할 수 있습니다.
+      if (account.provider === "credentials") {
+        return true;
+      }
       if (profile) {
         user.name = profile.response?.name || user.name;
         user.email = profile.response?.email || user.email;
@@ -85,7 +88,6 @@ export const authOptions = {
             console.log("이미 다른 인증 제공자로 가입된 이메일입니다.");
             // 여기에서 리다이렉트 로직을 추가하면 됩니다.
             return "/error/already-registered";
-            
           }
         }
 
@@ -95,18 +97,12 @@ export const authOptions = {
         return true;
       } catch (error) {
         console.log("로그인 도중 에러가 발생했습니다. " + error);
-        throw error;
+
         // return false;
       }
     },
 
-    async redirect(url, baseUrl) {
-      if (url === baseUrl) {
-        return baseUrl;
-      } else {
-        return "/profile";
-      }
-    },
+    
     session: ({ session, token }) => ({
       ...session,
       user: {
