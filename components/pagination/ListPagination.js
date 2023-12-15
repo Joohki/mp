@@ -83,7 +83,7 @@ function ListPagination(props) {
       >
         &lt;
       </button>
-      <div className={classes.pageBtnWrapper}>
+      <div>
         {pArr.map((n) => (
           <button
             className={classes.pageBtn}

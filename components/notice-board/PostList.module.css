@@ -33,7 +33,7 @@
   font-size: 14px;
   align-items: center;
 }
-.post_profile{
+.post_profile {
   width: 36px;
   height: 36px;
   background: #f2f2f2;
@@ -42,13 +42,13 @@
 .post_author_name {
   color: gray;
 }
-.post_index{
+.post_index {
   color: gray;
 }
 .post_datepc {
   color: gray;
 }
-.post_datemobile{
+.post_datemobile {
   display: none;
 }
 .post_title {
@@ -91,13 +91,12 @@
 }
 @media screen and (max-width: 768px) {
   .post_datepc {
-    display:none;
+    display: none;
   }
   .post_datemobile {
     color: gray;
-    font-size:14px;
-    display:flex;
-   
-   justify-content: end;
+    font-size: 14px;
+    display: flex;
+    justify-content: end;
   }
 }

@@ -124,6 +124,7 @@ function PostList(props) {
         )}
       </div>
       <ListPagination
+        
         limit={limit}
         page={page}
         setPage={setPage}
