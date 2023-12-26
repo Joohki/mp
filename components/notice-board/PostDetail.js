@@ -4,7 +4,8 @@ import { PostProps } from "./PostList";
 import { toast } from "react-toastify";
 import Comments from "./Comments.js";
 import { useRouter } from "next/router";
-import LinkTag from '@/components/layout/LinkTag'
+import LinkTag from "@/components/layout/LinkTag";
+import Link from "next/link";
 async function deleteData(id) {
   const response = await fetch("/api/noticeboarddelete", {
     method: "DELETE",
@@ -57,7 +58,7 @@ export default function PostDetail(props) {
       toast.error(error.message);
     }
   }
- 
+
   return (
     <>
       <div className={classes.post_detail}>
@@ -68,7 +69,12 @@ export default function PostDetail(props) {
               <div className={classes.post_profilebox}>
                 <div className={classes.post_profile} />
                 <div className={classes.post_authorname}>{post?.email}</div>
-                <div className={classes.post_date}>{post?.createdAt}</div>
+                {!post.modifiedAt &&(<div className={classes.post_date}>{post?.createdAt}</div>)}
+                {post.modifiedAt && (
+                  <div className={classes.post_date}>
+                    수정됨&nbsp;&nbsp;{post?.modifiedAt}
+                  </div>
+                )}
               </div>
               <div className={classes.post_utilsbox}>
                 <div className={classes.post_category}>
@@ -82,6 +88,9 @@ export default function PostDetail(props) {
                       onClick={handleDelete}
                     >
                       삭제
+                    </div>
+                    <div className={classes.post_edit}>
+                      <Link href={`/notice-board/edit/${post?._id}`}>수정</Link>
                     </div>
                     {file && (
                       <div
@@ -98,11 +107,16 @@ export default function PostDetail(props) {
 
               <div
                 className={`${classes.post_text} ${classes.post_textprewrap}`}
-                
               >
-                {post?.contents.split('<link>').map((item, index) => (
-                (index % 2) !== 0 ? <LinkTag key={index}>{item}</LinkTag> : item
-              ))}
+                {post?.contents
+                  .split("<link>")
+                  .map((item, index) =>
+                    index % 2 !== 0 ? (
+                      <LinkTag key={index}>{item}</LinkTag>
+                    ) : (
+                      item
+                    )
+                  )}
               </div>
             </div>
             {/* <Comments post={post} getPost={getPost} /> */}

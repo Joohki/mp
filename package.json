@@ -50,5 +50,9 @@
     "prisma": "^5.7.0",
     "ts-node": "^10.9.1",
     "typescript": "5.3.2"
-  }
+  },
+  "main": "index.js",
+  "repository": "https://github.com/Joohki/mp.git",
+  "author": "김주현 <prokion33@gmail.com>",
+  "license": "MIT"
 }

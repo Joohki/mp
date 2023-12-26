@@ -28,12 +28,29 @@ async function postNoticeFormData(details) {
     throw new Error(data.message || "Something went wrong!");
   }
 }
+async function patchNoticeFormData(details) {
+  const response = await fetch("/api/noticeboard", {
+    method: "PATCH",
+    body: JSON.stringify(details),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.message || "Something went wrong!");
+  }
+}
 
 const PostForm = (props) => {
   const router = useRouter();
   const userEmail = useSelector((state) => state.user.email);
+  const isEditMode = !!props.post; // 수정 모드인지 확인
+
   const [file, setFile] = useState("");
-  const [filename, setFilename] = useState('');
+  const [filename, setFilename] = useState("");
   const [uploadProgress, setUploadProgress] = useState(0);
   const [validSubmitForm, setValidSubmitForm] = useState({
     name: true,
@@ -103,24 +120,44 @@ const PostForm = (props) => {
       if (!isValidForm) {
         return;
       }
-
-      await postNoticeFormData({
-        name: enteredName,
-        email: enteredEmail,
-        title: enteredTitle,
-        category: enteredCategory,
-        summary: enteredSummary,
-        contents: enteredContents,
-        date: new Date(),
-        createdAt: new Date()?.toLocaleDateString("ko", {
-          hour: "2-digit",
-          minute: "2-digit",
-          second: "2-digit",
-        }),
-        file: file,
-        filename:filename,
-      });
-      toast.success("게시글을 성공적으로 추가했습니다.");
+      if (isEditMode) {
+        await patchNoticeFormData({
+          _id:props.post._id,
+          name: enteredName,
+          email: enteredEmail,
+          title: enteredTitle,
+          category: enteredCategory,
+          summary: enteredSummary,
+          contents: enteredContents,
+          date: new Date(),
+          modifiedAt: new Date()?.toLocaleDateString("ko", {
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+          }),
+          file: file,
+          filename: filename,
+        })
+      } else {
+        await postNoticeFormData({
+         
+          name: enteredName,
+          email: enteredEmail,
+          title: enteredTitle,
+          category: enteredCategory,
+          summary: enteredSummary,
+          contents: enteredContents,
+          date: new Date(),
+          createdAt: new Date()?.toLocaleDateString("ko", {
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+          }),
+          file: file,
+          filename: filename,
+        });
+      }
+      toast.success("게시글을 성공적으로 처리했습니다.");
       router.replace("/notice-board");
     } catch (error) {
       toast.error(error.message);
@@ -200,7 +237,8 @@ const PostForm = (props) => {
             </div>
           </div>
         )}
-        <input className={classes.file}
+        <input
+          className={classes.file}
           type="file"
           placeholder="파일"
           name="file"
