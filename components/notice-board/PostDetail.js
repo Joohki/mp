@@ -2,7 +2,7 @@ import classes from "./PostDetail.module.css";
 import { useSelector } from "react-redux";
 import { PostProps } from "./PostList";
 import { toast } from "react-toastify";
-import Comments from "./Comments.js";
+import Comments from "./Comments.tsx";
 import { useRouter } from "next/router";
 import LinkTag from "@/components/layout/LinkTag";
 import Link from "next/link";
@@ -119,7 +119,7 @@ export default function PostDetail(props) {
                   )}
               </div>
             </div>
-            {/* <Comments post={post} getPost={getPost} /> */}
+            <Comments />
           </>
         ) : (
           <div />
