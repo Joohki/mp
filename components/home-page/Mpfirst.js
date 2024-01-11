@@ -6,7 +6,7 @@ function Mpfirst() {
       <Image src="/images/mpimage/mainpage.jpg" priority fill  />
       <div className={classes.inner}>
         <Image
-          src="/images/mpimage/mainletteringback.png"
+          src="/images/mpimage/mainlettering.png"
           width={0}
           height={0}
           sizes="100vw"
