@@ -1,4 +1,5 @@
 import Link from "next/link";
+import dynamic from 'next/dynamic';
 import { useState } from "react";
 import { useSession } from "next-auth/react";
 import Logo from "../layout/Logo";
@@ -6,11 +7,16 @@ import classes from "./MainNavigation.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import Modal from "../ui/Modal";
-import NavMenu from "./NavMenu";
+// import NavMenu from "./NavMenu";
 import CartButton from "../cart/CartButton";
-import Cart from "../cart/Cart";
-import HoverNavigation from "./HoverNavigation";
-import MobileNavMenu from "./MobileNavMenu";
+// import Cart from "../cart/Cart";
+// import HoverNavigation from "./HoverNavigation";
+// import MobileNavMenu from "./MobileNavMenu";
+const NavMenu = dynamic(() => import('./NavMenu'), { ssr: false });
+const Cart = dynamic(() => import('../cart/Cart'), { ssr: false });
+const HoverNavigation = dynamic(() => import('./HoverNavigation'), { ssr: false });
+const MobileNavMenu = dynamic(() => import('./MobileNavMenu'), { ssr: false });
+
 function MainNavigation() {
   const { data: session, status } = useSession();
   const loading = status === "loading";

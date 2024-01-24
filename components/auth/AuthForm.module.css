@@ -13,7 +13,15 @@
   text-align: center;
   color: black;
 }
-
+.radio{
+  margin-bottom: 1rem ;
+}
+.radio label{
+  margin-right: 0.1rem;
+}
+.radio input {
+  margin-right: 0.5rem;
+}
 .control {
   margin-bottom: 0.5rem;
 }

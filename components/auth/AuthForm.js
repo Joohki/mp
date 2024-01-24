@@ -9,10 +9,10 @@ import Notification from "../ui/Notification";
 import { useDispatch } from "react-redux";
 import { userActions } from "../../redux/reducer/user";
 import Link from "next/link";
-async function CreateUser(email, password) {
+async function CreateUser(email, password, userType) {
   const response = await fetch("/api/auth/signup", {
     method: "POST",
-    body: JSON.stringify({ email, password }),
+    body: JSON.stringify({ email, password, userType }),
     headers: { "Content-Type": "application/json" },
   });
   const data = await response.json();
@@ -29,7 +29,7 @@ function AuthForm() {
   const passwordInputRef = useRef();
   const passwordCheckInputRef = useRef();
   const [isLogin, setIsLogin] = useState(true);
-
+  const [userType, setUserType] = useState("user");
   const router = useRouter();
   useEffect(() => {
     if (requestStatus === "success" || requestStatus === "error") {
@@ -73,7 +73,7 @@ function AuthForm() {
         const enteredPasswordCheck = passwordCheckInputRef.current.value;
 
         if (enteredPassword === enteredPasswordCheck) {
-          await CreateUser(enteredEmail, enteredPassword);
+          await CreateUser(enteredEmail, enteredPassword, userType);
 
           setRequestStatus("success");
         } else {
@@ -84,7 +84,6 @@ function AuthForm() {
     } catch (error) {
       setRequestError(error.message);
       setRequestStatus("error");
-      
     }
   }
   let notification;
@@ -116,6 +115,28 @@ function AuthForm() {
     <section className={classes.auth}>
       <h1>{isLogin ? "로그인" : "회원가입"}</h1>
       <form onSubmit={submitHandler}>
+        <div className={classes.radio}>
+          <label htmlFor="admin">관리자</label>
+          <input
+            type="radio"
+            id="admin"
+            name="userType"
+            value="admin"
+            checked={userType === "admin"}
+            onChange={() => setUserType("admin")}
+          />
+
+          <label htmlFor="user">일반 사용자</label>
+          <input
+            type="radio"
+            id="user"
+            name="userType"
+            value="user"
+            checked={userType === "user"}
+            onChange={() => setUserType("user")}
+          />
+        </div>
+
         <div className={classes.control}>
           <label htmlFor="email">이메일</label>
           <input type="email" id="email" required ref={emailInputRef} />
@@ -152,7 +173,7 @@ function AuthForm() {
           </button>
         </div>
       </form>
-      {isLogin && (
+      {isLogin && userType === "user" && (
         <div className={classes.flexContainer}>
           <div className={classes.container}>
             <div className={classes.subtitle}>SNS 계정으로 로그인해주세요</div>
@@ -161,11 +182,17 @@ function AuthForm() {
             </p>
           </div>
           <div className={classes.buttonContainer}>
-            <div className={classes.google} onClick={() => signIn("google", { callbackUrl: "/profile" })}>
+            <div
+              className={classes.google}
+              onClick={() => signIn("google", { callbackUrl: "/profile" })}
+            >
               <AiOutlineGoogle className="w-6 h-6" />
               Sign in with Google
             </div>
-            <div className={classes.naver} onClick={() => signIn("naver", { callbackUrl: "/profile" })}>
+            <div
+              className={classes.naver}
+              onClick={() => signIn("naver", { callbackUrl: "/profile" })}
+            >
               <SiNaver className="w-4 h-4" />
               Sign in with Naver
             </div>

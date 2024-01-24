@@ -5,6 +5,9 @@ import classes from "./Calender.module.scss";
 import Section from "../layout/Section";
 import { ko } from "date-fns/locale";
 import "react-day-picker/dist/style.css";
+const css = `.rdp-caption{
+  display:none
+}`;
 export default function Calender({ date }: { date: string }) {
   const [selected, setSelected] = useState<Date>();
 
@@ -17,11 +20,14 @@ export default function Calender({ date }: { date: string }) {
   return (
     <Section>
       <div className={classes.wrap_header}>
+        <style>{css}</style>
         <DayPicker
           mode="single"
           selected={selected}
           onSelect={setSelected}
           footer={footer}
+          locale={ko}
+          formatters={{ formatCaption: () => "" }}
         />
         {selected && (
           <span className={classes.txt_date}>

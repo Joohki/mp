@@ -6,6 +6,8 @@ import { storage } from "../../firebase/firebase";
 import { toast } from "react-toastify";
 import { Timestamp, addDoc, collection } from "firebase/firestore";
 import { db } from "../../firebase/firebase";
+import AddressSearch from "@/components/map/AddressSearch";
+import Map from "@/components/map/Map";
 export const categories = [
   { id: 1, name: "Laptop" },
   { id: 2, name: "Electronics" },
@@ -27,6 +29,7 @@ const initialState = {
   category: "",
   brand: "",
   desc: "",
+  address: "",
 };
 
 const AddProductForm = () => {
@@ -56,38 +59,62 @@ const AddProductForm = () => {
       (error) => {
         toast.error(error.message);
       },
-      () => {
-        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+      // () => {
+      //   getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+      //     setProduct({ ...product, imageURL: downloadURL });
+      //     toast.success("이미지를 성공적으로 업로드했습니다.");
+      //   });
+      // }
+      async () => {
+        try {
+          const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
           setProduct({ ...product, imageURL: downloadURL });
           toast.success("이미지를 성공적으로 업로드했습니다.");
-        });
+        } catch (error) {
+          toast.error(error.message);
+        }
       }
     );
   };
-  const addProduct = (e) => {
+
+  const addProduct = async (e) => {
     e.preventDefault();
     setIsLoading(true);
 
     try {
-      addDoc(collection(db, "products"), {
+      const response = await fetch("/api/map", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ address: product.address }),
+      });
+      const result = await response.json();
+
+      const { lat, lng } = result.data;
+
+      await addDoc(collection(db, "products"), {
         name: product.name,
         imageURL: product.imageURL,
         price: Number(product.price),
         category: product.category,
         brand: product.brand,
         desc: product.desc,
+        address: product.address,
         createdAt: Timestamp.now().toDate(),
+        lat,
+        lng,
       });
 
-      setIsLoading(false);
-      setUploadProgress(0);
       setProduct({ ...initialState });
 
       toast.success("상품을 저장했습니다.");
       router.push("/admin");
     } catch (error) {
+      toast.error(error);
+    } finally {
       setIsLoading(false);
-      toast.error(getErrorMessage(error));
+      setUploadProgress(0);
     }
   };
 
@@ -123,7 +150,6 @@ const AddProductForm = () => {
             placeholder="상품 이미지"
             accept="image/*"
             name="image"
-            required
             onChange={(e) => handleImageChange(e)}
           />
 
@@ -133,7 +159,6 @@ const AddProductForm = () => {
               name="imageURL"
               disabled
               value={product.imageURL}
-              required
               placeholder="이미지 URL"
             />
           )}
@@ -183,6 +208,10 @@ const AddProductForm = () => {
           required
           onChange={(e) => handleInputChange(e)}
         ></textarea>
+        <AddressSearch
+          product={product}
+          handleInputChange={handleInputChange}
+        />
         <button type="submit">상품 생성</button>
       </form>
     </div>

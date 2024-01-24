@@ -59,7 +59,7 @@ export const authOptions = {
       // 사용자 로그인 후의 추가 로직을 작성할 수 있습니다.
       if (account.provider === "credentials") {
         return true;
-      }
+      }   
       if (profile) {
         user.name = profile.response?.name || user.name;
         user.email = profile.response?.email || user.email;

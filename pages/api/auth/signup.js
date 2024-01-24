@@ -3,7 +3,7 @@ import { hashPassword } from "../../../lib/passwordAuth";
 async function handler(req, res) {
   if (req.method === "POST") {
     const data = req.body;
-    const { email, password } = data;
+    const { email, password, userType } = data;
     if (
       !email ||
       !email.includes("@") ||
@@ -28,6 +28,7 @@ async function handler(req, res) {
     const result = await db.collection("users").insertOne({
       email: email,
       password: hashedPassword,
+      userType: userType
     });
     res.status(201).json({ message: "Created User!" });
     client.close()
