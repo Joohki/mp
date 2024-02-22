@@ -25,7 +25,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "components/order/OrderDetail.js", "components/order/orderDetail.js", "components/order/OrderHistory.js", "redux/store.js", "components/navmenu/AdminNav.js"  ],
   "exclude": [
     "node_modules"
   ]

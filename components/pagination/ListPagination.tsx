@@ -1,6 +1,7 @@
 import classes from "./ListPagination.module.scss";
 import { useState, useEffect } from "react";
-function ListPagination(props) {
+import {ListPaginationProps} from '@/types/index'
+function ListPagination(props:ListPaginationProps) {
   const {
     lists,
     setLists,
@@ -13,7 +14,7 @@ function ListPagination(props) {
     visibleLists,
     setVisibleLists,
   } = props;
-  const createArr = (n) => {
+  const createArr = (n:number) => {
     const iArr = new Array(n);
     for (let i = 0; i < n; i++) iArr[i] = i + 1;
     return iArr;

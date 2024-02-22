@@ -35,6 +35,8 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 # 프로젝트 개요
 
+nextauth,calender,checkout 결제, 기본페이지, 카트 푸터 링크태그 섹션등의 레이아웃 제작, 다음과 카카오 api를 활용한 map 기능,  오더페이지(토스페이를 활용), 페이지네이션, 프로필 페이지 구현, 검색기능(아직 해야함), 로더 모달등의 ui 제작, 리덕스 활용
+
 ## 상품 생성 및 정보 저장
 
 - Admin 페이지에서 Firebase를 활용하여 상품 이미지를 저장하고, 나머지 정보는 Firestore에 저장하는 기능을 구현했습니다.

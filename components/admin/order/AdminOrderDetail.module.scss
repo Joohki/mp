@@ -1,0 +1,48 @@
+.table {
+    padding: 5px;
+    width: 100%;
+    overflow-x: auto;
+
+    .details {
+        font-size: 1.3rem;
+        padding: 1rem 0;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        font-size: 1.4rem;
+
+        thead {
+            border-top: 2px solid var(--color-primary-200);
+            border-bottom: 2px solid var(--color-primary-200);
+        }
+
+        th {
+            border: 1px solid var(--color-grey-400);
+        }
+
+        th,
+        td {
+            vertical-align: top;
+            text-align: left;
+            padding: 8px;
+
+            &.icons {
+                >* {
+                    margin-right: 5px;
+                    cursor: pointer;
+                }
+            }
+        }
+
+        tr {
+            border-bottom: 1px solid var(--color-grey-300);
+        }
+
+        tr:nth-child(even) {
+            background-color: var(--color-grey-50);
+        }
+
+    }
+}

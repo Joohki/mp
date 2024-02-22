@@ -5,6 +5,8 @@
 }
 
 body {
+  --dark-blue: #0074e9;
+  --light-blue: #1f93ff;
   --color-grey-50: hsl(265, 55%, 96%);
   --color-grey-100: hsl(265, 19%, 88%);
   --color-grey-200: hsl(265, 7%, 70%);

@@ -1,6 +1,10 @@
 import { RotatingLines } from "react-loader-spinner";
 import classes from "./Loader.module.css";
-export default function Loader({ basic }) {
+import { ReactElement } from "react";
+interface LoaderProps {
+  basic?: boolean;
+}
+export default function Loader({ basic }: LoaderProps) {
   if (basic) {
     return (
       <div className={classes.basicWrapper}>

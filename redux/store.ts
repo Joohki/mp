@@ -1,7 +1,14 @@
-import { configureStore, combineReducers } from "@reduxjs/toolkit";
+import {
+  configureStore,
+  combineReducers,
+  AnyAction,
+  Store,
+} from "@reduxjs/toolkit";
 import { HYDRATE, createWrapper } from "next-redux-wrapper";
 import { userReducer } from "./reducer/user";
 import { cartReducer } from "./reducer/cart";
+import { orderReducer } from "./reducer/order";
+import { filterReducer } from "./reducer/filter";
 import storage from "redux-persist/lib/storage";
 import {
   persistReducer,
@@ -13,15 +20,27 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
+import { productReducer } from "./reducer/product";
 
-const rootReducer = combineReducers({ user: userReducer, cart: cartReducer });
+// export interface RootState {
+//   user: UserState;
+//   cart: CartState;
+//   order: OrderState;
+// }
+const rootReducer = combineReducers({
+  user: userReducer,
+  cart: cartReducer,
+  order: orderReducer,
+  filter: filterReducer,
+  product: productReducer,
+});
 const persistConfig = {
   key: "root",
   version: 1,
   storage,
   // 로컬 스토리지에 저장
   //whitelist: ['user'] // 해당 reducer만 저장
-  // blacklist: [''] // 해당 reducer만 제외
+  blacklist: ["order", "filter", "product"], // 해당 reducer만 제외
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -58,3 +77,4 @@ const wrapper = createWrapper(makeStore, {
 });
 
 export default wrapper;
+export type RootState = ReturnType<typeof store.getState>;

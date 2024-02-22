@@ -1,6 +1,6 @@
 import classes from "./ProductItem.module.css";
 import ProductItemForm from "./ProductForm";
-
+import {priceFormat} from '@/utils/utils'
 // import ProductItemForm from "./ProductItemForm";
 // import { useContext } from "react";
 // import CartContext from "../../../store/cart-context";
@@ -23,7 +23,7 @@ const ProductItem = (props) => {
       <div>
         <h3>{product.name}</h3>
         <div className={classes.description}>{product.description}</div>
-        <div className={classes.price}>{product.price}</div>
+        <div className={classes.price}>{priceFormat(product.price)}원</div>
       </div>
       <div>
         <ProductItemForm product={product}/>

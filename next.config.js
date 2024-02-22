@@ -9,6 +9,9 @@ const combinedConfig = (phase) => {
 
   if (phase === PHASE_DEVELOPMENT_SERVER) {
     return {
+      images: {
+        domains: ['firebasestorage.googleapis.com'],
+      },
       env: {
         ...commonEnv,
         mongodb_inquirydata: "inquiry-dev",

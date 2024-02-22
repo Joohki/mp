@@ -101,7 +101,7 @@ const AddProductForm = () => {
         brand: product.brand,
         desc: product.desc,
         address: product.address,
-        createdAt: Timestamp.now().toDate(),
+        createdAt: Timestamp.now().toString(),
         lat,
         lng,
       });

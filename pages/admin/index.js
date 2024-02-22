@@ -1,15 +1,16 @@
-
 import Head from "next/head";
-import AllProducts from "../../components/products/AllProducts";
+
 import { getAllProducts } from "../../lib/products-util";
+
 function AdminPage(props) {
   return (
     <>
       <Head>
         <title>Admin Products</title>
-        <meta name="description"/>
+        <meta name="description" />
       </Head>
-      <AllProducts products={props.products} />
+
+   
     </>
   );
 }
