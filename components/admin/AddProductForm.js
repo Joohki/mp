@@ -93,7 +93,7 @@ const AddProductForm = () => {
 
       const { lat, lng } = result.data;
 
-      await addDoc(collection(db, "products"), {
+      await addDoc(collection(db, process.env.products), {
         name: product.name,
         imageURL: product.imageURL,
         price: Number(product.price),

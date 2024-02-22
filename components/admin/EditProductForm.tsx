@@ -22,7 +22,7 @@ const EditProductForm = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
-  const { document } = useFetchDocument("products", id);
+  const { document } = useFetchDocument(process.env.products, id);
   const [product, setProduct] = useState<DocumentData>({});
 
   useEffect(() => {
@@ -84,7 +84,7 @@ const EditProductForm = (props) => {
     }
 
     try {
-      updateDoc(doc(db, "products", id), {
+      updateDoc(doc(db, process.env.products, id), {
         name: product.name,
         imageURL: product.imageURL,
         price: Number(product.price),

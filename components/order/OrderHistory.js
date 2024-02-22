@@ -11,7 +11,7 @@ import { useRouter } from "next/navigation";
 
 const OrderHistory = () => {
   const { storeOrders, totalOrderAmount } = orderActions;
-  const { data, isLoading } = useFetchFirebase("orders");
+  const { data, isLoading } = useFetchFirebase(process.env.orders);
   
   const dispatch = useDispatch();
   const router = useRouter();

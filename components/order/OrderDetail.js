@@ -10,7 +10,7 @@ const OrderDetail = (props) => {
   const { id } = props
 
   const [order, setOrder] = useState();
-  const { document } = useFetchDocument("orders", id);
+  const { document } = useFetchDocument(process.env.orders, id);
   useEffect(() => {
     setOrder(document);
   }, [document]);

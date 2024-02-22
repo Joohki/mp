@@ -17,6 +17,8 @@ const combinedConfig = (phase) => {
         mongodb_inquirydata: "inquiry-dev",
         mongodb_authdata: "authdata-dev",
         mongodb_noticeboarddata: "boarddata-dev",
+        orders:'orders-dev',
+        products:'products-dev'
       },
       // async redirects() {
       //    return [
@@ -40,6 +42,8 @@ const combinedConfig = (phase) => {
         mongodb_inquirydata: "inquiry",
         mongodb_authdata: "authdata",
         mongodb_noticeboarddata: "boarddata",
+        orders:'orders',
+        products:'products',
       },
       // async redirects() {
       //   return [

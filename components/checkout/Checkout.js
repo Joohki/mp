@@ -74,7 +74,7 @@ function Checkout() {
         createdAt: Timestamp.now().toDate(),
       };
       console.log(orderData);
-      await addDoc(collection(db, "orders"), orderData);
+      await addDoc(collection(db, process.env.orders), orderData);
       dispatch(cartActions.clearCart());
       toast.success("성공");
       router.push(`/checkout/success/?orderId=${orderId}`);

@@ -22,7 +22,7 @@ import { toast } from "react-toastify";
 const AdminAllProducts = () => {
   const [search, setSearch] = useState("");
 
-  const { data, isLoading } = useFetchFirebase("products");
+  const { data, isLoading } = useFetchFirebase(process.env.products);
 
   const products = useSelector(selectProducts);
   const filteredProducts = useSelector(selectFilteredProducts);
