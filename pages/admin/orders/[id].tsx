@@ -4,7 +4,7 @@ const OrderDetailPage = () => {
   const router = useRouter();
   const { id } = router.query;
 
-  return <AdminOrderDetail id={id} />;
+  return <AdminOrderDetail id={id as string} />;
 };
 
 export default OrderDetailPage;

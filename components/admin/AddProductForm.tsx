@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { ChangeEvent, FormEvent,useState } from "react";
 import classes from "./AddProductForm.module.css";
 import { useRouter } from "next/navigation";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
@@ -37,11 +37,11 @@ const AddProductForm = () => {
   const [uploadProgress, setUploadProgress] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setProduct({ ...product, [name]: value });
   };
-  const handleImageChange = (e) => {
+  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
 
     const file = e.target.files[0];
@@ -77,7 +77,7 @@ const AddProductForm = () => {
     );
   };
 
-  const addProduct = async (e) => {
+  const addProduct = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
 

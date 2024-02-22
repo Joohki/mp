@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, FormEvent } from "react";
 import { signIn } from "next-auth/react";
 import { AiOutlineGoogle } from "react-icons/ai";
 import { SiNaver } from "react-icons/si";
@@ -9,7 +9,8 @@ import Notification from "../ui/Notification";
 import { useDispatch } from "react-redux";
 import { userActions } from "../../redux/reducer/user";
 import Link from "next/link";
-async function CreateUser(email, password, userType) {
+import { INotificationData } from "@/types/index";
+async function CreateUser(email: string, password: string, userType: string) {
   const response = await fetch("/api/auth/signup", {
     method: "POST",
     body: JSON.stringify({ email, password, userType }),
@@ -23,13 +24,13 @@ async function CreateUser(email, password, userType) {
 }
 function AuthForm() {
   const dispatch = useDispatch();
-  const [requestStatus, setRequestStatus] = useState(); // 'pending', 'success', 'error'
-  const [requestError, setRequestError] = useState();
-  const emailInputRef = useRef();
-  const passwordInputRef = useRef();
-  const passwordCheckInputRef = useRef();
-  const [isLogin, setIsLogin] = useState(true);
-  const [userType, setUserType] = useState("user");
+  const [requestStatus, setRequestStatus] = useState<string | null>(); // 'pending', 'success', 'error'
+  const [requestError, setRequestError] = useState<string | null>();
+  const emailInputRef = useRef<HTMLInputElement>();
+  const passwordInputRef = useRef<HTMLInputElement>();
+  const passwordCheckInputRef = useRef<HTMLInputElement>();
+  const [isLogin, setIsLogin] = useState<boolean>(true);
+  const [userType, setUserType] = useState<string>("user");
   const router = useRouter();
   useEffect(() => {
     if (requestStatus === "success" || requestStatus === "error") {
@@ -45,7 +46,7 @@ function AuthForm() {
   function switchAuthModeHandler() {
     setIsLogin((prevState) => !prevState);
   }
-  async function submitHandler(event) {
+  async function submitHandler(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setRequestStatus("pending");
     const enteredEmail = emailInputRef.current.value;
@@ -86,7 +87,7 @@ function AuthForm() {
       setRequestStatus("error");
     }
   }
-  let notification;
+  let notification: INotificationData | null = null;
 
   if (requestStatus === "pending") {
     notification = {

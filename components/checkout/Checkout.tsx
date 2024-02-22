@@ -7,19 +7,20 @@ import { db } from "../../firebase/firebase";
 import { cartActions } from "../../redux/reducer/cart";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-
+import {ICartItem} from '@/types/index'
+import { RootState } from "@/redux/store";
 function Checkout() {
-  const priceFormat = (price) => {
+  const priceFormat = (price:number) => {
     return price.toLocaleString("ko-Kr");
   };
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const cartItems = useSelector((state) => state.cart.items);
-  const totalQuantity = useSelector((state) => state.cart.totalQuantity);
-  const totalAmount = useSelector((state) => state.cart.totalAmount).toFixed(2);
-  const userEmail = useSelector((state) => state.user.email);
-  const handleSubmit = async (e) => {
+  const cartItems:ICartItem[] = useSelector((state:RootState) => state.cart.items);
+  const totalQuantity:number = useSelector((state:RootState) => state.cart.totalQuantity);
+  const totalAmount:number = useSelector((state:RootState) => state.cart.totalAmount);
+  const userEmail :string= useSelector((state:RootState) => state.user.email);
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {

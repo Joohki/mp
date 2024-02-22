@@ -23,7 +23,8 @@ export interface ICartItem {
     imageURL: string;
     name: string;
     price: number;
-    cartQuantity: number;
+    quantity: number;
+    totalPrice:number;
 }
 
 
@@ -55,4 +56,10 @@ export interface ListPaginationProps {
     counts: number;
     visibleLists: any[]; // visibleLists 배열의 타입에 따라 수정
     setVisibleLists: React.Dispatch<React.SetStateAction<any[]>>; // setVisibleLists의 타입에 따라 수정
+  }
+
+  export interface INotificationData {
+    status: string;
+    title: string;
+    message: string;
   }

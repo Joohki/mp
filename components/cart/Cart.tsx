@@ -6,21 +6,26 @@ import CartItem from "./CartItem";
 import { cartActions } from "../../redux/reducer/cart";
 import Link from "next/link";
 import { priceFormat } from "@/utils/utils";
-const Cart = (props) => {
+import { RootState } from "@/redux/store";
+import { ICartItem } from "@/types/index";
+interface CartProps {
+  onCloseCart: () => void;
+}
+const Cart = (props: CartProps) => {
   const dispatch = useDispatch();
-  const cartItems = useSelector((state) => state.cart.items);
+  const cartItems = useSelector((state: RootState) => state.cart.items);
   const hasItem = Boolean(cartItems.length);
-  const totalAmount = useSelector((state) => state.cart.totalAmount);
-  const addCartItemHandler = (item) => {
+  const totalAmount = useSelector((state: RootState) => state.cart.totalAmount);
+  const addCartItemHandler = (item: ICartItem) => {
     dispatch(cartActions.addItemToCart({ ...item, quantity: 1 }));
   };
-  const removeCartItemHandler = (id) => {
+  const removeCartItemHandler = (id: string) => {
     dispatch(cartActions.removeItemFromCart(id));
   };
 
   const cartItemsCard = (
     <ul className={classes["cart-items"]}>
-      {cartItems.map((item) => {
+      {cartItems.map((item: ICartItem) => {
         return (
           <CartItem
             key={item.id}

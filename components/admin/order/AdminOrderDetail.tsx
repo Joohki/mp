@@ -8,9 +8,10 @@ import ChangeOrderStatus from "@/components/changestatus/ChangeStatus";
 import { priceFormat } from "@/utils/utils";
 import { ICartItem, IOrder } from "@/types";
 import { useState, useEffect } from "react";
-const AdminOrderDetail = (props) => {
+import { DocumentData } from "firebase/firestore";
+const AdminOrderDetail = (props: { id: string }) => {
   const { id } = props;
-  const [order, setOrder] = useState();
+  const [order, setOrder] = useState<DocumentData | null>();
   const { document } = useFetchDocument(process.env.orders, id);
   useEffect(() => {
     setOrder(document);
@@ -33,7 +34,6 @@ const AdminOrderDetail = (props) => {
             <p>
               <b>주문 상태</b> {order?.orderStatus}
             </p>
-            
           </div>
           <table>
             <thead>
@@ -46,8 +46,9 @@ const AdminOrderDetail = (props) => {
               </tr>
             </thead>
             <tbody>
-              {order?.cartItems.map((cartItem, index) => {
-                const { id, name, price, imageURL, totalPrice ,quantity} = cartItem;
+              {order?.cartItems.map((cartItem: ICartItem, index: number) => {
+                const { id, name, price, imageURL, totalPrice, quantity } =
+                  cartItem;
                 return (
                   <tr key={id}>
                     <td>{index + 1}</td>
@@ -70,7 +71,7 @@ const AdminOrderDetail = (props) => {
               })}
             </tbody>
           </table>
-          <ChangeOrderStatus order={order} id={id} />
+          <ChangeOrderStatus order={order as IOrder} id={id} />
         </>
       )}
     </section>

@@ -1,7 +1,15 @@
 import classes from './CartItem.module.scss';
 import {priceFormat} from '@/utils/utils'
-const CartItem = (props) => {
-  // const price = `$${props.price.toFixed(2)}`;
+interface CartItemProps {
+  name: string;
+  price: number;
+  quantity: number;
+  onRemove: () => void;
+  onAdd: () => void;
+}
+
+const CartItem = (props:CartItemProps) => {
+  
 const price = priceFormat(props.price)
   return (
     <li className={classes.cartitem}>
