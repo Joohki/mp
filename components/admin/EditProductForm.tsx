@@ -16,8 +16,8 @@ import classes from "./AddProductForm.module.css";
 import { categories } from "./AddProductForm";
 import { toast } from "react-toastify";
 import { DocumentData } from "firebase/firestore";
-const EditProductForm = (props) => {
-  const { id } = props
+const EditProductForm = (props: { id: string }) => {
+  const { id } = props;
   const [uploadProgress, setUploadProgress] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
@@ -54,13 +54,13 @@ const EditProductForm = (props) => {
       (error) => {
         toast.error(error.message);
       },
-    //   () => {
-    //     getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-    //       setProduct({ ...product, imageURL: downloadURL });
-    //       toast.success("이미지를 성공적으로 업로드했습니다.");
-    //     });
-    //   }
-    async () => {
+      //   () => {
+      //     getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+      //       setProduct({ ...product, imageURL: downloadURL });
+      //       toast.success("이미지를 성공적으로 업로드했습니다.");
+      //     });
+      //   }
+      async () => {
         try {
           const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
           setProduct({ ...product, imageURL: downloadURL });
@@ -119,7 +119,6 @@ const EditProductForm = (props) => {
             <input
               type="text"
               placeholder="상품 이름"
-              
               name="name"
               value={product.name}
               onChange={(e) => handleInputChange(e)}
@@ -153,7 +152,6 @@ const EditProductForm = (props) => {
                   name="imageURL"
                   disabled
                   value={product.imageURL}
-                  
                   placeholder="이미지 URL"
                 />
               )}

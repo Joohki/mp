@@ -2,7 +2,7 @@ import Head from "next/head";
 import Main from "../components/home-page/Main";
 import Slogan from "../components/home-page/MpSlogan";
 
-function HomePage(props) {
+function HomePage() {
   return (
     <>
       <Head>

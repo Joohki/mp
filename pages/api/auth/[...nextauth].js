@@ -1,4 +1,4 @@
-import NextAuth from "next-auth";
+import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { connectToAuthDatabase } from "../../../lib/authdb";
 import { verifyPassword } from "../../../lib/passwordAuth";
@@ -8,7 +8,7 @@ import GoogleProvider from "next-auth/providers/google";
 import NaverProvider from "next-auth/providers/naver";
 import KakaoProvider from "next-auth/providers/kakao";
 
-export const authOptions = {
+export const authOptions= {
   session: {
     strategy: "jwt",
   },
@@ -38,6 +38,7 @@ export const authOptions = {
           throw new Error("couldnt log in");
         }
         client.close();
+
         return { email: user.email }; //password는 해싱됐어도 클라이언트 노출 x
       },
     }),
@@ -59,7 +60,7 @@ export const authOptions = {
       // 사용자 로그인 후의 추가 로직을 작성할 수 있습니다.
       if (account.provider === "credentials") {
         return true;
-      }   
+      }
       if (profile) {
         user.name = profile.response?.name || user.name;
         user.email = profile.response?.email || user.email;
@@ -102,7 +103,6 @@ export const authOptions = {
       }
     },
 
-    
     session: ({ session, token }) => ({
       ...session,
       user: {

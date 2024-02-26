@@ -8,7 +8,7 @@ import "react-day-picker/dist/style.css";
 const css = `.rdp-caption{
   display:none
 }`;
-export default function Calender({ date }: { date: string }) {
+export default function Calender() {
   const [selected, setSelected] = useState<Date>();
 
   let footer = <p>Please pick a day.</p>;

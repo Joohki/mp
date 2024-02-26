@@ -1,7 +1,13 @@
 import Script from "next/script";
 import classes from "./Map.module.scss";
 import { useState, useEffect } from "react";
-const Map = (props) => {
+declare global {
+  interface Window {
+    kakao: any;
+  }
+}
+
+const Map = (props: { lat: string; lng: string }) => {
   const { lat, lng } = props;
   const [map, setMap] = useState("");
   const loadKakaoMap = () => {

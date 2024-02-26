@@ -5,15 +5,26 @@ import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { storage } from "../../firebase/firebase";
-export const CATEGORIES = ["E&E Tech", "A&K 글로벌", "헤도네", "신창이앤씨"];
+import { IPostFormData } from "@/types";
+import { RootState } from "@/redux/store";
+interface PostFormProps {
+  post: IPostFormData;
+  onCancel: () => void;
+}
+export const CATEGORIES: string[] = [
+  "E&E Tech",
+  "A&K 글로벌",
+  "헤도네",
+  "신창이앤씨",
+];
 
-const isEmpty = (value) => {
+const isEmpty = (value: string) => {
   return value.trim().length === 0;
 };
-const isOverTwentyChar = (value) => {
+const isOverTwentyChar = (value: string) => {
   return value.trim().length > 20;
 };
-async function postNoticeFormData(details) {
+async function postNoticeFormData(details: IPostFormData): Promise<void> {
   const response = await fetch("/api/noticeboard", {
     method: "POST",
     body: JSON.stringify(details),
@@ -28,7 +39,7 @@ async function postNoticeFormData(details) {
     throw new Error(data.message || "Something went wrong!");
   }
 }
-async function patchNoticeFormData(details) {
+async function patchNoticeFormData(details: IPostFormData): Promise<void> {
   const response = await fetch("/api/noticeboard", {
     method: "PATCH",
     body: JSON.stringify(details),
@@ -44,28 +55,27 @@ async function patchNoticeFormData(details) {
   }
 }
 
-const PostForm = (props) => {
+const PostForm = (props: PostFormProps) => {
   const router = useRouter();
-  const userEmail = useSelector((state) => state.user.email);
+  const userEmail = useSelector((state: RootState) => state.user.email);
   const isEditMode = !!props.post; // 수정 모드인지 확인
 
-  const [file, setFile] = useState("");
-  const [filename, setFilename] = useState("");
-  const [uploadProgress, setUploadProgress] = useState(0);
+  const [file, setFile] = useState<string>("");
+  const [filename, setFilename] = useState<string>("");
+  const [uploadProgress, setUploadProgress] = useState<number>(0);
   const [validSubmitForm, setValidSubmitForm] = useState({
     name: true,
     email: true,
     title: true,
     category: true,
-    contents: true,
   });
-  const nameInputRef = useRef();
-  const emailInputRef = useRef();
-  const titleInputRef = useRef();
-  const categoryInputRef = useRef();
-  const summaryInputRef = useRef();
-  const contentsInputRef = useRef();
-  const handleFileChange = (e) => {
+  const nameInputRef = useRef<HTMLInputElement>();
+  const emailInputRef = useRef<HTMLInputElement>();
+  const titleInputRef = useRef<HTMLInputElement>();
+  const categoryInputRef = useRef<HTMLSelectElement>();
+  const summaryInputRef = useRef<HTMLInputElement>();
+  const contentsInputRef = useRef<HTMLTextAreaElement>();
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
 
     const file = e.target.files[0];
@@ -92,7 +102,7 @@ const PostForm = (props) => {
       }
     );
   };
-  const confirmHandler = async (event) => {
+  const confirmHandler = async (event: React.FormEvent) => {
     event.preventDefault();
     try {
       const enteredName = nameInputRef.current.value;
@@ -114,7 +124,7 @@ const PostForm = (props) => {
         category: isValidCategory,
       });
 
-      const isValidForm =
+      const isValidForm: boolean =
         isValidName && isValidEmail && isValidTitle && isValidCategory;
 
       if (!isValidForm) {
@@ -122,7 +132,7 @@ const PostForm = (props) => {
       }
       if (isEditMode) {
         await patchNoticeFormData({
-          _id:props.post._id,
+          _id: props.post._id,
           name: enteredName,
           email: enteredEmail,
           title: enteredTitle,
@@ -137,10 +147,9 @@ const PostForm = (props) => {
           }),
           file: file,
           filename: filename,
-        })
+        });
       } else {
         await postNoticeFormData({
-         
           name: enteredName,
           email: enteredEmail,
           title: enteredTitle,

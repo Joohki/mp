@@ -63,3 +63,18 @@ export interface ListPaginationProps {
     title: string;
     message: string;
   }
+
+  export interface IPostFormData {
+    _id?: string;
+    name: string;
+    email: string;
+    title: string;
+    category: string;
+    summary: string;
+    contents: string;
+    date: Date;
+    createdAt?: string;
+    modifiedAt?: string;
+    file: string;
+    filename: string;
+  }

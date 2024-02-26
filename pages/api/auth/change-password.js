@@ -1,6 +1,6 @@
-
+import { NextApiRequest,NextApiResponse } from "next";
 import { hashPassword, verifyPassword } from "../../../lib/passwordAuth";
-
+import { NextApiHandler } from "next";
 import { getServerSession } from "next-auth/next";
 import {authOptions} from './[...nextauth]'
 import { connectToAuthDatabase } from "../../../lib/authdb";
@@ -36,7 +36,7 @@ async function handler(req, res) {
     client.close();
     return;
   }
-  const result = usersCollection.updateOne(
+  const result = await usersCollection.updateOne(
     { email: userEmail },
     { $set: { password: newHashedPassword } }
   );

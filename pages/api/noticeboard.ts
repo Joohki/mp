@@ -1,9 +1,19 @@
-import { MongoClient,ObjectId } from "mongodb";
-
-async function handler(req, res) {
+import { MongoClient, ObjectId } from "mongodb";
+import { NextApiRequest, NextApiResponse } from "next";
+async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "POST") {
-    const { email, name, title, category, summary, contents, createdAt, date,file,filename} =
-      req.body;
+    const {
+      email,
+      name,
+      title,
+      category,
+      summary,
+      contents,
+      createdAt,
+      date,
+      file,
+      filename,
+    } = req.body;
     const userIp = req.connection.remoteAddress;
 
     if (
@@ -20,7 +30,7 @@ async function handler(req, res) {
 
     const connectString = `mongodb+srv://${process.env.mongodb_username}:${process.env.mongodb_password}@${process.env.mongodb_clustername}.a9a7kzo.mongodb.net/${process.env.mongodb_noticeboarddata}?retryWrites=true&w=majority`;
 
-    let client;
+    let client: MongoClient | undefined;
 
     try {
       client = await MongoClient.connect(connectString);
@@ -44,17 +54,20 @@ async function handler(req, res) {
         .findOne({ ip: userIp, date: currentDateString });
 
       if (userPostCount && userPostCount.postCount >= 5) {
-        res.status(403).json({ message: "하루에 게시글 5개까지 작성이 가능합니다." });
+        res
+          .status(403)
+          .json({ message: "하루에 게시글 5개까지 작성이 가능합니다." });
         return;
       }
 
-      await db
-        .collection("userPosts")
-        .updateOne(
-          { ip: userIp, date:currentDateString},
-          { $inc: { postCount: 1 }, $setOnInsert: { ip: userIp, date:currentDateString } },
-          { upsert: true }
-        );
+      await db.collection("userPosts").updateOne(
+        { ip: userIp, date: currentDateString },
+        {
+          $inc: { postCount: 1 },
+          $setOnInsert: { ip: userIp, date: currentDateString },
+        },
+        { upsert: true }
+      );
 
       const newContents = {
         email,
@@ -67,11 +80,10 @@ async function handler(req, res) {
         date,
         userIp,
         file,
-        filename
+        filename,
       };
 
       const result = await db.collection("contents").insertOne(newContents);
-      newContents.id = result.insertedId;
 
       res.status(201).json({
         message: "Successfully stored message!",
@@ -83,13 +95,24 @@ async function handler(req, res) {
       client.close();
     }
   } else if (req.method === "PATCH") {
-    const { _id, email, name, title, category, summary, contents, file, filename,modifiedAt  } = req.body;
+    const {
+      _id,
+      email,
+      name,
+      title,
+      category,
+      summary,
+      contents,
+      file,
+      filename,
+      modifiedAt,
+    } = req.body;
 
     if (!_id) {
       res.status(422).json({ message: "유효하지 않은 ID입니다." });
       return;
     }
-    
+
     const connectString = `mongodb+srv://${process.env.mongodb_username}:${process.env.mongodb_password}@${process.env.mongodb_clustername}.a9a7kzo.mongodb.net/${process.env.mongodb_noticeboarddata}?retryWrites=true&w=majority`;
 
     let client;
@@ -116,13 +139,15 @@ async function handler(req, res) {
             contents,
             file,
             filename,
-            modifiedAt
+            modifiedAt,
           },
         }
       );
 
       if (result.matchedCount > 0) {
-        res.status(200).json({ message: "메시지가 성공적으로 업데이트되었습니다!" });
+        res
+          .status(200)
+          .json({ message: "메시지가 성공적으로 업데이트되었습니다!" });
       } else {
         res.status(404).json({ message: "메시지를 찾을 수 없습니다." });
       }

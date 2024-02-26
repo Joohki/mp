@@ -2,7 +2,7 @@ import Head from "next/head";
 
 import { getAllProducts } from "../../lib/products-util";
 
-function AdminPage(props) {
+function AdminPage() {
   return (
     <>
       <Head>
@@ -15,13 +15,13 @@ function AdminPage(props) {
   );
 }
 
-export async function getServerSideProps() {
-  const allProducts = await getAllProducts();
-  return {
-    props: {
-      products: allProducts,
-    },
-  };
-}
+// export async function getServerSideProps() {
+//   const allProducts = await getAllProducts();
+//   return {
+//     props: {
+//       products: allProducts,
+//     },
+//   };
+// }
 
 export default AdminPage;
