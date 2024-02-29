@@ -1,10 +1,9 @@
-import Image from "next/image";
-import Slogan from "./MpSlogan";
+
 import classes from "./Main.module.css";
 import BusinessCarousel from "./BusinessCarousel";
 import Mpfirst from "./Mpfirst";
 import { useState,useEffect, useRef } from "react";
-import MobileCarousel from "./MobileCarousel";
+
 function Main() {
  const [isMobile,setIsMobile] = useState(false)
  function MobileCheck(){
@@ -13,11 +12,11 @@ function Main() {
    }
  }
  
-  const outerDivRef = useRef();
+  const outerDivRef = useRef<HTMLDivElement>();
   const DividerHeight = 5;
   useEffect(() => {
     MobileCheck()
-    const wheelHandler = (e) => {
+    const wheelHandler = (e: WheelEvent) => {
       e.preventDefault();
       // 스크롤 행동 구현
       const { deltaY } = e;

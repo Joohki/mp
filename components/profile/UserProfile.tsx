@@ -26,7 +26,10 @@ function UserProfile() {
   // }
   //클라이언트 사이드에서 session 사용하는 코드
   const router = useRouter();
-  async function changePasswordHandler(passwordData) {
+  async function changePasswordHandler(passwordData: {
+    newPassword: string;
+    newPasswordCheck: string;
+  }) {
     try {
       if (passwordData.newPassword === passwordData.newPasswordCheck) {
         const response = await fetch("/api/auth/change-password", {
@@ -45,7 +48,7 @@ function UserProfile() {
         throw new Error("비밀번호가 일치하지 않습니다");
       }
     } catch (error) {
-      toast.error(error.message)
+      toast.error(error.message);
     }
   }
   return (

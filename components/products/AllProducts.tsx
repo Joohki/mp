@@ -3,8 +3,11 @@ import ProductCard from "../layout/ProductCard";
 import classes from "./AllProducts.module.css";
 import ListPagination from "../pagination/ListPagination";
 import { useState ,useEffect} from "react";
-
-function AllProducts(props) {
+import { IProduct } from "@/types";
+interface AllProductsProps{
+  products:IProduct[]
+}
+function AllProducts(props:AllProductsProps) {
   const { products } = props;
   
   const [lists, setLists] = useState([]); // 백엔드와 통신하여 모든 데이터를 setLists 에 저장해서 사용
@@ -18,7 +21,7 @@ function AllProducts(props) {
   return (
     <section className={classes.products}>
       <ProductCard>
-        {visibleLists.map((product) => (
+        {visibleLists.map((product:IProduct) => (
           <ProductItem key={product.id} product={product} />
         ))}
       </ProductCard>

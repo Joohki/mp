@@ -1,25 +1,28 @@
-import { useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import classes from "./ProductForm.module.css";
 import Input from "../ui/Input";
 import { cartActions } from "../../redux/reducer/cart";
 import { useDispatch } from "react-redux";
-const ProductItemForm = (props) => {
+import { IProduct } from "@/types";
+const ProductItemForm = (props: { product: IProduct }) => {
   const [amountIsVaild, setAmountIsValid] = useState(true);
-  const amountInputRef = useRef();
+  const amountInputRef = useRef(null);
   const { product } = props;
   const dispatch = useDispatch();
-  const addToCartHandler = (quantity) => {
-    dispatch(cartActions.addItemToCart({
-      id: product.id,
-      name: product.name,
-      price: product.price,
-      quantity: quantity
-    }));
+  const addToCartHandler = (quantity: number) => {
+    dispatch(
+      cartActions.addItemToCart({
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        quantity: quantity,
+      })
+    );
   };
-  const submitHandler = (event) => {
+  const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const enteredAmount = amountInputRef.current.value; 
-    const enteredAmountNumber = Number(enteredAmount); 
+    const enteredAmount = amountInputRef.current.value;
+    const enteredAmountNumber = Number(enteredAmount);
     if (
       enteredAmount.trim().length === 0 ||
       enteredAmountNumber < 1 ||
@@ -36,7 +39,7 @@ const ProductItemForm = (props) => {
         ref={amountInputRef}
         label="Amount"
         input={{
-          id: "amount_" + props.id,
+          id: "amount_" + props.product.id,
           type: "number",
           min: "1",
           max: "5",
@@ -45,7 +48,7 @@ const ProductItemForm = (props) => {
         }}
       />
       <button>+ Add</button>
-      {!(amountIsVaild) ? <p>유효한 값을 입력해주세요</p>:null}
+      {!amountIsVaild ? <p>유효한 값을 입력해주세요</p> : null}
     </form>
   );
 };

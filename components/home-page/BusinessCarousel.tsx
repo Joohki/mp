@@ -1,16 +1,16 @@
 import { useState } from "react";
-import classes from "./MobileCarousel.module.css";
+import classes from "./BusinessCarousel.module.css";
 import Image from "next/image";
 const IMAGE_1_URL = "/images/mpimage/naturalenvironment.png";
 const IMAGE_2_URL = "/images/mpimage/h2o.png";
 const IMAGE_3_URL = "/images/mpimage/globalwarming.png";
 const IMAGE_4_URL = "/images/mpimage/emissionright.png";
 const IMAGE_5_URL = "/images/mpimage/h2.png";
-export default function MobileCarousel() {
+export default function BusinessCarousel() {
   const [activeImage, setActiveImage] = useState(1);
 
   return (
-    <div className={classes.mobile_carousel}>
+    <div className={classes.carousel}>
       <ul className={classes.carousel_slides}>
         <input
           type="radio"
@@ -23,9 +23,10 @@ export default function MobileCarousel() {
           <div className={classes.carousel_slideimg}>
             <Image
               src={IMAGE_1_URL}
+              alt="image"
               width={0}
               height={0}
-              sizes="100vw"
+              sizes="50vw"
               style={{ width: "auto", height: "100%" }}
             />
           </div>
@@ -107,6 +108,7 @@ export default function MobileCarousel() {
           <div className={classes.carousel_slideimg}>
             <Image
               src={IMAGE_4_URL}
+              alt="image"
               width={0}
               height={0}
               sizes="50vw"
@@ -139,6 +141,7 @@ export default function MobileCarousel() {
           <div className={classes.carousel_slideimg}>
             <Image
               src={IMAGE_5_URL}
+              alt="image"
               width={0}
               height={0}
               sizes="50vw"
@@ -184,6 +187,7 @@ export default function MobileCarousel() {
           ></label>
         </div>
       </ul>
+      <Image src="/images/mpimage/carousel-background.jpg" alt="image" fill />
     </div>
   );
 }

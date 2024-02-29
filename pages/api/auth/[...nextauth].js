@@ -7,7 +7,7 @@ import prisma from "@/db";
 import GoogleProvider from "next-auth/providers/google";
 import NaverProvider from "next-auth/providers/naver";
 import KakaoProvider from "next-auth/providers/kakao";
-import {User} from '@/types'
+import { User } from "@/types";
 export const authOptions = {
   session: {
     strategy: "jwt",
@@ -19,7 +19,7 @@ export const authOptions = {
   },
   providers: [
     CredentialsProvider({
-      async authorize(credentials){
+      async authorize(credentials) {
         const client = await connectToAuthDatabase();
         const userCollection = client.db().collection("users");
         const user = await userCollection.findOne({
@@ -58,6 +58,7 @@ export const authOptions = {
   callbacks: {
     async signIn({ user, account, profile }) {
       // 사용자 로그인 후의 추가 로직을 작성할 수 있습니다.
+
       if (account.provider === "credentials") {
         return true;
       }

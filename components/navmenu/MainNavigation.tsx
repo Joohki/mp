@@ -1,5 +1,5 @@
 import Link from "next/link";
-import dynamic from 'next/dynamic';
+import dynamic from "next/dynamic";
 import { useState } from "react";
 import { useSession } from "next-auth/react";
 import Logo from "../layout/Logo";
@@ -12,10 +12,12 @@ import CartButton from "../cart/CartButton";
 // import Cart from "../cart/Cart";
 // import HoverNavigation from "./HoverNavigation";
 // import MobileNavMenu from "./MobileNavMenu";
-const NavMenu = dynamic(() => import('./NavMenu'), { ssr: false });
-const Cart = dynamic(() => import('../cart/Cart'), { ssr: false });
-const HoverNavigation = dynamic(() => import('./HoverNavigation'), { ssr: false });
-const MobileNavMenu = dynamic(() => import('./MobileNavMenu'), { ssr: false });
+const NavMenu = dynamic(() => import("./NavMenu"), { ssr: false });
+const Cart = dynamic(() => import("../cart/Cart"), { ssr: false });
+const HoverNavigation = dynamic(() => import("./HoverNavigation"), {
+  ssr: false,
+});
+const MobileNavMenu = dynamic(() => import("./MobileNavMenu"), { ssr: false });
 
 function MainNavigation() {
   const { data: session, status } = useSession();

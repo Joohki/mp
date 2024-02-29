@@ -1,6 +1,10 @@
+interface InputProps{
+  input: any
+  label:string
+}
 import classes from "./Input.module.css";
 import React from "react";
-const Input = React.forwardRef((props,ref) => {
+const Input = React.forwardRef((props:InputProps,ref) => {
   return (
     <div className={classes.input}>
       <label htmlFor={props.input.id}>{props.label}</label>

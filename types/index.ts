@@ -88,3 +88,11 @@ export interface AllCompaniesProps {
 export interface CompanyDetailProps {
   company: ICompany;
 }
+
+export interface IContactFormData {
+    email:string;
+    name:string;
+    message:string
+}
+
+
