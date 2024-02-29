@@ -5,12 +5,9 @@ import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { storage } from "../../firebase/firebase";
-import { IPostFormData } from "@/types";
+import { IPostFormData,IPostFormProps } from "@/types";
 import { RootState } from "@/redux/store";
-interface PostFormProps {
-  post: IPostFormData;
-  onCancel: () => void;
-}
+
 export const CATEGORIES: string[] = [
   "E&E Tech",
   "A&K 글로벌",
@@ -54,8 +51,9 @@ async function patchNoticeFormData(details: IPostFormData): Promise<void> {
     throw new Error(data.message || "Something went wrong!");
   }
 }
+const onCancel = ()=>{}
 
-const PostForm = (props: PostFormProps) => {
+const PostForm = (props: IPostFormProps) => {
   const router = useRouter();
   const userEmail = useSelector((state: RootState) => state.user.email);
   const isEditMode = !!props.post; // 수정 모드인지 확인
@@ -279,7 +277,7 @@ const PostForm = (props: PostFormProps) => {
       </div>
 
       <div className={classes.actions}>
-        <button type="button" onClick={props.onCancel}>
+        <button type="button" onClick={onCancel}>
           Cancel
         </button>
         <button className={classes.submit}>Confirm</button>

@@ -1,5 +1,4 @@
 const { PHASE_DEVELOPMENT_SERVER } = require("next/constants");
-
 const combinedConfig = (phase) => {
   const commonEnv = {
     mongodb_username: process.env.mongodb_username,
@@ -10,15 +9,15 @@ const combinedConfig = (phase) => {
   if (phase === PHASE_DEVELOPMENT_SERVER) {
     return {
       images: {
-        domains: ['firebasestorage.googleapis.com'],
+        domains: ["firebasestorage.googleapis.com"],
       },
       env: {
         ...commonEnv,
         mongodb_inquirydata: "inquiry-dev",
         mongodb_authdata: "authdata-dev",
         mongodb_noticeboarddata: "boarddata-dev",
-        orders:'orders-dev',
-        products:'products-dev'
+        orders: "orders-dev",
+        products: "products-dev",
       },
       // async redirects() {
       //    return [
@@ -34,7 +33,7 @@ const combinedConfig = (phase) => {
       //     },
       //    ];
       // },
-     };
+    };
   } else {
     return {
       env: {
@@ -42,8 +41,8 @@ const combinedConfig = (phase) => {
         mongodb_inquirydata: "inquiry",
         mongodb_authdata: "authdata",
         mongodb_noticeboarddata: "boarddata",
-        orders:'orders',
-        products:'products',
+        orders: "orders",
+        products: "products",
       },
       // async redirects() {
       //   return [

@@ -7,7 +7,7 @@ import { cartActions } from "../../redux/reducer/cart";
 import Link from "next/link";
 import { priceFormat } from "@/utils/utils";
 import { RootState } from "@/redux/store";
-import { ICartItem } from "@/types/index";
+import { ICartItem} from "@/types/index";
 interface CartProps {
   onCloseCart: () => void;
 }
