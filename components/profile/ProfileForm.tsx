@@ -40,7 +40,7 @@ function ProfileForm(props: {
           <input type="file" id="profile-photo" />
         </div>
 
-        {session.user.provider === "credentials" && (
+        {session?.user?.provider === "credentials" && (
           <>
             <div className={classes.control}>
               <label htmlFor="old-password">비밀번호</label>
