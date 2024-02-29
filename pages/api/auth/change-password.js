@@ -4,7 +4,7 @@ import { hashPassword, verifyPassword } from "../../../lib/passwordAuth";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "./[...nextauth]";
 import { connectToAuthDatabase } from "../../../lib/authdb";
-async function handler(req: NextApiRequest, res: NextApiResponse) {
+async function handler(req, res) {
   if (req.method !== "PATCH") {
     return;
   }
