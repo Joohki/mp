@@ -44,6 +44,20 @@ const combinedConfig = (phase) => {
         orders: "orders",
         products: "products",
       },
+      
+      async headers() {
+        return [
+          {
+            source: '/',
+            headers: [
+              {
+                key: 'Access-Control-Allow-Origin',
+                value: '*',
+              },
+            ],
+          },
+        ];
+      },
       // async redirects() {
       //   return [
       //     {
