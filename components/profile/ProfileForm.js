@@ -4,11 +4,11 @@ import { signOut } from "next-auth/react";
 import { persistor } from "../../redux/store";
 import { useSession } from "next-auth/react";
 
-function ProfileForm(props)  {
+function ProfileForm(props) {
   const oldPasswordRef = useRef(null);
   const newPasswordRef = useRef(null);
   const newPasswordCheckRef = useRef(null);
-  const { data:session, status } = useSession();
+  const { data: session, status } = useSession();
 
   async function submitHandler(event) {
     event.preventDefault();
@@ -25,17 +25,17 @@ function ProfileForm(props)  {
     signOut();
     await persistor.purge();
   }
-  
+
   return (
     <>
-     
-
-        {session?.user?.provider === "credentials" && (
-          <> <form className={classes.form} onSubmit={submitHandler}>
-          <div className={classes.control}>
-            <label htmlFor="profile-photo">프로필 사진</label>
-            <input type="file" id="profile-photo" />
-          </div>
+      {session?.user?.provider === "credentials" && (
+        <>
+          
+          <form className={classes.form} onSubmit={submitHandler}>
+            <div className={classes.control}>
+              <label htmlFor="profile-photo">프로필 사진</label>
+              <input type="file" id="profile-photo" />
+            </div>
             <div className={classes.control}>
               <label htmlFor="old-password">비밀번호</label>
               <input type="password" id="old-password" ref={oldPasswordRef} />
@@ -53,12 +53,12 @@ function ProfileForm(props)  {
               />
             </div>
             <div className={classes.action}>
-          <button>프로필 수정</button>
-        </div>
-      </form>
-          </>
-        )}
-       
+              <button>프로필 수정</button>
+            </div>
+          </form>
+        </>
+      )}
+
       <div className={classes.action}>
         <button onClick={logoutHandler}>로그아웃</button>
       </div>

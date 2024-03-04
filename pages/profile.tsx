@@ -1,11 +1,9 @@
 import UserProfile from "../components/profile/UserProfile";
 import { getSession } from "next-auth/react";
 import { GetServerSidePropsContext } from "next";
-import {useEffect,useState} from 'react'
-import Loader from "@/components/ui/Loader";
-import {useRouter} from 'next/router'
-function ProfilePage() {
 
+function ProfilePage(props) {
+console.log(props.session)
   return (<UserProfile/>)
   
  
@@ -17,7 +15,7 @@ export async function getServerSideProps(context:GetServerSidePropsContext) {
       
       redirect:{
         destination:'/auth',
-        permanent:true
+        permanent:false
       }
     };
   }
