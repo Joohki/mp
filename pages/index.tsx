@@ -1,8 +1,10 @@
 import Head from "next/head";
 import Main from "../components/home-page/Main";
 import Slogan from "../components/home-page/MpSlogan";
-
+import { useSession } from "next-auth/react";
 function HomePage() {
+  const{data} = useSession()
+  console.log(data)
   return (
     <>
       <Head>
