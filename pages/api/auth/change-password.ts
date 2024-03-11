@@ -1,14 +1,18 @@
 import { NextApiRequest, NextApiResponse } from "next";
+import { NextAuthOptions } from "next-auth";
 import { hashPassword, verifyPassword } from "../../../lib/passwordAuth";
-
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "./[...nextauth]";
 import { connectToAuthDatabase } from "../../../lib/authdb";
-async function handler(req, res) {
+async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "PATCH") {
     return;
   }
-  const session = await getServerSession(req, res, authOptions);
+  const session = await getServerSession(
+    req,
+    res,
+    authOptions as NextAuthOptions
+  );
   if (!session) {
     res.status(401).json({ message: "Not Authenticated" });
     return;

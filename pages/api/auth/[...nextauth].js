@@ -6,8 +6,8 @@ import prisma from "@/db";
 import GoogleProvider from "next-auth/providers/google";
 import NaverProvider from "next-auth/providers/naver";
 import KakaoProvider from "next-auth/providers/kakao";
-import { User } from "@/types";
-export const authOptions = {
+
+export const authOptions  = {
   session: {
     strategy: "jwt",
   },
@@ -37,8 +37,8 @@ export const authOptions = {
           throw new Error("couldnt log in");
         }
         client.close();
-
-        return { email: user.email }; //password는 해싱됐어도 클라이언트 노출 x
+return;
+        // return { email: user.email }; //password는 해싱됐어도 클라이언트 노출 x
       },
     }),
     GoogleProvider({

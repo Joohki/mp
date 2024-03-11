@@ -4,13 +4,19 @@ import { signOut } from "next-auth/react";
 import { persistor } from "../../redux/store";
 import { useSession } from "next-auth/react";
 
-function ProfileForm(props) {
+function ProfileForm(props: {
+  onChangePassword: (passwords: {
+    oldPassword: string;
+    newPassword: string;
+    newPasswordCheck: string;
+  }) => Promise<any>;
+}) {
   const oldPasswordRef = useRef(null);
   const newPasswordRef = useRef(null);
   const newPasswordCheckRef = useRef(null);
   const { data: session, status } = useSession();
 
-  async function submitHandler(event) {
+  async function submitHandler(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const enteredOldPassword = oldPasswordRef.current.value;
     const enteredNewPassword = newPasswordRef.current.value;
@@ -30,7 +36,6 @@ function ProfileForm(props) {
     <>
       {session?.user?.provider === "credentials" && (
         <>
-          
           <form className={classes.form} onSubmit={submitHandler}>
             <div className={classes.control}>
               <label htmlFor="profile-photo">프로필 사진</label>
