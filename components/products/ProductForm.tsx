@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { IProduct } from "@/types";
 const ProductItemForm = (props: { product: IProduct }) => {
   const [amountIsVaild, setAmountIsValid] = useState(true);
-  const amountInputRef = useRef(null);
+  const amountInputRef = useRef<HTMLInputElement>(null!);
   const { product } = props;
   const dispatch = useDispatch();
   const addToCartHandler = (quantity: number) => {
