@@ -10,7 +10,7 @@ import Loader from "@/components/ui/Loader";
 import { formatTime, priceFormat } from "@/utils/utils";
 const AdminOrder = () => {
   const { storeOrders, calculateTotalOrderAmount } = orderActions;
-  const { data, isLoading } = useFetchFirebase(process.env.orders);
+  const { data, isLoading } = useFetchFirebase(process.env.orders as string);
 
   const dispatch = useDispatch();
   const router = useRouter();
