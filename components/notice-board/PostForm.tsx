@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { storage } from "../../firebase/firebase";
-import { IPostFormData,IPostFormProps } from "@/types";
+import { IPostFormData, IPostFormProps } from "@/types";
 import { RootState } from "@/redux/store";
 
 export const CATEGORIES: string[] = [
@@ -51,12 +51,12 @@ async function patchNoticeFormData(details: IPostFormData): Promise<void> {
     throw new Error(data.message || "Something went wrong!");
   }
 }
-const onCancel = ()=>{}
+const onCancel = () => {};
 
 const PostForm = (props: IPostFormProps) => {
   const router = useRouter();
   const userEmail = useSelector((state: RootState) => state.user.email);
-  const isEditMode = !!props.post; // 수정 모드인지 확인
+  const isEditMode = props.post.isEditMode; // 수정 모드인지 확인
 
   const [file, setFile] = useState<string>("");
   const [filename, setFilename] = useState<string>("");
@@ -67,12 +67,12 @@ const PostForm = (props: IPostFormProps) => {
     title: true,
     category: true,
   });
-  const nameInputRef = useRef<HTMLInputElement>();
-  const emailInputRef = useRef<HTMLInputElement>();
-  const titleInputRef = useRef<HTMLInputElement>();
-  const categoryInputRef = useRef<HTMLSelectElement>();
-  const summaryInputRef = useRef<HTMLInputElement>();
-  const contentsInputRef = useRef<HTMLTextAreaElement>();
+  const nameInputRef = useRef<HTMLInputElement>(null);
+  const emailInputRef = useRef<HTMLInputElement>(null);
+  const titleInputRef = useRef<HTMLInputElement>(null);
+  const categoryInputRef = useRef<HTMLSelectElement>(null);
+  const summaryInputRef = useRef<HTMLInputElement>(null);
+  const contentsInputRef = useRef<HTMLTextAreaElement>(null);
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
 
@@ -103,69 +103,78 @@ const PostForm = (props: IPostFormProps) => {
   const confirmHandler = async (event: React.FormEvent) => {
     event.preventDefault();
     try {
-      const enteredName = nameInputRef.current.value;
-      const enteredEmail = emailInputRef.current.value;
-      const enteredTitle = titleInputRef.current.value;
-      const enteredCategory = categoryInputRef.current.value;
-      const enteredSummary = summaryInputRef.current.value;
-      const enteredContents = contentsInputRef.current.value;
+      if (
+        nameInputRef.current &&
+        emailInputRef.current &&
+        titleInputRef.current &&
+        categoryInputRef.current &&
+        summaryInputRef.current &&
+        contentsInputRef.current
+      ) {
+        const enteredName = nameInputRef.current.value;
+        const enteredEmail = emailInputRef.current.value;
+        const enteredTitle = titleInputRef.current.value;
+        const enteredCategory = categoryInputRef.current.value;
+        const enteredSummary = summaryInputRef.current.value;
+        const enteredContents = contentsInputRef.current.value;
 
-      const isValidName = !isEmpty(enteredName);
-      const isValidEmail = !isEmpty(enteredEmail);
-      const isValidTitle = !isEmpty(enteredEmail);
-      const isValidCategory = !isEmpty(enteredEmail);
+        const isValidName = !isEmpty(enteredName);
+        const isValidEmail = !isEmpty(enteredEmail);
+        const isValidTitle = !isEmpty(enteredEmail);
+        const isValidCategory = !isEmpty(enteredEmail);
 
-      setValidSubmitForm({
-        name: isValidName,
-        email: isValidEmail,
-        title: isValidTitle,
-        category: isValidCategory,
-      });
-
-      const isValidForm: boolean =
-        isValidName && isValidEmail && isValidTitle && isValidCategory;
-
-      if (!isValidForm) {
-        return;
-      }
-      if (isEditMode) {
-        await patchNoticeFormData({
-          _id: props.post._id,
-          name: enteredName,
-          email: enteredEmail,
-          title: enteredTitle,
-          category: enteredCategory,
-          summary: enteredSummary,
-          contents: enteredContents,
-          date: new Date(),
-          modifiedAt: new Date()?.toLocaleDateString("ko", {
-            hour: "2-digit",
-            minute: "2-digit",
-            second: "2-digit",
-          }),
-          file: file,
-          filename: filename,
+        setValidSubmitForm({
+          name: isValidName,
+          email: isValidEmail,
+          title: isValidTitle,
+          category: isValidCategory,
         });
-      } else {
-        await postNoticeFormData({
-          name: enteredName,
-          email: enteredEmail,
-          title: enteredTitle,
-          category: enteredCategory,
-          summary: enteredSummary,
-          contents: enteredContents,
-          date: new Date(),
-          createdAt: new Date()?.toLocaleDateString("ko", {
-            hour: "2-digit",
-            minute: "2-digit",
-            second: "2-digit",
-          }),
-          file: file,
-          filename: filename,
-        });
+
+        const isValidForm: boolean =
+          isValidName && isValidEmail && isValidTitle && isValidCategory;
+
+        if (!isValidForm) {
+          return;
+        }
+        if (isEditMode) {
+          await patchNoticeFormData({
+            _id: props.post._id,
+            name: enteredName,
+            email: enteredEmail,
+            title: enteredTitle,
+            category: enteredCategory,
+            summary: enteredSummary,
+            contents: enteredContents,
+            date: new Date(),
+            modifiedAt: new Date()?.toLocaleDateString("ko", {
+              hour: "2-digit",
+              minute: "2-digit",
+              second: "2-digit",
+            }),
+            file: file,
+            filename: filename,
+          });
+        } else {
+          await postNoticeFormData({
+            name: enteredName,
+            email: enteredEmail,
+            title: enteredTitle,
+            category: enteredCategory,
+            summary: enteredSummary,
+            contents: enteredContents,
+            date: new Date(),
+            createdAt: new Date()?.toLocaleDateString("ko", {
+              hour: "2-digit",
+              minute: "2-digit",
+              second: "2-digit",
+            }),
+            file: file,
+            filename: filename,
+          });
+        }
+        toast.success("게시글을 성공적으로 처리했습니다.");
+        router.replace("/notice-board");
       }
-      toast.success("게시글을 성공적으로 처리했습니다.");
-      router.replace("/notice-board");
     } catch (error) {
       toast.error(error.message);
     }

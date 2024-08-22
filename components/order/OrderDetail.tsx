@@ -11,9 +11,9 @@ const OrderDetail = (props: { id: string }) => {
   const { id } = props;
 
   const [order, setOrder] = useState<DocumentData>();
-  const { document } = useFetchDocument(process.env.orders, id);
+  const { document } = useFetchDocument(process.env.orders as string, id);
   useEffect(() => {
-    setOrder(document);
+    setOrder(document as DocumentData);
   }, [document]);
 
   return (

@@ -1,3 +1,5 @@
+import { BarControllerChartOptions } from "chart.js";
+
 export interface IProduct {
   id: string;
   brand?: string;
@@ -6,8 +8,8 @@ export interface IProduct {
   imageURL?: string;
   name: string;
   price: number;
-  quantity?: number;
-  totalPrice?: number;
+  quantity: number;
+  totalPrice: number;
 }
 export interface ICartItem extends IProduct {
   totalAmount: number;
@@ -60,18 +62,19 @@ export interface IPostFormData {
   name: string;
   email: string;
   title: string;
-  category: string;
+  category?: string;
   summary: string;
   contents: string;
-  date: Date;
+  date?: Date;
   createdAt?: string;
   modifiedAt?: string;
   file: string;
   filename: string;
+  isEditMode?:boolean;
 }
 
 export interface IPostFormProps {
-  post: IPostFormData | undefined;
+  post: IPostFormData;
 }
 
 export interface ICompany {
@@ -90,9 +93,7 @@ export interface CompanyDetailProps {
 }
 
 export interface IContactFormData {
-    email:string;
-    name:string;
-    message:string
+  email: string;
+  name: string;
+  message: string;
 }
-
-

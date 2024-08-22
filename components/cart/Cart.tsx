@@ -1,4 +1,3 @@
-import { useState } from "react";
 import classes from "./Cart.module.scss";
 import Modal from "../ui/Modal";
 import { useDispatch, useSelector } from "react-redux";

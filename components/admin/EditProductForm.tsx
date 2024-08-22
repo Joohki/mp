@@ -22,11 +22,11 @@ const EditProductForm = (props: { id: string }) => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
-  const { document } = useFetchDocument(process.env.products, id);
+  const { document } = useFetchDocument(process.env.products as string, id);
   const [product, setProduct] = useState<DocumentData>({});
 
   useEffect(() => {
-    setProduct(document);
+    setProduct(document as DocumentData);
   }, [document]);
 
   const handleInputChange = (
@@ -84,7 +84,7 @@ const EditProductForm = (props: { id: string }) => {
     }
 
     try {
-      updateDoc(doc(db, process.env.products, id), {
+      updateDoc(doc(db, process.env.products as string, id), {
         name: product.name,
         imageURL: product.imageURL,
         price: Number(product.price),

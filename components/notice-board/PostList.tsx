@@ -5,29 +5,31 @@ import Link from "next/link";
 import ListPagination from "../pagination/ListPagination";
 import Search from "../search/Search";
 import { useSelector } from "react-redux";
-import {reduxUserEmail }from '@/redux/reducer/user'
-import {IPostFormData} from '@/types'
+import { reduxUserEmail } from "@/redux/reducer/user";
+import { IPostFormData } from "@/types";
 function PostList(props) {
   const [activeTab, setActiveTab] = useState("all");
-  const [lists, setLists] = useState([]); // 백엔드와 통신하여 모든 데이터를 setLists 에 저장해서 사용
+  const [lists, setLists] = useState<IPostFormData[]>([]); // 백엔드와 통신하여 모든 데이터를 setLists 에 저장해서 사용
   const [limit, setLimit] = useState(10); // 한 페이지에 보여줄 데이터의 개수
   const [page, setPage] = useState(1); // 페이지 초기 값은 1페이지
   const [counts, setCounts] = useState(1); // 데이터의 총 개수를 setCounts 에 저장해서 사용
   const [blockNum, setBlockNum] = useState(0); // 한 페이지에 보여 줄 페이지네이션의 개수를 block으로 지정하는 state. 초기 값은 0
-  const [visibleLists, setVisibleLists] = useState([]);
+  const [visibleLists, setVisibleLists] = useState<IPostFormData[]>([]);
   const { boarddata } = props;
   const userEmail = useSelector(reduxUserEmail);
-  const posts = boarddata.sort((data1:IPostFormData, data2:IPostFormData) => {
-    const date1 = data1.date;
-    const date2 = data2.date;
-    if (date1 >= date2) {
-      return -1;
-    } else {
-      return 1;
+  const posts: IPostFormData[] = boarddata.sort(
+    (data1: IPostFormData, data2: IPostFormData) => {
+      const date1 = data1.date as Date;
+      const date2 = data2.date as Date;
+      if (date1 >= date2) {
+        return -1;
+      } else {
+        return 1;
+      }
     }
-  });
+  );
   useEffect(() => {
-    const copy = [...posts];
+    const copy: IPostFormData[] = [...posts];
     const filteredPosts = copy.filter((post) => {
       if (activeTab === "all") {
         return true; // 모든 글을 표시

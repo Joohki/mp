@@ -14,14 +14,8 @@ export async function getServerSideProps() {
   return {
     props: {
       boarddatas: allBoardDatas.map((data) => ({
-        _id: data._id.toString(),
-        email: data.email,
-        title: data.title,
-        summary: data.summary,
-        createdAt: data.createdAt,
-        contents: data.contents,
-        date: data.date,
-        category: data.category,
+        ...data,
+        _id: data._id && data._id.toString(),
       })),
     },
   };

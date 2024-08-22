@@ -3,10 +3,7 @@ import classes from "./AdminAllProducts.module.scss";
 import useFetchFirebase from "@/hooks/useFetchFirebase";
 import { useDispatch, useSelector } from "react-redux";
 import { STORE_PRODUCTS, selectProducts } from "@/redux/reducer/product";
-import {
-  filterBySearch,
-  selectFilteredProducts,
-} from "@/redux/reducer/filter";
+import { filterBySearch, selectFilteredProducts } from "@/redux/reducer/filter";
 import Loader from "@/components/ui/Loader";
 import Search from "@/components/search/Search";
 import Image from "next/image";
@@ -22,7 +19,7 @@ import { toast } from "react-toastify";
 const AdminAllProducts = () => {
   const [search, setSearch] = useState("");
 
-  const { data, isLoading } = useFetchFirebase(process.env.products);
+  const { data, isLoading } = useFetchFirebase(process.env.products as string);
 
   const products = useSelector(selectProducts);
   const filteredProducts = useSelector(selectFilteredProducts);
@@ -32,11 +29,11 @@ const AdminAllProducts = () => {
 
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  const currentProducts = filteredProducts
-//   .slice(
-//     indexOfFirstProduct,
-//     indexOfLastProduct
-//   );
+  const currentProducts = filteredProducts;
+  //   .slice(
+  //     indexOfFirstProduct,
+  //     indexOfLastProduct
+  //   );
 
   const dispatch = useDispatch();
 
@@ -76,10 +73,11 @@ const AdminAllProducts = () => {
 
   const deleteProduct = async (id: string, imageURL: string) => {
     try {
-      await deleteDoc(doc(db, "products", id));
-
-      const storageRef = ref(storage, imageURL);
-      await deleteObject(storageRef);
+      await deleteDoc(doc(db, process.env.products as string, id));
+      if (imageURL) {
+        const storageRef = ref(storage, imageURL);
+        await deleteObject(storageRef);
+      }
       toast.success("상품을 성공적으로 삭제했습니다.");
     } catch (error) {
       toast.error(error.message);
@@ -90,8 +88,6 @@ const AdminAllProducts = () => {
     <>
       {isLoading && <Loader />}
       <div className={classes.table}>
-        
-
         <div className={classes.search}>
           <Search value={search} onChange={(e) => setSearch(e.target.value)} />
         </div>
@@ -111,7 +107,7 @@ const AdminAllProducts = () => {
               </tr>
             </thead>
             <tbody>
-              {currentProducts.map((product, index) => {
+              {currentProducts.map((product, index: number) => {
                 const { id, name, category, price, imageURL } = product;
 
                 return (

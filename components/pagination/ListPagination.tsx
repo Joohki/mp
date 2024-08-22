@@ -1,5 +1,5 @@
 import classes from "./ListPagination.module.scss";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import {ListPaginationProps} from '@/types/index'
 function ListPagination(props:ListPaginationProps) {
   const {

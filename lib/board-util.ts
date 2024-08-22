@@ -13,8 +13,10 @@ export async function getAllBoardDatas() {
 }
 export function getDetailBoardData(array: IPostFormData[], id: string) {
   const filteredArray = array.filter((item) => {
-    item._id = item._id.toString();
-    return item._id === id;
+    if (item._id) {
+      item._id = item._id.toString();
+      return item._id === id;
+    }
   });
   const detail = filteredArray[0];
   return detail;

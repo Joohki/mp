@@ -7,25 +7,31 @@ import { db } from "../../firebase/firebase";
 import { cartActions } from "../../redux/reducer/cart";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import {ICartItem} from '@/types/index'
+import { ICartItem } from "@/types/index";
 import { RootState } from "@/redux/store";
 function Checkout() {
-  const priceFormat = (price:number) => {
+  const priceFormat = (price: number) => {
     return price.toLocaleString("ko-Kr");
   };
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const cartItems:ICartItem[] = useSelector((state:RootState) => state.cart.items);
-  const totalQuantity:number = useSelector((state:RootState) => state.cart.totalQuantity);
-  const totalAmount:number = useSelector((state:RootState) => state.cart.totalAmount);
-  const userEmail :string= useSelector((state:RootState) => state.user.email);
+  const cartItems: ICartItem[] = useSelector(
+    (state: RootState) => state.cart.items
+  );
+  const totalQuantity: number = useSelector(
+    (state: RootState) => state.cart.totalQuantity
+  );
+  const totalAmount: number = useSelector(
+    (state: RootState) => state.cart.totalAmount
+  );
+  const userEmail: string = useSelector((state: RootState) => state.user.email);
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
       const tossPayment = await loadTossPayments(
-        process.env.NEXT_PUBLIC_TOSS_CLIENT_KEY
+        process.env.NEXT_PUBLIC_TOSS_CLIENT_KEY as string
       );
 
       const data = await tossPayment.requestPayment("카드", {
@@ -75,7 +81,7 @@ function Checkout() {
         createdAt: Timestamp.now().toDate(),
       };
       console.log(orderData);
-      await addDoc(collection(db, process.env.orders), orderData);
+      await addDoc(collection(db, process.env.orders as string), orderData);
       dispatch(cartActions.clearCart());
       toast.success("성공");
       router.push(`/checkout/success/?orderId=${orderId}`);

@@ -1,26 +1,16 @@
-import { ChangeEvent, FormEvent,useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import classes from "./AddProductForm.module.css";
 import { useRouter } from "next/navigation";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { storage } from "../../firebase/firebase";
 import { toast } from "react-toastify";
 import { Timestamp, addDoc, collection } from "firebase/firestore";
-import { db } from "../../firebase/firebase";
+import { db } from "@/firebase/firebase";
 import AddressSearch from "@/components/map/AddressSearch";
 import Map from "@/components/map/Map";
 export const categories = [
-  { id: 1, name: "Laptop" },
-  { id: 2, name: "Electronics" },
-  { id: 3, name: "Fashion" },
-  { id: 4, name: "Phone" },
-  { id: 5, name: "Movies & Television" },
-  { id: 6, name: "Home & Kitchen" },
-  { id: 7, name: "Automotive" },
-  { id: 8, name: "Software" },
-  { id: 9, name: "Video Games" },
-  { id: 10, name: "Sports & Outdoor" },
-  { id: 11, name: "Toys & Games" },
-  { id: 12, name: "Industrial & Scientific" },
+  { id: 1, name: "탄소 배출권" },
+  { id: 2, name: "온실가스 감축 장비" },
 ];
 const initialState = {
   name: "",
@@ -37,7 +27,9 @@ const AddProductForm = () => {
   const [uploadProgress, setUploadProgress] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     setProduct({ ...product, [name]: value });
   };
@@ -93,7 +85,7 @@ const AddProductForm = () => {
 
       const { lat, lng } = result.data;
 
-      await addDoc(collection(db, process.env.products), {
+      await addDoc(collection(db, process.env.products as string), {
         name: product.name,
         imageURL: product.imageURL,
         price: Number(product.price),

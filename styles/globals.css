@@ -1,10 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Roboto&family=Source+Sans+Pro:wght@300&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Roboto&family=Source+Sans+Pro:wght@300&display=swap");
 
 * {
   box-sizing: border-box;
 }
 
 body {
+  --cart-primary-color: #8a2b06;
+  --cart-secondary-color: #5a1a01;
   --dark-blue: #0074e9;
   --light-blue: #1f93ff;
   --color-grey-50: hsl(265, 55%, 96%);
@@ -45,17 +47,17 @@ body {
   --size-40: 10rem;
 
   margin: 0;
-  padding:0;
+  padding: 0;
   background-color: white;
   /* background-color: var(--color-grey-500); */
   color: #252525;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 h1,
 h2,
 h3 {
-  font-family: 'Oswald', 'Roboto', sans-serif;
+  font-family: "Oswald", "Roboto", sans-serif;
 }
 
 a {

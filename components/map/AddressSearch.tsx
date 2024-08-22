@@ -49,7 +49,6 @@ const AddressSearch = (props) => {
           />
         </div>
       )}
-      
     </>
   );
 };

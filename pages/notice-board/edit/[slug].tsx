@@ -1,13 +1,13 @@
 import PostForm from "@/components/notice-board/PostForm";
 import PostDetail from "../../../components/notice-board/PostDetail";
 import { getAllBoardDatas, getDetailBoardData } from "../../../lib/board-util";
-import { IPostFormProps } from "@/types";
+import { IPostFormData, IPostFormProps } from "@/types";
 
 const PostEditPage = (props: IPostFormProps) => {
   return (
     <>
-      <PostDetail post={props.post} />
-      <PostForm post={props.post} />
+      <PostDetail post={props.post as IPostFormData} />
+      <PostForm post={props.post as IPostFormData} />
     </>
   );
 };
@@ -25,7 +25,7 @@ export async function getServerSideProps(context) {
   }
   return {
     props: {
-      post: postData,
+      post: {...postData,isEditMode:true},
     },
   };
 }

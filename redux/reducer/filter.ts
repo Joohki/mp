@@ -16,7 +16,7 @@ const filterSlice = createSlice({
     reducers: {
         filterByCategory: (state, action: { payload: { products: IProduct[], category: string } }) => {
             const { products, category } = action.payload;
-            let tempProducts = [];
+            let tempProducts:IProduct[] = [];
             if (category === "All") {
                 tempProducts = products;
             } else {
@@ -29,7 +29,7 @@ const filterSlice = createSlice({
         filterByBrand: (state, action: { payload: { products: IProduct[], brand: string } }) => {
             const { products, brand } = action.payload;
             console.log('brand', brand);
-            let tempProducts = [];
+            let tempProducts:IProduct[] = [];
             if (brand === "All") {
                 tempProducts = products;
             } else {
@@ -41,7 +41,7 @@ const filterSlice = createSlice({
         },
         filterByPrice: (state, action: { payload: { products: IProduct[], price: number } }) => {
             const { products, price } = action.payload;
-            let tempProducts = [];
+            let tempProducts:IProduct[] = [];
 
             tempProducts = products.filter(product => product.price <= price);
 
@@ -50,7 +50,7 @@ const filterSlice = createSlice({
         },
         filterBy: (state, action: { payload: { products: IProduct[], price: number, brand: string, category: string } }) => {
             const { products, price, brand, category } = action.payload;
-            let tempProducts = [];
+            let tempProducts:IProduct[] = [];
 
             if (category === "All") {
                 tempProducts = products;
@@ -100,8 +100,7 @@ const filterSlice = createSlice({
 
             const tempProducts = products.filter(
                 (product) =>
-                    product.name.toLowerCase().includes(search.toLowerCase()) ||
-                    product.category.toLowerCase().includes(search.toLowerCase())
+                    product.name.toLowerCase().includes(search.toLowerCase())
             )
 
             state.filteredProducts = tempProducts;
