@@ -13,7 +13,7 @@ import { IOrder } from "@/types";
 
 const OrderHistory = () => {
   const { storeOrders} = orderActions;
-  const { data, isLoading } = useFetchFirebase(process.env.orders);
+  const { data, isLoading } = useFetchFirebase(process.env.orders as string);
   
   const dispatch = useDispatch();
   const router = useRouter();
