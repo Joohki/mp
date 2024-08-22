@@ -23,8 +23,8 @@ const ordersIcon = <FaCartArrowDown size={30} color="#4385F4" />;
 const Dashboard = () => {
   const { storeOrders, calculateTotalOrderAmount } = orderActions;
   const dispatch = useDispatch();
-  const { data: products } = useFetchFirebase(process.env.products);
-  const { data } = useFetchFirebase(process.env.orders);
+  const { data: products } = useFetchFirebase(process.env.products as string);
+  const { data } = useFetchFirebase(process.env.orders as string);
   const orderAmount = useSelector(totalOrderAmount);
   const orders = useSelector(orderHistory);
 
