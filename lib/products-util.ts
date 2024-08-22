@@ -4,7 +4,7 @@ import { IProduct } from "@/types";
 
 export async function getAllProducts() {
   try {
-    const docRef = collection(db, process.env.products);
+    const docRef = collection(db, process.env.products as string);
     const q = query(docRef, orderBy("createdAt", "desc"));
     const querySnapshot = await getDocs(q);
     const loadedProducts: IProduct[] = [];
@@ -17,6 +17,8 @@ export async function getAllProducts() {
 
         price: doc.data().price,
         desc: doc.data().desc,
+        quantity: doc.data().quantity,
+        totalPrice: doc.data().totalPrice,
       });
     });
 
