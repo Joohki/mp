@@ -12,7 +12,7 @@ import { DocumentData } from "firebase/firestore";
 const AdminOrderDetail = (props: { id: string }) => {
   const { id } = props;
   const [order, setOrder] = useState<DocumentData | null>();
-  const { document } = useFetchDocument(process.env.orders, id);
+  const { document } = useFetchDocument(process.env.orders as string, id);
   useEffect(() => {
     setOrder(document);
   }, [document]);
@@ -57,7 +57,7 @@ const AdminOrderDetail = (props: { id: string }) => {
                         <b>{name}</b>
                       </p>
                       <Image
-                        src={imageURL}
+                        src={imageURL as string}
                         alt={name}
                         width={100}
                         height={100}
