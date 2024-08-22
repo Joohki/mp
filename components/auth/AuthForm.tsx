@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, FormEvent } from "react";
-import { signIn } from "next-auth/react";
+import { signIn, SignInResponse } from "next-auth/react";
 import { AiOutlineGoogle } from "react-icons/ai";
 import { SiNaver } from "react-icons/si";
 import { RiKakaoTalkFill } from "react-icons/ri";
@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 import { userActions } from "../../redux/reducer/user";
 import Link from "next/link";
 import { INotificationData } from "@/types/index";
+
 async function CreateUser(email: string, password: string, userType: string) {
   const response = await fetch("/api/auth/signup", {
     method: "POST",
@@ -26,9 +27,9 @@ function AuthForm() {
   const dispatch = useDispatch();
   const [requestStatus, setRequestStatus] = useState<string | null>(); // 'pending', 'success', 'error'
   const [requestError, setRequestError] = useState<string | null>();
-  const emailInputRef = useRef<HTMLInputElement>();
-  const passwordInputRef = useRef<HTMLInputElement>();
-  const passwordCheckInputRef = useRef<HTMLInputElement>();
+  const emailInputRef = useRef<HTMLInputElement>(null!);
+  const passwordInputRef = useRef<HTMLInputElement>(null!);
+  const passwordCheckInputRef = useRef<HTMLInputElement>(null!);
   const [isLogin, setIsLogin] = useState<boolean>(true);
   const [userType, setUserType] = useState<string>("user");
   const router = useRouter();
@@ -57,7 +58,7 @@ function AuthForm() {
           redirect: false,
           email: enteredEmail,
           password: enteredPassword,
-        });
+        }) as SignInResponse;
         if (!result.error) {
           router.replace("/profile");
           setRequestStatus("success");
@@ -109,7 +110,7 @@ function AuthForm() {
     notification = {
       status: "error",
       title: "Error!",
-      message: requestError,
+      message : requestError as string,
     };
   }
   return (
