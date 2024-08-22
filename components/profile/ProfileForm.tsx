@@ -11,9 +11,9 @@ function ProfileForm(props: {
     newPasswordCheck: string;
   }) => Promise<any>;
 }) {
-  const oldPasswordRef = useRef(null);
-  const newPasswordRef = useRef(null);
-  const newPasswordCheckRef = useRef(null);
+  const oldPasswordRef = useRef<HTMLInputElement>(null!);
+  const newPasswordRef = useRef<HTMLInputElement>(null!);
+  const newPasswordCheckRef = useRef<HTMLInputElement>(null!);
   const { data: session, status } = useSession();
 
   async function submitHandler(event: React.FormEvent<HTMLFormElement>) {
