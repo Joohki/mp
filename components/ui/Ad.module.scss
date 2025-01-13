@@ -1,0 +1,32 @@
+.ad {
+  position: fixed;
+  top: 50px;
+  right: 50px;
+  height: 500px;
+  width: 400px;
+  background-color: white;
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  z-index: 30;
+  animation: slide-down 300ms ease-out forwards;
+}
+
+.item {
+  margin-left: 330px;
+  margin-top: 10px;
+}
+.adMain{
+  color: lightblue;
+  text-align:center;
+  font-size:30px;
+}
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-3rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

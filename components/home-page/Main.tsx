@@ -2,15 +2,19 @@ import classes from "./Main.module.css";
 import BusinessCarousel from "./BusinessCarousel";
 import Mpfirst from "./Mpfirst";
 import { useState, useEffect, useRef } from "react";
-
+import Ad from "../ui/Ad";
 function Main() {
   const [isMobile, setIsMobile] = useState(false);
+  const [isAdShowed, setIsAdShowed] = useState(true);
   function MobileCheck() {
     if (innerWidth < 800) {
       setIsMobile(true);
     }
   }
-
+  function hideAd() {
+    setIsAdShowed(false);
+   
+  }
   const outerDivRef = useRef<HTMLDivElement>(null);
   const DividerHeight = 5;
   useEffect(() => {
@@ -48,7 +52,7 @@ function Main() {
     };
   }, []);
   return (
-    <section ref={outerDivRef} className={classes.main}>
+    <section ref={outerDivRef} className={classes.main}onClick={hideAd}>
       {/* <div className={classes.image}>
         <Image
           src="/images/mpimage/mplogo.jpeg"
@@ -58,7 +62,7 @@ function Main() {
         />
       </div> */}
       {/* <h1>주식회사 MP입니다</h1> */}
-
+     {isAdShowed && <Ad onCloseAd={hideAd} />}
       <Mpfirst />
       <div className={classes.divider}></div>
       {isMobile ? <></> : <BusinessCarousel />}

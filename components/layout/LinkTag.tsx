@@ -7,10 +7,12 @@ const LinkTag = ({ children }: LinkTagProps) => {
   const linkText = (children as string)
     .replace("<link>", "")
     .replace("</link>", "");
-
+    const url = linkText.startsWith("http://") || linkText.startsWith("https://")
+    ? linkText
+    : `https://${linkText}`;
   return (
     <a
-      href={linkText}
+      href={url}
       target="_blank"
       rel="noopener noreferrer"
       style={{

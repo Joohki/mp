@@ -7,6 +7,7 @@ class MyDocument extends Document {
         <Head />
         <body>
           <div id="overlays"></div>
+          <div id="ad"></div>
           <Main />
           <NextScript />
           <div id="notifications"></div>

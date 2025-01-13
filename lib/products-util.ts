@@ -14,7 +14,6 @@ export async function getAllProducts() {
         id: doc.id,
         // 필요한 필드에는 doc.data()를 사용하여 접근할 수 있습니다.
         name: doc.data().name,
-
         price: doc.data().price,
         desc: doc.data().desc,
         quantity: doc.data().quantity,
